@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN SpaceCab Georgia Expansion — Strategic Partnership</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #003087;
+            --accent: #B6862C;
+            --georgia-red: #C41E3A;
+            --success: #00A651;
+            --dark: #0A0A0F;
+            --dark-light: #12121A;
+            --gray: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            page-break-after: always;
+        }
+        
+        .cover {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 50%, #0d1b2a 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 166, 81, 0.15) 0%, transparent 70%);
+        }
+        
+        .cover-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 166, 81, 0.15);
+            border: 1px solid var(--success);
+            padding: 12px 28px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            z-index: 1;
+        }
+        
+        .cover-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .cover-badge span {
+            color: var(--success);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .cover h1 {
+            font-size: 60px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+        
+        .cover h1 span {
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cover-subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            z-index: 1;
+        }
+        
+        .us-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 48, 135, 0.2);
+            border: 1px solid var(--primary);
+            padding: 20px 40px;
+            border-radius: 12px;
+            margin: 20px 0;
+            z-index: 1;
+        }
+        
+        .us-badge .icon {
+            font-size: 32px;
+        }
+        
+        .us-badge .text {
+            text-align: left;
+        }
+        
+        .us-badge .label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .us-badge .name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        .partnership-banner {
+            background: linear-gradient(135deg, rgba(0, 166, 81, 0.1) 0%, rgba(0, 48, 135, 0.1) 100%);
+            border: 1px solid rgba(0, 166, 81, 0.3);
+            border-radius: 16px;
+            padding: 25px 40px;
+            margin: 30px 0;
+            z-index: 1;
+        }
+        
+        .partnership-banner h3 {
+            color: var(--success);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .partnership-banner p {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+        }
+        
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 40px;
+            z-index: 1;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        
+        .meta-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .section-header {
+            margin-bottom: 50px;
+        }
+        
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--success);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 46px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .section-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+        }
+        
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .card {
+            background: var(--dark-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 35px;
+        }
+        
+        .card-highlight {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(0, 166, 81, 0.08) 0%, transparent 100%);
+        }
+        
+        .card-partnership {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 48, 135, 0.08) 0%, transparent 100%);
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 20px;
+        }
+        
+        .card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+        
+        .card p {
+            color: rgba(255,255,255,0.75);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .stat-row {
+            display: flex;
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .stat-item {
+            flex: 1;
+            padding: 28px;
+            background: var(--dark-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .stat-value {
+            font-size: 40px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--success), var(--accent));
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 35px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            background: var(--success);
+            border-radius: 50%;
+            border: 3px solid var(--dark);
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-phase {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .timeline-time {
+            font-size: 13px;
+            color: var(--gray);
+        }
+        
+        .timeline-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-desc {
+            color: rgba(255,255,255,0.75);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .fin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 35px;
+        }
+        
+        .fin-table th {
+            text-align: left;
+            padding: 18px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .fin-table td {
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .fin-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .amount {
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .quote-block {
+            background: linear-gradient(135deg, rgba(0, 166, 81, 0.1) 0%, rgba(0, 48, 135, 0.08) 100%);
+            border-left: 4px solid var(--success);
+            padding: 35px;
+            border-radius: 0 16px 16px 0;
+            margin: 35px 0;
+        }
+        
+        .quote-text {
+            font-size: 24px;
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.95);
+        }
+        
+        .quote-author {
+            margin-top: 18px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        .cta-slide {
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 50%, #0d1b2a 100%);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 166, 81, 0.1) 0%, rgba(0, 48, 135, 0.08) 100%);
+            border: 1px solid rgba(0, 166, 81, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--success);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .partnership-item {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--success);
+        }
+        
+        .partnership-item h5 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .partnership-item p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.5;
+        }
+        
+        .jobs-highlight {
+            background: linear-gradient(135deg, rgba(0, 166, 81, 0.15) 0%, rgba(182, 134, 44, 0.1) 100%);
+            border: 1px solid rgba(0, 166, 81, 0.3);
+            border-radius: 16px;
+            padding: 35px;
+            text-align: center;
+        }
+        
+        .jobs-highlight .number {
+            font-size: 64px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .jobs-highlight .label {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+            margin-top: 10px;
+        }
+        
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: auto;
+                padding: 40px;
+            }
+            
+            .slide:last-child {
+                page-break-after: avoid;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .slide { padding: 40px 30px; }
+            .two-col { grid-template-columns: 1fr; }
+            .three-col { grid-template-columns: 1fr; }
+            .stat-row { flex-direction: column; }
+            .cover h1 { font-size: 40px; }
+            .section-title { font-size: 34px; }
+            .partnership-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover">
+            <div class="cover-badge">
+                <div class="dot"></div>
+                <span>US Strategic Growth Initiative</span>
+            </div>
+            
+            <h1>SpaceCab <span>Grows America</span></h1>
+            <p class="cover-subtitle">Georgia Partnership Initiative — Innovation from Atlanta to the Southeast</p>
+            
+            <div class="us-badge">
+                <span class="icon">🇺🇸</span>
+                <div class="text">
+                    <div class="label">Operated By</div>
+                    <div class="name">HYVEN USA Inc.</div>
+                </div>
+            </div>
+            
+            <div class="partnership-banner">
+                <h3>🤝 In Close Cooperation With</h3>
+                <p><strong>Georgia Department of Transportation</strong> • <strong>Atlanta Regional Commission</strong> • <strong>Georgia Department of Economic Development</strong></p>
+            </div>
+            
+            <div class="quote-block" style="max-width: 800px; margin: 30px auto;">
+                <p class="quote-text">"As a US-based company, HYVEN is proud to bring our autonomous technology home. Georgia's leadership in innovation and business-friendly environment make it the perfect partner for our American expansion. Together, we'll create thousands of jobs and position Georgia as the mobility capital of the Southeast."</p>
+            </div>
+            
+            <div class="cover-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Prepared For</div>
+                    <div class="meta-value">HYVEN USA Leadership & Georgia Partners</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div class="meta-value">January 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Status</div>
+                    <div class="meta-value" style="color: var(--success);">Partnership Ready</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 2: Why Georgia -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">01 / The Opportunity</div>
+                <h2 class="section-title">Why Georgia Leads</h2>
+                <p class="section-subtitle">The perfect convergence of innovation, infrastructure, and vision</p>
+            </div>
+            
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="stat-value">11M</div>
+                    <div class="stat-label">Metro Atlanta Residents</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">75M</div>
+                    <div class="stat-label">Annual ATL Airport Passengers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">#1</div>
+                    <div class="stat-label">State for Business (8 Years)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$600B</div>
+                    <div class="stat-label">Georgia GDP (Top 10)</div>
+                </div>
+            </div>
+            
+            <div class="two-col" style="margin-top: 40px;">
+                <div>
+                    <h3 style="font-size: 24px; margin-bottom: 20px; color: var(--success);">Georgia's Innovation Advantage</h3>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 16px;">
+                        Georgia isn't just business-friendly—it's <strong>future-friendly</strong>. The state's forward-thinking legislation (HB 348) welcomed autonomous vehicles years before most states. This proactive approach attracts innovators like HYVEN.
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.8; margin-bottom: 16px;">
+                        Atlanta's position as the <strong>logistics capital of the Western Hemisphere</strong> (home to UPS, Delta, and the world's busiest airport) creates a natural testbed for next-generation mobility.
+                    </p>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">
+                        Georgia Tech produces world-class engineering talent. The Atlanta BeltLine demonstrates visionary urban planning. And <strong>18 Fortune 500 headquarters</strong> call Georgia home.
+                    </p>
+                </div>
+                <div>
+                    <div class="card card-highlight">
+                        <div class="card-icon">🎯</div>
+                        <h3>Our Strategic Zones</h3>
+                        <div class="partnership-grid">
+                            <div class="partnership-item">
+                                <h5>🛫 Hartsfield-Jackson</h5>
+                                <p>75M passengers. Ground transport partnership opportunity. Major job creation hub.</p>
+                            </div>
+                            <div class="partnership-item">
+                                <h5>🏢 Midtown/Downtown</h5>
+                                <p>Corporate district. 200K+ daily commuters. B2B partnership potential.</p>
+                            </div>
+                            <div class="partnership-item">
+                                <h5>🎓 Georgia Tech</h5>
+                                <p>R&D collaboration. Talent pipeline. Innovation showcase.</p>
+                            </div>
+                            <div class="partnership-item">
+                                <h5>🏟️ Sports District</h5>
+                                <p>Mercedes-Benz Stadium. Event mobility. Tourism visibility.</p>
+                            </div>
+                            <div class="partnership-item">
+                                <h5>🏎️ Porsche Experience Center</h5>
+                                <p>World-class test track. Engineering excellence. R&D facility.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: Partnership Framework -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">02 / Partnership</div>
+                <h2 class="section-title">Collaborating with Georgia</h2>
+                <p class="section-subtitle">A model for public-private innovation partnership</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card card-partnership">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);">🏛️</div>
+                    <h3>GDOT Collaboration</h3>
+                    <p><strong>Georgia Department of Transportation</strong> has been instrumental in creating America's most AV-friendly regulatory environment. HYVEN will work hand-in-hand with GDOT on safety protocols, route optimization, and infrastructure planning.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏎️</div>
+                    <h3>Porsche Engineering Partnership</h3>
+                    <p>The <strong>Porsche Experience Center Atlanta</strong> provides world-class test track facilities for rigorous autonomous vehicle development. Porsche's engineering excellence guides SpaceCab's performance standards. This partnership accelerates R&D while keeping technical operations in Georgia.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💼</div>
+                    <h3>Economic Development</h3>
+                    <p><strong>Georgia Department of Economic Development</strong> and the OneGeorgia Authority offer incentives for job creation. Our expansion aligns with Georgia's strategy to attract high-tech manufacturing and R&D investment.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h4>🤝 Partnership Commitments</h4>
+                <div class="partnership-grid" style="margin-top: 20px;">
+                    <div class="partnership-item">
+                        <h5>📊 Data Sharing</h5>
+                        <p>Real-time traffic insights to support Georgia DOT planning and infrastructure decisions.</p>
+                    </div>
+                    <div class="partnership-item">
+                        <h5>🏎️ Porsche Engineering Excellence</h5>
+                        <p>Test track access for R&D. Porsche engineering standards. Automotive innovation hub.</p>
+                    </div>
+                    <div class="partnership-item">
+                        <h5>🛡️ Safety First</h5>
+                        <p>$500M insurance policy. Rigorous testing protocols. Transparent safety reporting.</p>
+                    </div>
+                    <div class="partnership-item">
+                        <h5>💚 Community Investment</h5>
+                        <p>$10M Georgia Tech endowment. Workforce development programs. Local supplier preference.</p>
+                    </div>
+                    <div class="partnership-item">
+                        <h5>♿ Accessibility</h5>
+                        <p>ADA-compliant fleet. Senior citizen and disability community partnerships.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: Job Creation -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">03 / Economic Impact</div>
+                <h2 class="section-title">Jobs for Georgians</h2>
+                <p class="section-subtitle">High-quality employment across the skill spectrum</p>
+            </div>
+            
+            <div class="two-col" style="align-items: center;">
+                <div class="jobs-highlight">
+                    <div class="number">5,000+</div>
+                    <div class="label">New Georgia Jobs by Year 3</div>
+                    <p style="margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 15px;">Direct employment with benefits, career advancement, and equity opportunities</p>
+                </div>
+                <div>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">👨‍💼 Operations (2,500 jobs)</h3>
+                        <p style="font-size: 14px;">Fleet monitors, customer service, dispatch coordination, quality assurance. $45K-$65K starting salaries with full benefits.</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">🔧 Technical (1,200 jobs)</h3>
+                        <p style="font-size: 14px;">Vehicle technicians, charging infrastructure maintenance, systems engineers. Georgia Tech partnership for training pipeline.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">📈 Corporate (800 jobs)</h3>
+                        <p style="font-size: 14px;">Software engineering, data science, business development, marketing. Competitive salaries with equity participation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quote-block" style="margin-top: 40px;">
+                <p class="quote-text">"SpaceCab isn't just bringing technology to Georgia—we're bringing opportunity. These aren't gig economy jobs. These are careers with health insurance, 401(k) matching, and stock options. Georgia workers will build this company alongside us."</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: Growth Strategy -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">04 / Growth Plan</div>
+                <h2 class="section-title">Building the Southeast's Mobility Future</h2>
+                <p class="section-subtitle">Phased expansion from Atlanta leadership to regional dominance</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Foundation Phase</span>
+                        <span class="timeline-time">Months 0-6</span>
+                    </div>
+                    <h3 class="timeline-title">Atlanta Launch</h3>
+                    <p class="timeline-desc">Partner with Georgia DOT for operating permit. Deploy 500 vehicles in core Atlanta triangle: Airport ↔ Midtown ↔ Georgia Tech. Establish charging network at 50 locations. Launch corporate shuttle programs with 3 Fortune 500 partners. Utilize Porsche Experience Center test track for R&D. <strong>1,200 jobs created.</strong></p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Growth Phase</span>
+                        <span class="timeline-time">Months 6-12</span>
+                    </div>
+                    <h3 class="timeline-title">Metro Expansion</h3>
+                    <p class="timeline-desc">Grow to 1,200 vehicles. Add Sandy Springs, Decatur, Brookhaven, Buckhead coverage. Georgia Tech student subscription program. Partnership with Atlanta United and Falcons for event transport. <strong>2,500 total jobs.</strong></p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Scale Phase</span>
+                        <span class="timeline-time">Months 12-18</span>
+                    </div>
+                    <h3 class="timeline-title">Suburban Coverage</h3>
+                    <p class="timeline-desc">Reach 2,000 vehicles. Serve Alpharetta, Marietta, Peachtree City. Airport express service ($15 flat rate). First profitable quarter. <strong>3,800 total jobs.</strong></p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Regional Phase</span>
+                        <span class="timeline-time">Months 18-30</span>
+                    </div>
+                    <h3 class="timeline-title">Southeast Hub</h3>
+                    <p class="timeline-desc">3,000-vehicle fleet. Interstate connectivity to Chattanooga, Greenville, Birmingham. Regional headquarters established. Georgia becomes the model for other states. <strong>5,000+ total jobs.</strong></p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Leadership Phase</span>
+                        <span class="timeline-time">Months 30-36</span>
+                    </div>
+                    <h3 class="timeline-title">Southeast Mobility Leader</h3>
+                    <p class="timeline-desc">5,000+ vehicles. 25% Atlanta market share. $500M annual revenue. Georgia recognized as the autonomous vehicle capital of the South. HYVEN USA IPO consideration.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Investment -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">05 / Investment</div>
+                <h2 class="section-title">Investing in Georgia's Future</h2>
+                <p class="section-subtitle">Capital deployment for sustainable growth and shared prosperity</p>
+            </div>
+            
+            <table class="fin-table">
+                <thead>
+                    <tr>
+                        <th>Investment Category</th>
+                        <th>Year 1</th>
+                        <th>Year 2</th>
+                        <th>Year 3</th>
+                        <th>Georgia Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fleet & Infrastructure</strong></td>
+                        <td class="amount">$180M</td>
+                        <td class="amount">$120M</td>
+                        <td class="amount">$150M</td>
+                        <td>2,000 vehicles, charging network, maintenance facilities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Georgia Workforce</strong></td>
+                        <td class="amount">$45M</td>
+                        <td class="amount">$65M</td>
+                        <td class="amount">$80M</td>
+                        <td>Salaries, benefits, training, career development</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technology & R&D</strong></td>
+                        <td class="amount">$60M</td>
+                        <td class="amount">$45M</td>
+                        <td class="amount">$40M</td>
+                        <td>Georgia Tech lab, Porsche test track, AI training, patents</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Community Investment</strong></td>
+                        <td class="amount">$25M</td>
+                        <td class="amount">$15M</td>
+                        <td class="amount">$10M</td>
+                        <td>Marketing, partnerships, local supplier spend</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Operations</strong></td>
+                        <td class="amount">$20M</td>
+                        <td class="amount">$25M</td>
+                        <td class="amount">$30M</td>
+                        <td>Facilities, insurance, compliance, support systems</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contingency & Growth</strong></td>
+                        <td class="amount">$20M</td>
+                        <td class="amount">$15M</td>
+                        <td class="amount">$10M</td>
+                        <td>Opportunity fund, expansion acceleration</td>
+                    </tr>
+                    <tr style="background: rgba(0, 166, 81, 0.1);">
+                        <td><strong>Total Georgia Investment</strong></td>
+                        <td class="amount"><strong>$350M</strong></td>
+                        <td class="amount"><strong>$285M</strong></td>
+                        <td class="amount"><strong>$320M</strong></td>
+                        <td><strong>36-Month Total: $955M in Georgia Economy</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="two-col" style="margin-top: 40px;">
+                <div class="card card-highlight">
+                    <div class="card-icon">📈</div>
+                    <h3>Financial Outlook</h3>
+                    <p><strong>Year 1:</strong> $45M revenue (growth investment phase)<br>
+                    <strong>Year 2:</strong> $240M revenue (profitability approaching)<br>
+                    <strong>Year 3:</strong> $520M revenue (sustainable profits)<br>
+                    <strong>Break-even:</strong> Month 20<br>
+                    <strong>5-Year NPV:</strong> $3.2B positive contribution</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Economic Multiplier</h3>
+                    <p>Every $1 invested by HYVEN generates an estimated <strong>$2.30 in Georgia economic activity</strong> through supplier payments, employee spending, tax revenue, and induced growth. Total 3-year economic impact: <strong>$2.2 billion.</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 7: Competitive Position -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">06 / Market Position</div>
+                <h2 class="section-title">Winning Through Innovation</h2>
+                <p class="section-subtitle">Competing on value, sustainability, and service excellence</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card card-highlight">
+                    <div class="card-icon">💚</div>
+                    <h3>Superior Value</h3>
+                    <p>Our autonomous model delivers <strong>40% lower costs</strong> than traditional ride-hailing while maintaining driver wages as fleet monitor salaries. Savings passed to riders. Higher margins reinvested in Georgia jobs and service quality.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌱</div>
+                    <h3>Sustainability Leadership</h3>
+                    <p>100% electric fleet powered by Georgia solar. Zero emissions. Supports Georgia Power's renewable goals. Carbon-neutral certification. Appeals to Atlanta's environmentally conscious workforce and residents.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⭐</div>
+                    <h3>Consistent Quality</h3>
+                    <p>No driver shortages. No surge pricing surprises. 24/7 availability. Predictable experience every time. Professional fleet monitors ensure safety and service standards. <strong>NPS target: 75+</strong></p>
+                </div>
+            </div>
+            
+            <div class="quote-block" style="margin-top: 40px;">
+                <p class="quote-text">"We don't compete by cutting corners. We compete by reimagining the entire model. Autonomous technology allows us to offer lower prices while paying our Georgia team members more than gig economy rates. Everyone wins—riders, workers, and the community."</p>
+            </div>
+            
+            <div class="stat-row" style="margin-top: 30px;">
+                <div class="stat-item">
+                    <div class="stat-value">40%</div>
+                    <div class="stat-label">Lower Fares vs Traditional</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Consistent Availability</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">Zero</div>
+                    <div class="stat-label">Vehicle Emissions</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 8: Risk Management -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">07 / Risk Management</div>
+                <h2 class="section-title">Responsible Growth</h2>
+                <p class="section-subtitle">Proactive risk management for sustainable success</p>
+            </div>
+            
+            <div class="two-col">
+                <div>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">✓ Safety & Insurance</h3>
+                        <p style="font-size: 14px; line-height: 1.7;"><strong>$500M comprehensive insurance</strong> with A-rated carrier. Rigorous vehicle testing exceeding federal standards. Real-time remote monitoring. Professional fleet monitors in every vehicle during initial deployment phases. Transparent safety reporting to Georgia DOT.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">✓ Regulatory Compliance</h3>
+                        <p style="font-size: 14px; line-height: 1.7;">Full compliance with Georgia HB 348 and all federal NHTSA guidelines. Proactive engagement with legislators. Legal counsel from top Atlanta firm (King & Spalding). Regular audits and certifications. Partnership approach with regulators.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">✓ Market Resilience</h3>
+                        <p style="font-size: 14px; line-height: 1.7;">Diversified revenue: consumer rides, corporate shuttles, airport service, event partnerships. Recession-resistant model (lower prices = demand increases). Dual B2B/B2C strategy reduces volatility. Strong balance sheet supports 36-month runway.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: var(--success); margin-bottom: 15px;">✓ Weather Preparedness</h3>
+                        <p style="font-size: 14px; line-height: 1.7;">Atlanta's mild climate is ideal for AV operations. Advanced weather routing. Hurricane contingency plans with fleet repositioning protocols. Summer heat actually improves EV efficiency. Comprehensive business interruption insurance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 9: Vision -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">08 / Vision</div>
+                <h2 class="section-title">From Georgia to Greatness</h2>
+                <p class="section-subtitle">Building the American mobility leader from Atlanta roots</p>
+            </div>
+            
+            <div class="highlight-box" style="text-align: center; padding: 40px;">
+                <h4 style="font-size: 16px; margin-bottom: 30px;">🗺️ Our American Journey</h4>
+                <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 52px; margin-bottom: 10px;">🍑</div>
+                        <div style="font-weight: 700; font-size: 18px;">Georgia</div>
+                        <div style="font-size: 12px; color: var(--success);">Foundation</div>
+                        <div style="font-size: 13px; color: var(--gray); margin-top: 5px;">Months 0-18</div>
+                    </div>
+                    <div style="font-size: 36px; color: var(--success);">→</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 52px; margin-bottom: 10px;">🌴</div>
+                        <div style="font-weight: 700; font-size: 18px;">Southeast</div>
+                        <div style="font-size: 12px; color: var(--success);">Regional</div>
+                        <div style="font-size: 13px; color: var(--gray); margin-top: 5px;">Months 18-36</div>
+                    </div>
+                    <div style="font-size: 36px; color: var(--success);">→</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 52px; margin-bottom: 10px;">🇺🇸</div>
+                        <div style="font-weight: 700; font-size: 18px;">National</div>
+                        <div style="font-size: 12px; color: var(--success);">Expansion</div>
+                        <div style="font-size: 13px; color: var(--gray); margin-top: 5px;">Years 3-7</div>
+                    </div>
+                    <div style="font-size: 36px; color: var(--success);">→</div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 52px; margin-bottom: 10px;">🌎</div>
+                        <div style="font-weight: 700; font-size: 18px;">Global</div>
+                        <div style="font-size: 12px; color: var(--success);">Leadership</div>
+                        <div style="font-size: 13px; color: var(--gray); margin-top: 5px;">Years 7+</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="three-col" style="margin-top: 35px;">
+                <div class="card card-partnership">
+                    <h3>🎓 Georgia Tech Excellence</h3>
+                    <p>$10M endowed research chair. Joint AV safety lab. Student internship pipeline (200/year). Recruitment preference for Georgia Tech graduates. Technology transfer agreements benefit the state.</p>
+                </div>
+                <div class="card">
+                    <h3>🏎️ Porsche Engineering</h3>
+                    <p>The Porsche Experience Center's 1.6-mile test track provides world-class R&D facilities. Porsche engineering standards guide our vehicle development. This partnership keeps advanced automotive innovation in Georgia, attracting top talent.</p>
+                </div>
+                <div class="card">
+                    <h3>✈️ Delta Partnership</h3>
+                    <p>Explore partnership with Georgia's hometown airline. Airport integration. SkyMiles potential collaboration. International visitor exposure. Reinforces Atlanta as global mobility hub.</p>
+                </div>
+            </div>
+            
+            <div class="quote-block" style="margin-top: 35px;">
+                <p class="quote-text">"Georgia gave the world Coca-Cola, Delta Airlines, and CNN. Now, together with our Georgia partners, we'll add SpaceCab to that legacy. Innovation born here, built here, benefits here."</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 10: Call to Action -->
+        <div class="slide cta-slide">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-number">09 / Commitment</div>
+                <h2 class="section-title">Let's Build This Together</h2>
+            </div>
+            
+            <div class="partnership-banner" style="max-width: 900px; margin: 30px auto;">
+                <h3>🤝 Partnership Milestones</h3>
+                <div style="display: flex; justify-content: center; gap: 50px; margin-top: 20px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: 800; color: var(--success);">Q1 2026</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.7);">GDOT Partnership Agreement</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: 800; color: var(--success);">Q2 2026</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.7);">First Vehicles Deployed</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: 800; color: var(--success);">2029</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.7);">5,000 Georgia Jobs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="three-col" style="margin-top: 40px;">
+                <div class="card card-highlight" style="text-align: center;">
+                    <div class="stat-value" style="font-size: 32px; margin-bottom: 16px;">$955M</div>
+                    <h3>Georgia Investment</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">3-year capital commitment to Georgia economy</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="stat-value" style="font-size: 32px; margin-bottom: 16px;">5,000+</div>
+                    <h3>Georgia Jobs</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">Careers with benefits, equity, advancement</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div class="stat-value" style="font-size: 32px; margin-bottom: 16px;">$2.2B</div>
+                    <h3>Economic Impact</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">Total 3-year contribution to Georgia</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px; padding: 35px; background: rgba(0, 166, 81, 0.1); border-radius: 16px; border: 1px solid rgba(0, 166, 81, 0.2);">
+                <h3 style="font-size: 22px; margin-bottom: 25px; color: var(--success);">Board & Partnership Decisions</h3>
+                <div style="display: inline-flex; gap: 60px; text-align: left; flex-wrap: wrap; justify-content: center;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--success); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--success);">✓</span>
+                        <span>Approve $350M Year 1 Georgia budget</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--success); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--success);">✓</span>
+                        <span>Finalize GDOT partnership agreement</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--success); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--success);">✓</span>
+                        <span>Establish Atlanta headquarters</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="font-size: 18px; color: var(--gray); margin-bottom: 15px;">HYVEN USA + Georgia = Innovation Partnership</p>
+                <p style="font-size: 42px; font-weight: 800; background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Building the Future Together</p>
+                <p style="font-size: 22px; color: var(--success); margin-top: 20px;">🍑 Georgia on Our Mind 🍑</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="slide" style="min-height: auto; padding: 40px 60px; text-align: center;">
+            <p style="color: var(--gray); font-size: 14px;">
+                <strong>HYVEN USA Inc.</strong> | Georgia Expansion Strategy | January 2026<br>
+                In Partnership with Georgia Department of Transportation & Atlanta Regional Commission<br>
+                "Building Tomorrow's Mobility, Creating Today's Jobs"
+            </p>
+        </div>
+        
+    </div>
+</body>
+</html>

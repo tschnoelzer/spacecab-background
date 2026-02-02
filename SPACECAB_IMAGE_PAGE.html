@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab Competition Edition — The First Perpetuum Mobile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --dark: #050508;
+            --darker: #020203;
+            --card: #0D0D12;
+            --card-light: #15151C;
+            --border: #1E1E2A;
+            --text: #F0F0F5;
+            --text-muted: #8B8B9E;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid rgba(255, 184, 0, 0.3);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+        
+        .badge span {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--solar);
+        }
+        
+        h1 {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+        
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+        
+        .tagline {
+            font-size: 20px;
+            color: var(--solar);
+            font-weight: 600;
+        }
+        
+        .image-section {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .vehicle-image {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+        
+        .image-caption {
+            font-size: 22px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        
+        .image-subcaption {
+            font-size: 16px;
+            color: var(--solar);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .spec-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        
+        .spec-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 184, 0, 0.3);
+        }
+        
+        .spec-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--solar);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .spec-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 24px;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255, 184, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        
+        footer .brand {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        footer .brand span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 900px) {
+            h1 { font-size: 40px; }
+            .specs-grid { grid-template-columns: repeat(2, 1fr); }
+            .image-section { padding: 30px; }
+            .vehicle-image { max-height: 300px; }
+        }
+        
+        @media (max-width: 500px) {
+            .specs-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">
+                <span>The First Perpetuum Mobile</span>
+            </div>
+            <h1>SpaceCab <span class="gradient">Competition Edition</span></h1>
+            <p class="subtitle">Porsche-engineered. HYVEN-powered.</p>
+            <p class="tagline">"We Need No Energy From The Planet"</p>
+        </div>
+        
+        <!-- Image Section -->
+        <div class="image-section">
+            <img src="file_19---0a0f5d58-d3ab-4d64-a178-2ba3569663dc.jpg" alt="SpaceCab Competition Edition" class="vehicle-image">
+            <p class="image-caption">Porsche Design & Engineering</p>
+            <p class="image-subcaption">Made in USA — Atlanta Factory</p>
+        </div>
+        
+        <!-- Specs -->
+        <div class="specs-grid">
+            <div class="spec-item">
+                <div class="spec-value">~200</div>
+                <div class="spec-label">kg Weight</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">Cd 0.15</div>
+                <div class="spec-label">Drag Coefficient</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">8.3</div>
+                <div class="spec-label">Wh/km Efficiency</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">42</div>
+                <div class="spec-label">mph Cruise</div>
+            </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>HYVEN Perpetuum Mobility Challenge</h2>
+            <p>THE HYVEN Infinite Race — 24 hours. 100% solar. Zero limits. Proving perpetual motion is possible.</p>
+            <a href="mailto:info@hyven.one" class="cta-button">Partner With Us</a>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="brand"><span>HYVEN</span> SpaceCab</div>
+            <p>The First Perpetuum Mobile — We Need No Energy From The Planet</p>
+            <p style="margin-top: 15px; font-size: 12px;">© 2026 HYVEN | Porsche-Engineered | USA-Built | Solar-Powered</p>
+        </footer>
+    </div>
+</body>
+</html>

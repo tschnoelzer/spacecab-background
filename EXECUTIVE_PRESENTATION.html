@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab Executive Presentation — Operation Blitzkrieg</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0066FF;
+            --accent: #00D4AA;
+            --gold: #D4AF37;
+            --dark: #0A0A0F;
+            --dark-light: #12121A;
+            --gray: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: white;
+            line-height: 1.6;
+        }
+        
+        /* Slide Container */
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            page-break-after: always;
+        }
+        
+        /* Cover Slide */
+        .cover {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.15) 0%, transparent 70%);
+        }
+        
+        .cover-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 40px;
+        }
+        
+        .cover-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .cover-badge span {
+            color: var(--gold);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .cover h1 {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        .cover h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cover-subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 60px;
+        }
+        
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        
+        .meta-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 60px;
+        }
+        
+        .section-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .section-subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 16px;
+        }
+        
+        /* Content Grids */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--dark-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px;
+        }
+        
+        .card-highlight {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, transparent 100%);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+        
+        .card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* Stats */
+        .stat-row {
+            display: flex;
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .stat-item {
+            flex: 1;
+            padding: 30px;
+            background: var(--dark-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .stat-value {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid var(--dark);
+        }
+        
+        .timeline-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        
+        .timeline-phase {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .timeline-time {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        .timeline-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .timeline-desc {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Financial Table */
+        .fin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 40px;
+        }
+        
+        .fin-table th {
+            text-align: left;
+            padding: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        
+        .fin-table td {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .fin-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .amount {
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        /* Quote Block */
+        .quote-block {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 212, 170, 0.1) 100%);
+            border-left: 4px solid var(--primary);
+            padding: 40px;
+            border-radius: 0 16px 16px 0;
+            margin: 40px 0;
+        }
+        
+        .quote-text {
+            font-size: 28px;
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        
+        .quote-author {
+            margin-top: 20px;
+            color: var(--gray);
+            font-size: 16px;
+        }
+        
+        /* CTA Section */
+        .cta-slide {
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 24px 60px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 40px;
+            box-shadow: 0 10px 40px rgba(0, 102, 255, 0.4);
+        }
+        
+        /* Print Styles */
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: auto;
+                padding: 40px;
+            }
+            
+            .slide:last-child {
+                page-break-after: avoid;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .slide { padding: 40px 30px; }
+            .two-col { grid-template-columns: 1fr; }
+            .three-col { grid-template-columns: 1fr; }
+            .stat-row { flex-direction: column; }
+            .cover h1 { font-size: 48px; }
+            .section-title { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover">
+            <div class="cover-badge">
+                <div class="dot"></div>
+                <span>Executive Board Presentation</span>
+            </div>
+            
+            <h1>Operation <span>Blitzkrieg</span></h1>
+            <p class="cover-subtitle">The Strategic Imperative for SpaceCab Market Dominance</p>
+            
+            <div class="quote-block" style="max-width: 800px; margin: 60px auto;">
+                <p class="quote-text">"In warfare, the winner is not the one with better weapons, but the one who strikes first, strikes fast, and strikes relentlessly. SpaceCab will not compete. We will conquer."</p>
+            </div>
+            
+            <div class="cover-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Prepared For</div>
+                    <div class="meta-value">HYVEN C-Level Leadership</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div class="meta-value">January 2026</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Classification</div>
+                    <div class="meta-value">Board Confidential</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 2: The Battlefield -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">01 / The Battlefield</div>
+                <h2 class="section-title">Why Dubai? Why Now?</h2>
+                <p class="section-subtitle">The convergence of opportunity, timing, and competitive vacuum</p>
+            </div>
+            
+            <div class="stat-row">
+                <div class="stat-item">
+                    <div class="stat-value">17.2M</div>
+                    <div class="stat-label">Annual Tourists to Dubai</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">$200B</div>
+                    <div class="stat-label">Global AV Market 2026</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Commercial AV Taxis in Dubai</div>
+                </div>
+            </div>
+            
+            <div class="two-col" style="margin-top: 60px;">
+                <div>
+                    <h3 style="font-size: 28px; margin-bottom: 24px;">The Perfect Storm</h3>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 20px;">
+                        Dubai's government has positioned the city as a "living laboratory for the future." The RTA actively seeks autonomous vehicle partnerships. The 10X initiative mandates being 10 years ahead of other cities.
+                    </p>
+                    <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                        Meanwhile, Tesla, Waymo, and Cruise are focused on California and Arizona. We have a 12-18 month window before they turn their attention to Dubai.
+                    </p>
+                </div>
+                <div class="card card-highlight">
+                    <div class="card-icon">⚡</div>
+                    <h3>First-Mover Advantage</h3>
+                    <p>History shows that in mobility markets, the first to achieve 10% market share with reliable service maintains 60%+ long-term dominance. Uber in ride-hailing. Tesla in EVs. We will be first in autonomous taxis.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: The Blitzkrieg Doctrine -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">02 / Strategic Doctrine</div>
+                <h2 class="section-title">The Blitzkrieg Approach</h2>
+                <p class="section-subtitle">Speed. Surprise. Overwhelming force. Relentless execution.</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Concentration</h3>
+                    <p>Focus all resources on a single decisive point: Dubai's prime corridors (Downtown, DIFC, Airport, Marina). Ignore everything else until victory is assured.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Velocity</h3>
+                    <p>Move faster than competitors can react. 1,000 vehicles in 6 months. While they plan pilots, we scale operations. Speed is our ultimate weapon.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Momentum</h3>
+                    <p>Never allow the competition to regroup. Continuous pressure through pricing, marketing, and expansion. The only acceptable direction is forward.</p>
+                </div>
+            </div>
+            
+            <div class="quote-block" style="margin-top: 60px;">
+                <p class="quote-text">"The essence of Blitzkrieg is not the tank. It is the philosophy of using speed and surprise to unbalance the enemy before they can mount a defense. SpaceCab must achieve market dominance before competitors even realize the battle has begun."</p>
+                <p class="quote-author">— Adapted from Heinz Guderian, applied to market strategy</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: Execution Timeline -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">03 / Execution</div>
+                <h2 class="section-title">The Five-Phase Campaign</h2>
+                <p class="section-subtitle">24 months from launch to market dominance</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Phase 1</span>
+                        <span class="timeline-time">Months 0-6</span>
+                    </div>
+                    <h3 class="timeline-title">Lightning Strike</h3>
+                    <p class="timeline-desc">Secure RTA exclusive partnership. Deploy 1,000 vehicles. Capture Dubai Mall, DXB, and DIFC. Establish presence before competitors file paperwork.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Phase 2</span>
+                        <span class="timeline-time">Months 4-12</span>
+                    </div>
+                    <h3 class="timeline-title">Economic Warfare</h3>
+                    <p class="timeline-desc">Predatory pricing (10% below market). Driver poaching campaign. Corporate lock-in agreements. Make traditional taxis economically unviable.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Phase 3</span>
+                        <span class="timeline-time">Months 6-18</span>
+                    </div>
+                    <h3 class="timeline-title">Psychological Dominance</h3>
+                    <p class="timeline-desc">Burj Khalifa projection. Viral social campaigns. "Dubai = SpaceCab" brand association. Make it embarrassing to ride anything else.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Phase 4</span>
+                        <span class="timeline-time">Ongoing</span>
+                    </div>
+                    <h3 class="timeline-title">Technological Supremacy</h3>
+                    <p class="timeline-desc">Monthly software updates. Patent wall defense. Network effects from 2M+ rides. Competitors start where we finish.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-phase">Phase 5</span>
+                        <span class="timeline-time">Months 12-24</span>
+                    </div>
+                    <h3 class="timeline-title">Geographic Expansion</h3>
+                    <p class="timeline-desc">Abu Dhabi (Month 12). Riyadh (Month 15). GCC capitals by Month 24. While competitors fight for Dubai scraps, we conquer new territories.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: Financial Investment -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">04 / Resources</div>
+                <h2 class="section-title">Investment Required</h2>
+                <p class="section-subtitle">Capital deployment for maximum impact</p>
+            </div>
+            
+            <table class="fin-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Year 1</th>
+                        <th>Year 2</th>
+                        <th>Strategic Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fleet Deployment</strong></td>
+                        <td class="amount">AED 300M</td>
+                        <td class="amount">AED 150M</td>
+                        <td>1,000 vehicles, charging infrastructure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing & Brand</strong></td>
+                        <td class="amount">AED 100M</td>
+                        <td class="amount">AED 50M</td>
+                        <td>Blitz campaign, influencer network, PR</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Operations</strong></td>
+                        <td class="amount">AED 80M</td>
+                        <td class="amount">AED 60M</td>
+                        <td>Fleet monitors, maintenance, support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Technology</strong></td>
+                        <td class="amount">AED 40M</td>
+                        <td class="amount">AED 30M</td>
+                        <td>AI development, patents, cybersecurity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contingency</strong></td>
+                        <td class="amount">AED 30M</td>
+                        <td class="amount">AED 10M</td>
+                        <td>Legal defense, market volatility buffer</td>
+                    </tr>
+                    <tr style="background: rgba(0, 102, 255, 0.1);">
+                        <td><strong>Total Investment</strong></td>
+                        <td class="amount">AED 550M</td>
+                        <td class="amount">AED 300M</td>
+                        <td><strong>24-Month Total: AED 850M</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="two-col" style="margin-top: 60px;">
+                <div class="card card-highlight">
+                    <div class="card-icon">📈</div>
+                    <h3>Revenue Projection</h3>
+                    <p><strong>Year 1:</strong> AED 150M (loss of AED 400M)<br>
+                    <strong>Year 2:</strong> AED 500M (profit of AED 200M)<br>
+                    <strong>Break-even:</strong> Month 16<br>
+                    <strong>5-Year NPV:</strong> AED 2.1B at 15% discount rate</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>ROI Metrics</h3>
+                    <p><strong>Customer Acquisition Cost:</strong> AED 45<br>
+                    <strong>Customer Lifetime Value:</strong> AED 850<br>
+                    <strong>LTV:CAC Ratio:</strong> 18.9x<br>
+                    <strong>Market Cap Creation:</strong> AED 5B+ (comparable AV companies)</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Competitive Advantage -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">05 / Advantage</div>
+                <h2 class="section-title">Why We Win</h2>
+                <p class="section-subtitle">Structural advantages that compound over time</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card card-highlight">
+                    <div class="card-icon">🏎️</div>
+                    <h3>Speed to Market</h3>
+                    <p>6-month deployment vs. 2-3 year competitor timelines. By the time Tesla files permits, we have 1,000 vehicles generating data and revenue.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Cost Structure</h3>
+                    <p>No drivers (60% cost saving). Solar charging (fuel cost: zero). Unit economics that allow aggressive pricing while maintaining margins.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Regulatory Capture</h3>
+                    <p>Exclusive RTA partnership locks out competitors. First-mover becomes "safe choice" that regulators can point to. Latecomers face higher scrutiny.</p>
+                </div>
+            </div>
+            
+            <div class="stat-row" style="margin-top: 60px;">
+                <div class="stat-item">
+                    <div class="stat-value">25%</div>
+                    <div class="stat-label">Target Market Share (Month 24)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">50K</div>
+                    <div class="stat-label">Daily Rides (Month 24)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">95%</div>
+                    <div class="stat-label">Brand Awareness Target</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 7: Risk & Mitigation -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">06 / Risk Management</div>
+                <h2 class="section-title">What Could Go Wrong?</h2>
+                <p class="section-subtitle">Contingencies for every scenario</p>
+            </div>
+            
+            <div class="two-col">
+                <div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3 style="color: #ff6b6b; margin-bottom: 12px;">⚠️ Safety Incident</h3>
+                        <p style="font-size: 14px;"><strong>Impact:</strong> High | <strong>Probability:</strong> Low</p>
+                        <p style="margin-top: 12px; color: rgba(255,255,255,0.7);"><strong>Mitigation:</strong> $100M insurance policy. Gradual rollout with safety driver oversight for first 90 days. Real-time remote monitoring. Immediate crisis response protocol.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: #ffd93d; margin-bottom: 12px;">⚠️ Regulatory Delay</h3>
+                        <p style="font-size: 14px;"><strong>Impact:</strong> Medium | <strong>Probability:</strong> Medium</p>
+                        <p style="margin-top: 12px; color: rgba(255,255,255,0.7);"><strong>Mitigation:</strong> Pre-negotiated MOU with RTA. Political advisors on retainer. "Pilot program" framing allows limited launch. Saudi/UAE federal government pressure if needed.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3 style="color: #6bcf7f; margin-bottom: 12px;">⚠️ Competitor Response</h3>
+                        <p style="font-size: 14px;"><strong>Impact:</strong> Medium | <strong>Probability:</strong> High</p>
+                        <p style="margin-top: 12px; color: rgba(255,255,255,0.7);"><strong>Mitigation:</strong> Patent wall prevents feature copying. Exclusive contracts lock prime real estate. Network effects make switching costly. We have 12-18 month head start.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: #4d96ff; margin-bottom: 12px;">⚠️ Economic Downturn</h3>
+                        <p style="font-size: 14px;"><strong>Impact:</strong> Medium | <strong>Probability:</strong> Medium</p>
+                        <p style="margin-top: 12px; color: rgba(255,255,255,0.7);"><strong>Mitigation:</strong> Dual revenue streams (tourism + corporate). Cost-competitive positioning becomes advantage in recession. Operational leverage reduces burn rate.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 8: Call to Action -->
+        <div class="slide cta-slide">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-number">07 / Decision</div>
+                <h2 class="section-title">The Question Before Us</h2>
+            </div>
+            
+            <div class="quote-block" style="max-width: 900px; margin: 60px auto;">
+                <p class="quote-text">"There is no prize for second place in the race to define the future of urban mobility. Either we seize this moment with decisive action, or we watch from the sidelines as others claim the territory that should be ours."</p>
+            </div>
+            
+            <div class="three-col" style="margin-top: 60px;">
+                <div class="card" style="text-align: center;">
+                    <div class="stat-value" style="font-size: 36px; margin-bottom: 16px;">Option A</div>
+                    <h3>Execute Blitzkrieg</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">AED 550M investment. 24-month dominance. Market leadership for a decade.</p>
+                    <div style="color: var(--accent); font-weight: 700;">✓ Recommended</div>
+                </div>
+                <div class="card" style="text-align: center; opacity: 0.6;">
+                    <div class="stat-value" style="font-size: 36px; margin-bottom: 16px;">Option B</div>
+                    <h3>Pilot & Study</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">AED 50M pilot. 12-month study. Competitors launch first. Market follower.</p>
+                    <div style="color: var(--gray);">✗ Risky</div>
+                </div>
+                <div class="card" style="text-align: center; opacity: 0.4;">
+                    <div class="stat-value" style="font-size: 36px; margin-bottom: 16px;">Option C</div>
+                    <h3>Wait & See</h3>
+                    <p style="font-size: 14px; margin: 16px 0;">Let others prove market. Enter late. Commoditized competition. Marginal player.</p>
+                    <div style="color: #ff6b6b;">✗ Unacceptable</div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 80px;">
+                <h3 style="font-size: 28px; margin-bottom: 20px;">Required Board Decisions</h3>
+                <div style="display: inline-flex; gap: 40px; text-align: left; margin-top: 30px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--primary);">✓</span>
+                        <span>Approve AED 550M Year 1 budget</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--primary);">✓</span>
+                        <span>Authorize RTA exclusive negotiations</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="width: 24px; height: 24px; border: 2px solid var(--primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--primary);">✓</span>
+                        <span>Greenlight 1,000 vehicle order</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 80px; padding-top: 60px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="font-size: 20px; color: var(--gray); margin-bottom: 20px;">The window of opportunity is open. For how long, no one can say.</p>
+                <p style="font-size: 32px; font-weight: 800; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Execute Operation Blitzkrieg</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="slide" style="min-height: auto; padding: 40px 60px; text-align: center;">
+            <p style="color: var(--gray); font-size: 14px;">
+                HYVEN SpaceCab | Strategic Board Presentation | January 2026<br>
+                Classification: Board Confidential | Distribution: C-Level Executives Only
+            </p>
+        </div>
+        
+    </div>
+</body>
+</html>

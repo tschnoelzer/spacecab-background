@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab + NVIDIA Partnership Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --nvidia: #76B900; --hyven: #007A33; --dark: #0A0A0F; --dark-light: #12121A; --gray: #6B7280; --light-gray: #9CA3AF; --white: #FFFFFF; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; }
+        .presentation { max-width: 1200px; margin: 0 auto; }
+        .slide { min-height: 100vh; padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); page-break-after: always; }
+        .cover { background: linear-gradient(135deg, var(--dark) 0%, #0d1f15 100%); text-align: center; }
+        .cover-badge { display: inline-flex; align-items: center; gap: 15px; background: rgba(118, 185, 0, 0.1); border: 1px solid var(--nvidia); padding: 15px 30px; border-radius: 50px; margin-bottom: 40px; }
+        .cover-badge .logo { font-weight: 700; color: var(--nvidia); }
+        .cover-badge span { color: var(--light-gray); font-size: 14px; }
+        .cover h1 { font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+        .cover h1 span { color: var(--nvidia); }
+        .cover-subtitle { font-size: 26px; color: var(--light-gray); margin-bottom: 40px; font-weight: 300; }
+        .partnership-visual { display: flex; justify-content: center; align-items: center; gap: 40px; margin: 40px 0; }
+        .partner-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 30px 40px; text-align: center; min-width: 200px; }
+        .partner-box .name { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .partner-box .desc { font-size: 14px; color: var(--gray); }
+        .plus { font-size: 40px; color: var(--nvidia); font-weight: 300; }
+        .section-header { margin-bottom: 50px; }
+        .section-number { font-size: 14px; font-weight: 600; color: var(--nvidia); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-title { font-size: 44px; font-weight: 700; line-height: 1.2; letter-spacing: -1px; }
+        .section-subtitle { font-size: 20px; color: var(--gray); margin-top: 16px; font-weight: 300; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .card { background: var(--dark-light); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 35px; }
+        .card-nvidia { border-color: var(--nvidia); background: linear-gradient(135deg, rgba(118, 185, 0, 0.05) 0%, transparent 100%); }
+        .card-hyven { border-color: var(--hyven); background: linear-gradient(135deg, rgba(0, 122, 51, 0.05) 0%, transparent 100%); }
+        .card h3 { font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+        .card p { color: var(--gray); font-size: 15px; line-height: 1.7; }
+        .benefit-list { list-style: none; padding: 0; }
+        .benefit-list li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: flex-start; gap: 12px; }
+        .benefit-list li:before { content: "✓"; color: var(--nvidia); font-weight: 700; }
+        .deal-structure { background: var(--dark-light); border-radius: 16px; padding: 40px; margin: 30px 0; }
+        .deal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .deal-col h4 { font-size: 18px; font-weight: 600; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid; }
+        .deal-col.hyven h4 { border-color: var(--hyven); color: var(--hyven); }
+        .deal-col.nvidia h4 { border-color: var(--nvidia); color: var(--nvidia); }
+        .deal-item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: var(--gray); }
+        .highlight-box { background: linear-gradient(135deg, rgba(118, 185, 0, 0.1) 0%, rgba(0, 122, 51, 0.05) 100%); border: 1px solid rgba(118, 185, 0, 0.3); border-radius: 12px; padding: 30px; margin: 30px 0; }
+        .timeline-item { padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .timeline-date { font-size: 14px; color: var(--nvidia); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .timeline-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .timeline-desc { color: var(--gray); font-size: 14px; line-height: 1.6; }
+        .cta-button { display: inline-block; background: var(--nvidia); color: var(--dark); padding: 20px 50px; border-radius: 50px; font-size: 16px; font-weight: 700; text-decoration: none; margin-top: 20px; }
+        @media print { .slide { page-break-after: always; min-height: auto; padding: 40px; } }
+        @media (max-width: 900px) { .slide { padding: 40px 30px; } .two-col { grid-template-columns: 1fr; } .deal-grid { grid-template-columns: 1fr; } .partnership-visual { flex-direction: column; } .cover h1 { font-size: 48px; } .section-title { font-size: 36px; } }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover">
+            <div class="cover-badge">
+                <span class="logo">NVIDIA</span>
+                <span>+</span>
+                <span style="color: var(--hyven); font-weight: 700;">SPACECAB</span>
+            </div>
+            <h1>Strategic <span>Partnership</span> Proposal</h1>
+            <p class="cover-subtitle">L4 Autonomous Mobility for Dubai</p>
+            <p style="font-size: 16px; color: var(--gray); margin-top: 30px;">Powered by NVIDIA DRIVE • Cooled by HYVEN Energy</p>
+        </div>
+        
+        <!-- SLIDE 2: The Opportunity -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">01 / Opportunity</div>
+                <h2 class="section-title">SpaceCab Dubai</h2>
+                <p class="section-subtitle">The perfect L4 proving ground</p>
+            </div>
+            
+            <div class="two-col">
+                <div class="card card-hyven">
+                    <h3>🚕 The Vehicle</h3>
+                    <p style="margin-top: 15px;">Purpose-built autonomous electric taxi for Dubai's unique environment. 1,000 vehicle fleet Year 1. RTA partnership established. Zero-emission mandate.</p>
+                    <ul class="benefit-list" style="margin-top: 20px;">
+                        <li>Geofenced urban environment (ideal for L4)</li>
+                        <li>Regulatory progressive (RTA partnership)</li>
+                        <li>High visibility (17.2M tourists annually)</li>
+                        <li>Revenue-generating from Day 1</li>
+                    </ul>
+                </div>
+                <div class="card card-nvidia">
+                    <h3>🧠 The Technology</h3>
+                    <p style="margin-top: 15px;">NVIDIA DRIVE platform provides the autonomous brain. Proven L4 capabilities. Real-world testing in controlled, profitable environment.</p>
+                    <ul class="benefit-list" style="margin-top: 20px;">
+                        <li>Existing L4 stack (no development risk)</li>
+                        <li>High-temperature optimized (Dubai desert)</li>
+                        <li>Scalable to global markets</li>
+                        <li>Porsche-aligned ecosystem</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 40px;">
+                <h4 style="font-size: 18px; margin-bottom: 15px;">Why Dubai is Perfect for L4 Validation</h4>
+                <p style="color: var(--gray); line-height: 1.7;">Controlled geofenced zones (Downtown, Airport, Marina). Progressive regulators (RTA). High-income market (premium pricing). 365-day sunlight (solar charging). Political stability. No winter weather challenges. If L4 works here, it works anywhere.</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: The Deal -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">02 / Partnership</div>
+                <h2 class="section-title">The Exchange</h2>
+                <p class="section-subtitle">Mutual value creation</p>
+            </div>
+            
+            <div class="deal-structure">
+                <div class="deal-grid">
+                    <div class="deal-col hyven">
+                        <h4>HYVEN PROVIDES</h4>
+                        <div class="deal-item"><strong>SpaceCab Platform</strong><br>1,000 vehicle deployment in Dubai</div>
+                        <div class="deal-item"><strong>L4 Proving Ground</strong><br>Real-world urban autonomy testing</div>
+                        <div class="deal-item"><strong>HYVEN Energy Cooling</strong><br>Nano-coating for DRIVE chips (desert optimized)</div>
+                        <div class="deal-item"><strong>RTA Relationship</strong><br>Regulatory pathway & partnerships</div>
+                        <div class="deal-item"><strong>Revenue Share</strong><br>5% of gross to NVIDIA (performance-based)</div>
+                    </div>
+                    <div class="deal-col nvidia">
+                        <h4>NVIDIA PROVIDES</h4>
+                        <div class="deal-item"><strong>DRIVE Platform</strong><br>Full L4 autonomy stack</div>
+                        <div class="deal-item"><strong>Engineering Support</strong><br>Dedicated team for SpaceCab integration</div>
+                        <div class="deal-item"><strong>Preferred Pricing</strong><br>50% discount vs standard OEM rates</div>
+                        <div class="deal-item"><strong>Co-Marketing</strong><br>"NVIDIA DRIVE Inside" branding</div>
+                        <div class="deal-item"><strong>Reference Customer</strong><br>Case study for Middle East expansion</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="two-col" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>🏆 For NVIDIA</h3>
+                    <p style="color: var(--gray); margin-top: 15px;">First profitable L4 robotaxi deployment in Middle East. Proves DRIVE in extreme heat (50°C+). Revenue from Day 1. Path to 1,000+ vehicle fleet.</p>
+                </div>
+                <div class="card">
+                    <h3>🏆 For HYVEN</h3>
+                    <p style="color: var(--gray); margin-top: 15px;">Proven autonomy without building in-house. NVIDIA credibility. Faster time-to-market. Focus on operations & energy.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: Technical Integration -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">03 / Technical</div>
+                <h2 class="section-title">Integration Plan</h2>
+                <p class="section-subtitle">Desert-optimized autonomy</p>
+            </div>
+            
+            <div class="card" style="margin-bottom: 30px;">
+                <h3>🌡️ The Dubai Challenge</h3>
+                <p style="color: var(--gray); margin-top: 15px;">Summer temperatures reach 50°C (122°F). Standard GPU cooling insufficient. HYVEN Energy nano-coating provides 97% efficient cooling directly on DRIVE chips — maintaining optimal performance in extreme heat without bulky radiators.</p>
+            </div>
+            
+            <div class="two-col">
+                <div class="card card-nvidia">
+                    <h3>NVIDIA DRIVE Components</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--gray);">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Orin SoC (high-performance compute)</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• DriveWorks SDK (sensor fusion)</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• MapWorks (HD mapping)</li>
+                        <li style="padding: 8px 0;">• Safety Force Field (collision avoidance)</li>
+                    </ul>
+                </div>
+                <div class="card card-hyven">
+                    <h3>HYVEN Integration</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--gray);">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Nano-coating on Orin chips</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Solid-state battery cooling</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Solar-active vehicle skin</li>
+                        <li style="padding: 8px 0;">• Thermal management system</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 30px;">
+                <p style="font-size: 16px; line-height: 1.7;"><strong style="color: var(--nvidia);">Competitive Advantage:</strong> Only SpaceCab combines NVIDIA AI with HYVEN cooling — enabling reliable L4 operation in 50°C heat where competitors fail.</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: Perpetual Solar Challenge -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">04 / Marketing Platform</div>
+                <h2 class="section-title">Perpetual Solar Challenge</h2>
+                <p class="section-subtitle">Global proof-of-concept platform</p>
+            </div>
+            
+            <div class="card" style="margin-bottom: 30px;">
+                <h3>☀️ 24-Hour Solar Endurance</h3>
+                <p style="color: var(--gray); margin-top: 15px;">SpaceCab Competition Edition will attempt 24-hour non-stop operation powered solely by integrated solar technology at Porsche Experience Center Atlanta. No external charging. Just sunlight to infinite motion.</p>
+            </div>
+            
+            <div class="two-col">
+                <div class="card card-nvidia">
+                    <h3>🌍 Global Series</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--gray);">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• 🇺🇸 Atlanta — World Premiere (2026)</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• 🇦🇪 Dubai — Extreme Heat Test (2026)</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• 🇦🇺 Australia — Southern Hemisphere (2027)</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• 🇨🇱 Atacama — Ultimate Solar (2027)</li>
+                        <li style="padding: 8px 0;">• 🇲🇦 Morocco — African Debut (2027)</li>
+                    </ul>
+                </div>
+                <div class="card card-hyven">
+                    <h3>📈 Partnership Benefits</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--gray);">
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• 50M+ global viewers</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• NVIDIA DRIVE visibility</li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• B2B lead generation</li>
+                        <li style="padding: 8px 0;">• Government grant eligibility</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 30px;">
+                <p style="font-size: 16px; line-height: 1.7;"><strong style="color: var(--nvidia);">Strategic Value:</strong> The Challenge demonstrates HYVEN Energy technology while showcasing NVIDIA-powered autonomous capabilities to global audiences — accelerating partnership opportunities in all target markets.</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Timeline -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">05 / Execution</div>
+                <h2 class="section-title">Roadmap</h2>
+                <p class="section-subtitle">18 months to L4 deployment</p>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2026-Q1 — Foundation</div>
+                <div class="timeline-title">Design Excellence</div>
+                <div class="timeline-desc">System architecture finalized. Orin placement optimized. Nano-coating validated. Partnership MOU signed. RTA approval pathway confirmed.</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2026-Q2 — Prototype</div>
+                <div class="timeline-title">Integration Milestone</div>
+                <div class="timeline-desc">10 SpaceCab vehicles with DRIVE platform. HYVEN cooling integration. Sensor arrays calibrated. Dubai test facility setup.</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2026-Q3 — Validation</div>
+                <div class="timeline-title">Desert & Heat Verification</div>
+                <div class="timeline-desc">50°C chamber testing passed. RTA testing in geofenced zones. Safety validation. Driverless permit application.</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2026-Q4 — Preparation</div>
+                <div class="timeline-title">Production Readiness</div>
+                <div class="timeline-desc">Manufacturing processes locked. Quality gates passed. L4 certification completed. Supply chain secured.</div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-date">2027-Q1-Q2 — Deployment</div>
+                <div class="timeline-title">Commercial Launch</div>
+                <div class="timeline-desc">1,000 vehicle rollout. Revenue operations commence. Scale to 2,000+ vehicles. Expansion planning for additional markets.</div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Closing -->
+        <div class="slide" style="text-align: center;">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-number">06 / Next Step</div>
+                <h2 class="section-title">Let's Build the Future</h2>
+            </div>
+            
+            <p style="font-size: 22px; color: var(--light-gray); line-height: 1.6; max-width: 700px; margin: 0 auto 40px;">
+                SpaceCab + NVIDIA DRIVE = The first profitable, desert-proven L4 robotaxi fleet. Ready for Dubai. Scalable globally.
+            </p>
+            
+            <div class="partnership-visual">
+                <div class="partner-box">
+                    <div class="name" style="color: var(--nvidia);">NVIDIA</div>
+                    <div class="desc">AI & Autonomy</div>
+                </div>
+                <div class="plus">+</div>
+                <div class="partner-box">
+                    <div class="name" style="color: var(--hyven);">SPACECAB</div>
+                    <div class="desc">Dubai Deployment</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 50px;">
+                <p style="font-size: 18px; color: var(--gray); margin-bottom: 10px;">Contact</p>
+                <p style="font-size: 20px; font-weight: 600;">info@hyven.one</p>
+                <p style="font-size: 14px; color: var(--light-gray); margin-top: 20px;">Proposal Date: January 2026 | Valid for 60 Days</p>
+            </div>
+            
+            <a href="mailto:info@hyven.one" class="cta-button">Schedule Partnership Discussion</a>
+        </div>
+        
+    </div>
+</body>
+</html>

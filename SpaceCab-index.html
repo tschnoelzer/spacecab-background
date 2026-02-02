@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN SpaceCab — Document Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --neon: #00F0FF;
+            --dark: #050508;
+            --darker: #020203;
+            --card: #0D0D12;
+            --card-hover: #15151C;
+            --border: #1E1E2E;
+            --text: #F0F0F5;
+            --text-dim: #6B6B7E;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+        .logo {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+        .logo span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tagline {
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--energy);
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Category Sections */
+        .category {
+            margin-bottom: 60px;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+        .category-icon {
+            font-size: 28px;
+        }
+        .category-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .category-count {
+            background: rgba(0, 212, 170, 0.1);
+            color: var(--energy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* Document Cards */
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .doc-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .doc-card:hover {
+            background: var(--card-hover);
+            border-color: rgba(0, 212, 170, 0.3);
+            transform: translateY(-5px);
+        }
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--solar), var(--energy));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .doc-card:hover::before {
+            opacity: 1;
+        }
+        .doc-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .doc-summary {
+            font-size: 14px;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .doc-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .doc-tag {
+            font-size: 11px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-dim);
+        }
+        .doc-tag.investor { background: rgba(255, 184, 0, 0.1); color: var(--solar); }
+        .doc-tag.strategic { background: rgba(0, 212, 170, 0.1); color: var(--energy); }
+        .doc-tag.technical { background: rgba(0, 163, 224, 0.1); color: #00A3E0; }
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .doc-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        footer .brand {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        footer .brand span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        footer p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 1000px) {
+            .doc-grid { grid-template-columns: 1fr; }
+            .stats-bar { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">HYVEN <span>SpaceCab</span></div>
+            <p class="tagline">Document Library — Complete Strategic & Technical Archive</p>
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-value">26</div>
+                    <div class="stat-label">Documents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">6</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Seat Capacity</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">L4</div>
+                    <div class="stat-label">Autonomy</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Strategic Documents -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">🎯</span>
+                <h2 class="category-title">Strategic Documents</h2>
+                <span class="category-count">4 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">HYVEN SpaceCab SWOT Analysis</h3>
+                    <p class="doc-summary">Comprehensive strategic assessment covering strengths (Porsche engineering, split-lane capability), weaknesses (production scale), opportunities (Dubai 25% AV target), and threats (Waymo/Tesla competition).</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Strategic</span>
+                        <span class="doc-tag">4-seat</span>
+                        <span class="doc-tag">140 km/h</span>
+                    </div>
+                    <a href="HYVEN_SPACECAB_SWOT_ANALYSIS.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">SpaceCab SWOT — Thrilling Edition</h3>
+                    <p class="doc-summary">High-impact visual SWOT presentation with animated elements, big statistics (43% capacity boost, 91% crash reduction), and urgent 90-day action plan. Designed for investor pitches.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag investor">Investor</span>
+                        <span class="doc-tag">Presentation</span>
+                    </div>
+                    <a href="HYVEN_SPACECAB_SWOT_THRILLING.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Executive Summary — SpaceCab</h3>
+                    <p class="doc-summary">Concise business overview of SpaceCab vehicle, covering Porsche partnership, Perpetuum Mobile positioning, technical specifications, and market strategy for Dubai and Atlanta launches.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag investor">Executive</span>
+                        <span class="doc-tag">Summary</span>
+                    </div>
+                    <a href="EXECUTIVE_SUMMARY_SPACECAB.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Executive Summary — HYVEN Mobility</h3>
+                    <p class="doc-summary">Broader HYVEN Mobility subsidiary overview, including SpaceCab integration, strategic positioning in urban transport, and ecosystem alignment with Energy and Habitat pillars.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Subsidiary</span>
+                        <span class="doc-tag">Overview</span>
+                    </div>
+                    <a href="EXECUTIVE_SUMMARY_HYVEN_MOBILITY.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Partnership & Investment -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">🤝</span>
+                <h2 class="category-title">Partnership & Investment</h2>
+                <span class="category-count">5 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">NVIDIA Partnership Proposal</h3>
+                    <p class="doc-summary">Formal partnership proposal for NVIDIA DRIVE L4 platform integration, including technical specifications, joint marketing opportunities, and strategic alignment for autonomous vehicle deployment.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag investor">Partnership</span>
+                        <span class="doc-tag">NVIDIA</span>
+                    </div>
+                    <a href="SPACECAB_NVIDIA_PARTNERSHIP_PROPOSAL.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">NVIDIA Pitch Presentation</h3>
+                    <p class="doc-summary">Slide-style pitch deck for NVIDIA executives, highlighting SpaceCab's unique value proposition, Perpetuum Mobile innovation, and mutual benefits of L4 autonomy partnership.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag investor">Pitch</span>
+                        <span class="doc-tag">L4 Autonomy</span>
+                    </div>
+                    <a href="SPACECAB_NVIDIA_PITCH.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Dubai Partnership Presentation</h3>
+                    <p class="doc-summary">Comprehensive presentation for Dubai RTA and stakeholders, covering regulatory framework (Law No. 9/2023), Sheikh Zayed Road pilot opportunity, and 25% AV target alignment.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Dubai</span>
+                        <span class="doc-tag">RTA</span>
+                    </div>
+                    <a href="DUBAI_PARTNERSHIP_PRESENTATION.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Georgia Partnership Presentation</h3>
+                    <p class="doc-summary">Atlanta manufacturing hub pitch, including production capabilities, Southeast US market access, and strategic advantages for SpaceCab assembly and distribution.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Atlanta</span>
+                        <span class="doc-tag">Manufacturing</span>
+                    </div>
+                    <a href="GEORGIA_PARTNERSHIP_PRESENTATION.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Georgia State Presentation</h3>
+                    <p class="doc-summary">State-level engagement presentation for Georgia economic development, highlighting job creation, technology investment, and SpaceCab's contribution to the region's mobility ecosystem.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Georgia</span>
+                        <span class="doc-tag">Economic Dev</span>
+                    </div>
+                    <a href="GEORGIA_PRESENTATION.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Perpetuum Mobile Challenge -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">☀️</span>
+                <h2 class="category-title">Perpetuum Mobile Challenge</h2>
+                <span class="category-count">4 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">HYVEN Perpetuum Mobility Challenge</h3>
+                    <p class="doc-summary">Main event page for THE HYVEN Infinite Race — 24-hour solar endurance challenge. Features hero section, event details, technical requirements, and partnership CTAs. World premiere positioning.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Event</span>
+                        <span class="doc-tag">Solar</span>
+                        <span class="doc-tag">24h</span>
+                    </div>
+                    <a href="PERPETUAL_SOLAR_CHALLENGE.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Challenge Marketing Strategy</h3>
+                    <p class="doc-summary">Comprehensive marketing and communications strategy for the Perpetuum Challenge, covering PR campaigns, social media, influencer partnerships, and global media outreach plans.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Marketing</span>
+                        <span class="doc-tag">PR</span>
+                    </div>
+                    <a href="PERPETUAL_SOLAR_CHALLENGE_MARKETING_STRATEGY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Challenge PR Summary</h3>
+                    <p class="doc-summary">Executive business summary for media and partners, articulating the Challenge's proof-of-concept value, sustainability narrative, and strategic importance for SpaceCab validation.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Press</span>
+                        <span class="doc-tag">Media</span>
+                    </div>
+                    <a href="PERPETUAL_SOLAR_CHALLENGE_PR_SUMMARY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">SpaceCab Image Page</h3>
+                    <p class="doc-summary">Clean vehicle showcase page with prominent SpaceCab imagery, Porsche Design & Engineering branding, key specifications (4-seat, 140 km/h, 1.4m width), and partnership CTA.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Showcase</span>
+                        <span class="doc-tag">Visual</span>
+                    </div>
+                    <a href="SPACECAB_IMAGE_PAGE.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical & Research -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">🔬</span>
+                <h2 class="category-title">Technical & Research</h2>
+                <span class="category-count">4 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">AV Oversight Executive Summary</h3>
+                    <p class="doc-summary">Analysis of 10 prominent AV oversight reports covering NHTSA, Dubai RTA laws, and research studies. Key finding: 43% capacity increase with split-lane AV deployment on Sheikh Zayed Road.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag technical">Research</span>
+                        <span class="doc-tag">Regulatory</span>
+                    </div>
+                    <a href="AV_OVERSIGHT_EXECUTIVE_SUMMARY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">NVIDIA Technical Memo</h3>
+                    <p class="doc-summary">Detailed technical memorandum on NVIDIA DRIVE platform integration, including architecture specifications, safety systems, and development roadmap for L4 autonomy implementation.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag technical">Technical</span>
+                        <span class="doc-tag">Architecture</span>
+                    </div>
+                    <a href="TECH_MEMO_SPACECAB_NVIDIA.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">SpaceCab 3D Analysis</h3>
+                    <p class="doc-summary">Technical analysis of Blender 3D model exports, including dimensions verification, surface area calculations, component breakdown, and manufacturing specifications from 842K-vertex model.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag technical">3D Model</span>
+                        <span class="doc-tag">CAD</span>
+                    </div>
+                    <a href="SPACECAB_3D_ANALYSIS.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">SpaceCab GLB Analysis</h3>
+                    <p class="doc-summary">Complete analysis of GLB 2.0 export with Draco compression, covering 89 nodes, 69 meshes, 14 PBR materials with clearcoat/sheen shaders, and WebP texture pipeline.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag technical">GLB/GLTF</span>
+                        <span class="doc-tag">PBR</span>
+                    </div>
+                    <a href="SPACECAB_GLB_ANALYSIS.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ecosystem & Organization -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">🌐</span>
+                <h2 class="category-title">Ecosystem & Organization</h2>
+                <span class="category-count">5 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">HYVEN Ecosystem Executive Summary</h3>
+                    <p class="doc-summary">Comprehensive overview of HYVEN conglomerate structure, covering Mobility, Energy, and Habitat subsidiaries, integrated sustainability strategy, and WAVE International Organization alignment.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Ecosystem</span>
+                        <span class="doc-tag">Conglomerate</span>
+                    </div>
+                    <a href="HYVEN_ECOSYSTEM_EXECUTIVE_SUMMARY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">HYVEN Trinity Executive Summary</h3>
+                    <p class="doc-summary">Overview of WAVE Trinity Institute — educational arm of HYVEN ecosystem focused on sustainability leadership, ESG training, and global collaboration initiatives.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Education</span>
+                        <span class="doc-tag">WAVE</span>
+                    </div>
+                    <a href="HYVEN_TRINITY_EXECUTIVE_SUMMARY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Skyline Elite Trinity Summary</h3>
+                    <p class="doc-summary">Detailed presentation on Skyline Elite partnership within Trinity framework, covering membership tiers, benefits, and strategic value for sustainability-focused organizations.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Membership</span>
+                        <span class="doc-tag">Partnership</span>
+                    </div>
+                    <a href="SKYLINE_ELITE_TRINITY_SUMMARY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">HYVEN Energy Executive Summary</h3>
+                    <p class="doc-summary">HYVEN Energy subsidiary overview, covering renewable energy systems, solar integration with SpaceCab, and sustainable power solutions for the mobility ecosystem.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag strategic">Energy</span>
+                        <span class="doc-tag">Solar</span>
+                    </div>
+                    <a href="EXECUTIVE_SUMMARY_HYVEN_ENERGY.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Executive Presentation</h3>
+                    <p class="doc-summary">Master presentation deck for executive audiences, covering HYVEN vision, SpaceCab innovation, partnership opportunities, and investment thesis in sustainable mobility.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag investor">Master Deck</span>
+                        <span class="doc-tag">C-Suite</span>
+                    </div>
+                    <a href="EXECUTIVE_PRESENTATION.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Marketing Mockups -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-icon">📢</span>
+                <h2 class="category-title">Marketing Mockups</h2>
+                <span class="category-count">4 docs</span>
+            </div>
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3 class="doc-title">Dubai Taxi Ad — Standard</h3>
+                    <p class="doc-summary">Advertisement mockup for Dubai taxi services, featuring SpaceCab in urban environment with RTA partnership messaging and sustainability focus.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Advertising</span>
+                        <span class="doc-tag">Dubai</span>
+                    </div>
+                    <a href="ad-dubai-taxi.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Dubai Taxi Ad — Story Version</h3>
+                    <p class="doc-summary">Narrative-style advertisement mockup telling the SpaceCab journey story, emphasizing Perpetuum Mobile innovation and Dubai's smart mobility future.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Story</span>
+                        <span class="doc-tag">Brand</span>
+                    </div>
+                    <a href="ad-dubai-taxi-story.html" class="doc-link">View Document →</a>
+                </div>
+                <div class="doc-card">
+                    <h3 class="doc-title">Dubai Taxi Mockup</h3>
+                    <p class="doc-summary">Visual mockup of SpaceCab in Dubai taxi livery, showcasing vehicle design integration with local transportation branding and color schemes.</p>
+                    <div class="doc-meta">
+                        <span class="doc-tag">Visual</span>
+                        <span class="doc-tag">Livery</span>
+                    </div>
+                    <a href="mockup-dubai-taxi.html" class="doc-link">View Document →</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="brand">HYVEN <span>SpaceCab</span></div>
+            <p>The First Perpetuum Mobile — We Need No Energy From The Planet</p>
+            <p style="margin-top: 10px; font-size: 12px;">© 2026 HYVEN | Porsche-Engineered | USA-Built | Solar-Powered</p>
+        </footer>
+    </div>
+</body>
+</html>

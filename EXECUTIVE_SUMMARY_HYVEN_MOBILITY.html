@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN Mobility — Executive Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #E82127; --secondary: #0066FF; --tertiary: #00D4AA; --dark: #000000; --dark-light: #111111; --gray: #5C5C5C; --light-gray: #8E8E8E; --white: #FFFFFF; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--dark); color: var(--white); line-height: 1.6; }
+        .presentation { max-width: 1200px; margin: 0 auto; }
+        .slide { min-height: 100vh; padding: 80px 60px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.1); page-break-after: always; }
+        .cover { background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%); text-align: center; }
+        .cover-badge { display: inline-block; background: rgba(232, 33, 39, 0.1); border: 1px solid var(--primary); padding: 12px 28px; border-radius: 50px; margin-bottom: 40px; }
+        .cover-badge span { color: var(--primary); font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; }
+        .cover h1 { font-size: 72px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -2px; }
+        .cover h1 span { color: var(--primary); }
+        .cover-subtitle { font-size: 28px; color: var(--light-gray); margin-bottom: 40px; font-weight: 300; }
+        .pillar-grid { display: flex; justify-content: center; gap: 40px; margin: 50px 0; }
+        .pillar { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 30px 40px; text-align: center; min-width: 200px; }
+        .pillar .icon { font-size: 40px; margin-bottom: 15px; }
+        .pillar .name { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+        .pillar .desc { font-size: 14px; color: var(--gray); }
+        .section-header { margin-bottom: 50px; }
+        .section-number { font-size: 14px; font-weight: 600; color: var(--primary); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+        .section-title { font-size: 48px; font-weight: 700; line-height: 1.2; letter-spacing: -1px; }
+        .section-subtitle { font-size: 20px; color: var(--gray); margin-top: 16px; font-weight: 300; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card { background: var(--dark-light); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 35px; }
+        .card-primary { border-color: var(--primary); background: linear-gradient(135deg, rgba(232, 33, 39, 0.05) 0%, transparent 100%); }
+        .card-secondary { border-color: var(--secondary); background: linear-gradient(135deg, rgba(0, 102, 255, 0.05) 0%, transparent 100%); }
+        .card-tertiary { border-color: var(--tertiary); background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, transparent 100%); }
+        .card h3 { font-size: 22px; font-weight: 600; margin-bottom: 16px; }
+        .card p { color: var(--gray); font-size: 15px; line-height: 1.7; }
+        .product-showcase { background: var(--dark-light); border-radius: 16px; padding: 40px; margin-bottom: 30px; }
+        .product-showcase h3 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+        .product-showcase .tag { display: inline-block; background: rgba(232, 33, 39, 0.15); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .spec-row { display: flex; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+        .spec-box { background: rgba(255,255,255,0.03); padding: 20px 30px; border-radius: 8px; text-align: center; }
+        .spec-box .value { font-size: 24px; font-weight: 700; color: var(--white); }
+        .spec-box .label { font-size: 12px; color: var(--gray); text-transform: uppercase; margin-top: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { text-align: left; padding: 18px; font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; border-bottom: 2px solid rgba(255,255,255,0.1); }
+        td { padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 15px; }
+        tr:hover td { background: rgba(255,255,255,0.02); }
+        .highlight { color: var(--primary); font-weight: 600; }
+        @media print { .slide { page-break-after: always; min-height: auto; padding: 40px; } }
+        @media (max-width: 900px) { .slide { padding: 40px 30px; } .two-col { grid-template-columns: 1fr; } .three-col { grid-template-columns: 1fr; } .pillar-grid { flex-direction: column; align-items: center; } .cover h1 { font-size: 48px; } .section-title { font-size: 36px; } }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover">
+            <div class="cover-badge"><span>Executive Summary</span></div>
+            <h1>HYVEN <span>Mobility</span></h1>
+            <p class="cover-subtitle">Integrated Sustainable Transportation</p>
+            <p style="font-size: 18px; color: var(--gray); margin-top: 30px;">From Porsche's "Future of Mobility" Project</p>
+            <p style="font-size: 16px; color: var(--light-gray); margin-top: 50px; font-style: italic;">"Connecting people through efficient, eco-friendly transportation"</p>
+        </div>
+        
+        <!-- SLIDE 2: Company Overview -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">01 / Company</div>
+                <h2 class="section-title">HYVEN Group</h2>
+                <p class="section-subtitle">Spin-off from Porsche/MHP Germany</p>
+            </div>
+            
+            <div class="pillar-grid">
+                <div class="pillar">
+                    <div class="icon">⚡</div>
+                    <div class="name">HYVEN Energy</div>
+                    <div class="desc">Foundational power systems</div>
+                </div>
+                <div class="pillar">
+                    <div class="icon">🚗</div>
+                    <div class="name">HYVEN Mobility</div>
+                    <div class="desc">Transportation platforms</div>
+                </div>
+                <div class="pillar">
+                    <div class="icon">🏠</div>
+                    <div class="name">HYVEN Habitat</div>
+                    <div class="desc">Sustainable communities</div>
+                </div>
+            </div>
+            
+            <div class="two-col" style="margin-top: 40px;">
+                <div class="card card-primary">
+                    <h3>Leadership</h3>
+                    <p style="margin-top: 15px;"><strong>CTO:</strong> Michael Kirchgaessner — Direct from Porsche/MHP</p>
+                    <p style="margin-top: 10px;"><strong>COO:</strong> Ralf Kick — Direct from Porsche/MHP</p>
+                    <p style="margin-top: 10px;"><strong>Industrial Partner:</strong> Porsche Consulting/MHP (4,600 employees)</p>
+                </div>
+                <div class="card">
+                    <h3>Heritage</h3>
+                    <p style="margin-top: 15px;">Born from Porsche's "Future of Mobility" project in Germany. Operating in the "infrastructure-innovation" domain, addressing today's and tomorrow's challenges for prosperous, sustainable communities.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: Product Portfolio -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">02 / Products</div>
+                <h2 class="section-title">Mobility Platforms</h2>
+                <p class="section-subtitle">From urban taxis to multimodal vehicles</p>
+            </div>
+            
+            <div class="product-showcase">
+                <h3>🚗 SpaceCab</h3>
+                <span class="tag">Urban Autonomous</span>
+                <p style="color: var(--gray); margin-top: 15px;">Autonomous electric taxi service designed for Dubai. RTA partnership. 1,000 vehicles Year 1 target. Zero-emission fleet with solar charging.</p>
+                <div class="spec-row">
+                    <div class="spec-box"><div class="value">Dubai</div><div class="label">Launch Market</div></div>
+                    <div class="spec-box"><div class="value">1,000</div><div class="label">Vehicles Y1</div></div>
+                    <div class="spec-box"><div class="value">25%</div><div class="label">Market Share</div></div>
+                </div>
+            </div>
+            
+            <div class="product-showcase">
+                <h3>🏎️ Trinity ONE</h3>
+                <span class="tag">Multimodal Vehicle</span>
+                <p style="color: var(--gray); margin-top: 15px;">Single vehicle platform capable of ground, water, and air modes. Porsche Design & Engineering. HYVEN Energy power systems. When it's ready.</p>
+                <div class="spec-row">
+                    <div class="spec-box"><div class="value">3</div><div class="label">Modes</div></div>
+                    <div class="spec-box"><div class="value">2,900 km</div><div class="label">Air Range</div></div>
+                    <div class="spec-box"><div class="value">Porsche</div><div class="label">Engineering</div></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: Technology Integration -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">03 / Technology</div>
+                <h2 class="section-title">Integrated Ecosystem</h2>
+                <p class="section-subtitle">Powered by HYVEN Energy</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card card-tertiary">
+                    <h3>⚡ Energy Core</h3>
+                    <p>700% battery density improvement. Nano-powder coating technology. TRL 10/MRL 10 maturity. Solid-state architecture.</p>
+                </div>
+                <div class="card card-secondary">
+                    <h3>🔋 Power Systems</h3>
+                    <p>HYVEN Energy batteries power all mobility platforms. Swappable pods. Solar-active skins. Closed-loop sustainable cycle.</p>
+                </div>
+                <div class="card card-primary">
+                    <h3>🌱 Zero Emissions</h3>
+                    <p>100% electric platforms. Solar charging infrastructure. Carbon-neutral operations. Aligned with global net-zero goals.</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <h3>The HYVEN Advantage</h3>
+                <p style="margin-top: 15px; color: var(--gray);">Unlike competitors sourcing batteries from third parties, HYVEN Mobility is vertically integrated with HYVEN Energy. This provides:</p>
+                <ul style="margin-top: 15px; color: var(--gray); padding-left: 20px;">
+                    <li style="margin-bottom: 8px;">700% energy density vs. conventional EVs</li>
+                    <li style="margin-bottom: 8px;">Proprietary nano-solar active surfaces</li>
+                    <li style="margin-bottom: 8px;">Controlled supply chain (no China dependency)</li>
+                    <li>Cost advantages through GIGA factory economics</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: Markets & Strategy -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">04 / Strategy</div>
+                <h2 class="section-title">Global Deployment</h2>
+                <p class="section-subtitle">Strategic market entry</p>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Launch Market</th>
+                        <th>Timeline</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SpaceCab</strong></td>
+                        <td>Dubai, UAE</td>
+                        <td>2026-2027</td>
+                        <td class="highlight">RTA partnership active</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trinity ONE</strong></td>
+                        <td>Dubai + Atlanta</td>
+                        <td>2026-2028</td>
+                        <td class="highlight">Porsche development</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Energy Factories</strong></td>
+                        <td>USA, UAE, Brazil</td>
+                        <td>2025-2026</td>
+                        <td class="highlight">25 partnerships Q3 2025</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="two-col" style="margin-top: 40px;">
+                <div class="card card-secondary">
+                    <h3>🇦🇪 Dubai Focus</h3>
+                    <p style="margin-top: 15px; color: var(--gray);">RTA partnership for SpaceCab. Trinity ONE testing ground. 17.2M tourists annually. World's most future-ready city.</p>
+                </div>
+                <div class="card card-primary">
+                    <h3>🇺🇸 USA Expansion</h3>
+                    <p style="margin-top: 15px; color: var(--gray);">Porsche engineering in Atlanta. GIGA factory deployment. National security alignment. Domestic manufacturing priority.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Closing -->
+        <div class="slide" style="text-align: center;">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-number">05 / Vision</div>
+                <h2 class="section-title">The Future of Movement</h2>
+            </div>
+            
+            <p style="font-size: 24px; color: var(--light-gray); line-height: 1.6; max-width: 800px; margin: 0 auto 50px;">
+                From Porsche engineering heritage to global mobility leadership. HYVEN builds the integrated transportation ecosystem the world needs.
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 60px; margin: 60px 0; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 56px; font-weight: 700; color: var(--primary);">2</div>
+                    <div style="font-size: 16px; color: var(--gray); margin-top: 10px;">Mobility Platforms</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 56px; font-weight: 700; color: var(--primary);">3</div>
+                    <div style="font-size: 16px; color: var(--gray); margin-top: 10px;">Pillars</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 56px; font-weight: 700; color: var(--primary);">Global</div>
+                    <div style="font-size: 16px; color: var(--gray); margin-top: 10px;">Ambition</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <p style="color: var(--gray); font-size: 14px;">HYVEN Mobility | Spin-off from Porsche/MHP Germany | January 2026</p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

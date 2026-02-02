@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN SpaceCab — Strategic SWOT Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --card-light: #1A1A24;
+            --border: #2A2A3A;
+            --text: #E6E6F0;
+            --text-muted: #8B8B9E;
+            --success: #00C853;
+            --warning: #FFB300;
+            --danger: #FF5252;
+            --info: #00A3E0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(0, 163, 224, 0.1);
+            border: 1px solid var(--info);
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+        
+        .badge span {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--info);
+        }
+        
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+        
+        h1 .highlight {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-muted);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+        
+        .meta-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-item .label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .meta-item .value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        /* SWOT Grid */
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .swot-card {
+            border-radius: 20px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .swot-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+        
+        .swot-card h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .swot-card h2 .icon {
+            font-size: 24px;
+        }
+        
+        .swot-card ul {
+            list-style: none;
+        }
+        
+        .swot-card li {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .swot-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .swot-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+        
+        /* Card Colors */
+        .strengths {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.08) 0%, rgba(0, 200, 83, 0.03) 100%);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+        }
+        .strengths::before { background: var(--success); }
+        .strengths h2 { color: var(--success); }
+        .strengths li::before { color: var(--success); }
+        
+        .weaknesses {
+            background: linear-gradient(135deg, rgba(255, 82, 82, 0.08) 0%, rgba(255, 82, 82, 0.03) 100%);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+        .weaknesses::before { background: var(--danger); }
+        .weaknesses h2 { color: var(--danger); }
+        .weaknesses li::before { color: var(--danger); }
+        
+        .opportunities {
+            background: linear-gradient(135deg, rgba(0, 163, 224, 0.08) 0%, rgba(0, 163, 224, 0.03) 100%);
+            border: 1px solid rgba(0, 163, 224, 0.2);
+        }
+        .opportunities::before { background: var(--info); }
+        .opportunities h2 { color: var(--info); }
+        .opportunities li::before { color: var(--info); }
+        
+        .threats {
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.08) 0%, rgba(255, 179, 0, 0.03) 100%);
+            border: 1px solid rgba(255, 179, 0, 0.2);
+        }
+        .threats::before { background: var(--warning); }
+        .threats h2 { color: var(--warning); }
+        .threats li::before { color: var(--warning); }
+        
+        /* Strategic Insights */
+        .insights-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .insights-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        
+        .insight-box {
+            background: var(--card-light);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .insight-box h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--solar);
+            margin-bottom: 15px;
+        }
+        
+        .insight-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        
+        /* Priority Actions */
+        .priority-section {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        
+        .priority-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .priority-list {
+            list-style: none;
+        }
+        
+        .priority-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .priority-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .priority-num {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .priority-content h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .priority-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        
+        footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        @media (max-width: 900px) {
+            .swot-grid { grid-template-columns: 1fr; }
+            .insight-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">
+                <span>Strategic Analysis</span>
+            </div>
+            <h1>HYVEN SpaceCab<br><span class="highlight">SWOT Analysis</span></h1>
+            <p class="subtitle">L4 Autonomous Vehicle Strategy — Dubai & Atlanta Markets</p>
+            
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="label">Autonomy Level</div>
+                    <div class="value">L4 (NVIDIA DRIVE)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="label">Launch Markets</div>
+                    <div class="value">Dubai + Atlanta</div>
+                </div>
+                <div class="meta-item">
+                    <div class="label">Key Differentiator</div>
+                    <div class="value">Perpetuum Mobile</div>
+                </div>
+                <div class="meta-item">
+                    <div class="label">Competitive Edge</div>
+                    <div class="value">Split-Lane Ready</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SWOT Grid -->
+        <div class="swot-grid">
+            <!-- Strengths -->
+            <div class="swot-card strengths">
+                <h2><span class="icon">💪</span> Strengths</h2>
+                <ul>
+                    <li><strong>Porsche engineering partnership</strong> — world-class design credibility and manufacturing standards</li>
+                    <li><strong>Perpetuum Mobile positioning</strong> — unique "first" narrative with zero external energy requirement</li>
+                    <li><strong>Split-lane capability</strong> — 1.4m width enables 2 vehicles per standard lane (43% capacity boost)</li>
+                    <li><strong>NVIDIA DRIVE L4 platform</strong> — proven autonomy stack with regulatory acceptance</li>
+                    <li><strong>Ultra-lightweight design (~300kg)</strong> — class-leading efficiency vs 2,000+ kg competitors</li>
+                    <li><strong>4-passenger capacity</strong> — full family and shared mobility use cases</li>
+                    <li><strong>140 km/h top speed</strong> — highway-capable, not just urban limited</li>
+                    <li><strong>1.4m width</strong> — enables split-lane deployment (43% capacity boost)</li>
+                    <li><strong>Dual-market strategy</strong> — Dubai (regulatory friendly) + Atlanta (manufacturing hub)</li>
+                    <li><strong>Event-driven marketing</strong> — Perpetuum Mobile Challenge creates ongoing media presence</li>
+                </ul>
+            </div>
+            
+            <!-- Weaknesses -->
+            <div class="swot-card weaknesses">
+                <h2><span class="icon">⚠️</span> Weaknesses</h2>
+                <ul>
+                    <li><strong>Solar dependency risks</strong> — reduced performance in poor weather; battery backup adds weight</li>
+                    <li><strong>Unproven at scale</strong> — no production volume; first-mover risks on reliability</li>
+                    <li><strong>Solar dependency</strong> — reduced performance in poor weather; battery backup adds weight</li>
+                    <li><strong>Narrow awareness</strong> — new brand vs. established players (Waymo, Cruise, Tesla)</li>
+                    <li><strong>Limited service range</strong> — ~100km realistic range vs unlimited range ICE vehicles</li>
+                    <li><strong>Manufacturing unproven</strong> — Atlanta facility not yet operational</li>
+                </ul>
+            </div>
+            
+            <!-- Opportunities -->
+            <div class="swot-card opportunities">
+                <h2><span class="icon">🚀</span> Opportunities</h2>
+                <ul>
+                    <li><strong>Dubai 25% AV target by 2030</strong> — RTA actively seeking AV partners; Law No. 9/2023 enables deployment</li>
+                    <li><strong>Split-lane regulatory first-mover</strong> — no competitor optimized for 9-ft lanes; potential monopoly</li>
+                    <li><strong>Sheikh Zayed Road pilot</strong> — 43% capacity increase data would validate global scalability</li>
+                    <li><strong>Last-mile delivery pivot</strong> — cargo variant addresses larger TAM than passenger alone</li>
+                    <li><strong>ESG/carbon credit monetization</strong> — zero-emission operation = offset revenue potential</li>
+                    <li><strong>Airport partnerships</strong> — Dubai International + Atlanta Hartsfield-Jackson as anchor customers</li>
+                    <li><strong>NVIDIA ecosystem leverage</strong> — joint marketing, developer support, investor introductions</li>
+                    <li><strong>WAVE UN positioning</strong> — sustainability narrative aligns with SDG funding opportunities</li>
+                </ul>
+            </div>
+            
+            <!-- Threats -->
+            <div class="swot-card threats">
+                <h2><span class="icon">⚡</span> Threats</h2>
+                <ul>
+                    <li><strong>Waymo rapid expansion</strong> — 91% crash reduction data; 250K+ rides/week; first-mover advantage</li>
+                    <li><strong>Tesla Robotaxi launch</strong> — massive installed base; FSD v13 improvements; brand recognition</li>
+                    <li><strong>Chinese AV entrants</strong> — Baidu, WeRide, Pony.ai cost advantages; Dubai testing already underway</li>
+                    <li><strong>Split-lane regulation delay</strong> — infrastructure approval timelines could stall deployment</li>
+                    <li><strong>Solar panel supply chain</strong> — tariff risks; price volatility affects unit economics</li>
+                    <li><strong>Public acceptance hurdles</strong> — 85% expat population in Dubai requires education campaigns</li>
+                    <li><strong>Economic downturn impact</strong> — AV R&D cuts during recession; investor risk appetite reduction</li>
+                    <li><strong>Cybersecurity incidents</strong> — single breach could destroy trust in new market entrant</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Strategic Insights -->
+        <div class="insights-section">
+            <h2>Strategic Insights</h2>
+            <div class="insight-grid">
+                <div class="insight-box">
+                    <h3>🎯 Dubai First-Mover Advantage</h3>
+                    <p>Dubai's regulatory framework (Law No. 9/2023) and 25% AV target by 2030 create a receptive market. RTA's existing relationships with international AV players haven't yet produced a Perpetuum Mobile competitor. The 43% capacity gain from split-lane deployment on Sheikh Zayed Road provides a compelling case study for global expansion.</p>
+                </div>
+                <div class="insight-box">
+                    <h3>⚡ Split-Lane Moat</h3>
+                    <p>No existing AV competitor is optimized for 9-foot lanes. SpaceCab's 1.4m width + L4 autonomy creates a technical moat. The 91% crash reduction from AVs (per GROK analysis) + doubled lane throughput = unique value proposition for congested megacities.</p>
+                </div>
+                <div class="insight-box">
+                    <h3>🔧 Manufacturing Risk</h3>
+                    <p>Atlanta facility commitment is critical. Porsche engineering adds credibility, but unproven production at scale is a vulnerability. Consider phased rollout: Dubai pilot (100 units) → Atlanta scale-up (1,000 units) → global expansion.</p>
+                </div>
+                <div class="insight-box">
+                    <h3>📊 Competition Timeline</h3>
+                    <p>Window of opportunity: 12-18 months before Waymo/Tesla narrow-vehicle variants. Perpetuum Mobile Challenge must generate proof-of-concept data and media coverage before incumbents react. Speed to Dubai deployment is existential.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Priority Actions -->
+        <div class="priority-section">
+            <h2>Priority Actions (Next 90 Days)</h2>
+            <ul class="priority-list">
+                <li>
+                    <div class="priority-num">1</div>
+                    <div class="priority-content">
+                        <h4>Secure Dubai RTA Pilot Agreement</h4>
+                        <p>Leverage Perpetuum Mobile Challenge as proof-of-concept vehicle. Target 50-unit pilot on designated SZR segment.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="priority-num">2</div>
+                    <div class="priority-content">
+                        <h4>Accelerate NVIDIA Partnership Close</h4>
+                        <p>Reference architecture validation + joint marketing support. Critical for investor credibility.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="priority-num">3</div>
+                    <div class="priority-content">
+                        <h4>Finalize Atlanta Manufacturing Commitment</h4>
+                        <p>Lease/ purchase facility announcement. Required for Series A due diligence.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="priority-num">4</div>
+                    <div class="priority-content">
+                        <h4>File Split-Lane Patents</h4>
+                        <p>Protect 1.4m configuration + L4 autonomy integration. Defensive IP before competitors pivot.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="priority-num">5</div>
+                    <div class="priority-content">
+                        <h4>Launch Perpetuum Mobile Challenge PR Campaign</h4>
+                        <p>Generate technical validation data + media coverage. Establish "first Perpetuum Mobile" narrative.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>HYVEN SpaceCab Strategic Analysis | L4 Autonomous Vehicle | Dubai & Atlanta Markets</p>
+            <p style="margin-top: 10px;">Based on: NVIDIA DRIVE Platform | Porsche Engineering | Split-Lane AV Research | UAE Law No. 9/2023</p>
+        </footer>
+    </div>
+</body>
+</html>

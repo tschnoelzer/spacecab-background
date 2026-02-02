@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN Perpetuum Mobility Challenge — THE HYVEN Infinite Race | Executive Business Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --border: #1E1E2E;
+            --text: #E6E6F0;
+            --muted: #8B8B9E;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .presentation {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            page-break-after: always;
+        }
+        
+        /* Cover */
+        .cover {
+            background: linear-gradient(135deg, var(--darker) 0%, #0a1510 50%, #0d1a12 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 184, 0, 0.08) 0%, transparent 70%);
+        }
+        
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.06) 0%, transparent 70%);
+        }
+        
+        .cover-badge {
+            display: inline-block;
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid var(--solar);
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-bottom: 40px;
+            z-index: 1;
+        }
+        
+        .cover-badge span {
+            color: var(--solar);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .cover h1 {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            z-index: 1;
+        }
+        
+        .cover h1 .highlight {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cover-subtitle {
+            font-size: 24px;
+            color: var(--muted);
+            margin-bottom: 50px;
+            font-weight: 300;
+            z-index: 1;
+        }
+        
+        .hero-stat {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 50px 0;
+            z-index: 1;
+        }
+        
+        .hero-stat-item {
+            text-align: center;
+        }
+        
+        .hero-stat-item .value {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .hero-stat-item .label {
+            font-size: 13px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+        
+        .cover-tagline {
+            font-size: 18px;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 40px;
+            z-index: 1;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            margin-bottom: 50px;
+        }
+        
+        .section-number {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--solar);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--muted);
+            margin-top: 16px;
+            font-weight: 300;
+        }
+        
+        /* Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 35px;
+        }
+        
+        .card-highlight {
+            border-color: rgba(255, 184, 0, 0.3);
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.05) 0%, transparent 100%);
+        }
+        
+        .card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .card p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .stat-item {
+            padding: 25px;
+            background: var(--card);
+            border-radius: 12px;
+            text-align: center;
+            border-top: 3px solid var(--solar);
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--solar);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Location Cards */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .location-card {
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 184, 0, 0.3);
+        }
+        
+        .location-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .location-flag {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .location-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .location-venue {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        
+        .location-body {
+            padding: 25px;
+        }
+        
+        .location-spec {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+        
+        .location-spec span:first-child {
+            color: var(--muted);
+        }
+        
+        .location-spec span:last-child {
+            font-weight: 600;
+        }
+        
+        .location-status {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .location-status.confirmed {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--energy);
+        }
+        
+        .location-status.planned {
+            background: rgba(255, 184, 0, 0.15);
+            color: var(--solar);
+        }
+        
+        /* Quote */
+        .quote-block {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border-left: 4px solid var(--solar);
+            padding: 35px;
+            border-radius: 0 16px 16px 0;
+            margin: 40px 0;
+        }
+        
+        .quote-text {
+            font-size: 22px;
+            font-weight: 600;
+            font-style: italic;
+            line-height: 1.5;
+        }
+        
+        .quote-author {
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        
+        /* Partner Logos */
+        .partner-strip {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .partner-item {
+            text-align: center;
+            opacity: 0.7;
+        }
+        
+        .partner-item .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .partner-item .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* CTA */
+        .cta-slide {
+            text-align: center;
+            background: linear-gradient(135deg, var(--darker) 0%, #0a1510 100%);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            padding: 22px 60px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(255, 184, 0, 0.2);
+        }
+        
+        /* Responsive */
+        @media print {
+            .slide { page-break-after: always; min-height: auto; padding: 40px; }
+        }
+        
+        @media (max-width: 900px) {
+            .slide { padding: 40px 30px; }
+            .two-col { grid-template-columns: 1fr; }
+            .three-col { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .location-grid { grid-template-columns: 1fr; }
+            .hero-stat { flex-direction: column; gap: 30px; }
+            .cover h1 { font-size: 48px; }
+            .section-title { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        
+        <!-- SLIDE 1: Cover -->
+        <div class="slide cover">
+            <div class="cover-badge">
+                <span>THE HYVEN Infinite Race</span>
+            </div>
+            
+            <h1>HYVEN <span class="highlight">Perpetuum Mobility</span><br>Challenge</h1>
+            <p class="cover-subtitle">THE HYVEN Infinite Race — A Global Endurance Series Proving Infinite Solar Mobility</p>
+            
+            <div class="hero-stat">
+                <div class="hero-stat-item">
+                    <div class="value">24</div>
+                    <div class="label">Hours Non-Stop</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="value">100%</div>
+                    <div class="label">Solar Powered</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="value">0</div>
+                    <div class="label">External Charging</div>
+                </div>
+            </div>
+            
+            <p class="cover-tagline">"The First Perpetuum Mobile — We Need No Energy From The Planet"</p>
+        </div>
+        
+        <!-- SLIDE 2: The Concept -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">01 / The Concept</div>
+                <h2 class="section-title">Proving Perpetual Motion</h2>
+                <p class="section-subtitle">The ultimate demonstration of sustainable autonomy</p>
+            </div>
+            
+            <div class="two-col">
+                <div class="card card-highlight">
+                    <h3>☀️ The First Perpetuum Mobile</h3>
+                    <p style="margin-top: 15px;">SpaceCab demonstrates true perpetual motion — powered entirely by sunlight. No external charging. No fuel stops. No energy drawn from Earth's resources. Just light transformed into infinite motion.</p>
+                    <p style="margin-top: 15px;"><strong style="color: var(--solar);">We need no energy from the planet.</strong></p>
+                </div>
+                <div class="card">
+                    <h3>🏆 The Achievement</h3>
+                    <p style="margin-top: 15px;">Success demonstrates HYVEN Energy's breakthrough: substantially higher energy density batteries, 97% efficient nano-coating cooling, and full-surface solar harvesting capable of indefinite operation.</p>
+                    <p style="margin-top: 15px;">This isn't a concept. It's proven engineering.</p>
+                </div>
+            </div>
+            
+            <div class="stat-grid" style="margin-top: 40px;">
+                <div class="stat-item">
+                    <div class="stat-value">20.3</div>
+                    <div class="stat-label">kWh Daily Harvest</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">13.9</div>
+                    <div class="stat-label">kWh Consumption</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">mph Cruise Speed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">1,622</div>
+                    <div class="stat-label">km Distance</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 3: The Vehicle -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">02 / The Vehicle</div>
+                <h2 class="section-title">SpaceCab Competition Edition</h2>
+                <p class="section-subtitle">Porsche-engineered. HYVEN-powered. Future-proven.</p>
+            </div>
+            
+            <div class="three-col">
+                <div class="card">
+                    <h3>🏎️ Design Heritage</h3>
+                    <p>Porsche Design & Engineering pedigree. USA factory production in Atlanta. Compact omnidirectional pods with glowing aesthetics and cyberpunk soul.</p>
+                </div>
+                <div class="card">
+                    <h3>⚡ HYVEN Integration</h3>
+                    <p>Full-surface invisible solar skin (body + windshield). Embedded ultra-high-density solid-state batteries. Nano-coating thermal management.</p>
+                </div>
+                <div class="card">
+                    <h3>🎯 Competition Optimization</h3>
+                    <p>Ultra-lightweight (~200kg). Drag coefficient Cd ~0.15. Ultra-low rolling resistance. Single-occupant for challenge (production: 3-4 seats).</p>
+                </div>
+            </div>
+            
+            <div class="quote-block" style="margin-top: 40px;">
+                <p class="quote-text">"The SpaceCab beams silently through the circuit, powered by light you never see — igniting American cyberpunk fire and proving that sustainable mobility isn't the future. It's now."</p>
+            </div>
+        </div>
+        
+        <!-- SLIDE 4: Global Series -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">03 / Global Series</div>
+                <h2 class="section-title">The World Tour</h2>
+                <p class="section-subtitle">From Atlanta to the most intriguing locations on Earth</p>
+            </div>
+            
+            <div class="location-grid">
+                <div class="location-card">
+                    <div class="location-header">
+                        <div class="location-flag">🇺🇸</div>
+                        <div class="location-name">Atlanta, USA</div>
+                        <div class="location-venue">Porsche Experience Center</div>
+                    </div>
+                    <div class="location-body">
+                        <div class="location-spec">
+                            <span>Date</span>
+                            <span>Midsummer 2026</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Track</span>
+                            <span>1.6-mile Driver Development</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Solar</span>
+                            <span>8.0 kWh/m²/day</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Significance</span>
+                            <span>World Premiere</span>
+                        </div>
+                        <span class="location-status confirmed">Launch Event</span>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-header">
+                        <div class="location-flag">🇦🇪</div>
+                        <div class="location-name">Dubai, UAE</div>
+                        <div class="location-venue">Dubai Autodrome</div>
+                    </div>
+                    <div class="location-body">
+                        <div class="location-spec">
+                            <span>Date</span>
+                            <span>Winter 2026</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Track</span>
+                            <span>5.39 km GP Circuit</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Solar</span>
+                            <span>7.5 kWh/m²/day</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Significance</span>
+                            <span>Extreme Heat Test</span>
+                        </div>
+                        <span class="location-status planned">Expansion</span>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-header">
+                        <div class="location-flag">🇦🇺</div>
+                        <div class="location-name">Alice Springs, Australia</div>
+                        <div class="location-venue">Alice Springs Desert Park</div>
+                    </div>
+                    <div class="location-body">
+                        <div class="location-spec">
+                            <span>Date</span>
+                            <span>Summer 2027</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Track</span>
+                            <span>Outback Solar Circuit</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Solar</span>
+                            <span>8.5 kWh/m²/day</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Significance</span>
+                            <span>Southern Hemisphere</span>
+                        </div>
+                        <span class="location-status planned">Future</span>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-header">
+                        <div class="location-flag">🇨🇱</div>
+                        <div class="location-name">Atacama Desert, Chile</div>
+                        <div class="location-venue">Driest Place on Earth</div>
+                    </div>
+                    <div class="location-body">
+                        <div class="location-spec">
+                            <span>Date</span>
+                            <span>2027</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Track</span>
+                            <span>High-Altitude Solar Track</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Solar</span>
+                            <span>9.0+ kWh/m²/day</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Significance</span>
+                            <span>Ultimate Solar Density</span>
+                        </div>
+                        <span class="location-status planned">Future</span>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-header">
+                        <div class="location-flag">🇲🇦</div>
+                        <div class="location-name">Sahara Desert, Morocco</div>
+                        <div class="location-venue">Gateway to Africa</div>
+                    </div>
+                    <div class="location-body">
+                        <div class="location-spec">
+                            <span>Date</span>
+                            <span>2027</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Track</span>
+                            <span>Ouarzazate Solar Circuit</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Solar</span>
+                            <span>8.0+ kWh/m²/day</span>
+                        </div>
+                        <div class="location-spec">
+                            <span>Significance</span>
+                            <span>African Debut</span>
+                        </div>
+                        <span class="location-status planned">Future</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="partner-strip" style="margin-top: 40px;">
+                <div class="partner-item">
+                    <div class="icon">🏎️</div>
+                    <div class="name">Porsche Design</div>
+                </div>
+                <div class="partner-item">
+                    <div class="icon">⚡</div>
+                    <div class="name">HYVEN Energy</div>
+                </div>
+                <div class="partner-item">
+                    <div class="icon">🇺🇸</div>
+                    <div class="name">GRTA Georgia</div>
+                </div>
+                <div class="partner-item">
+                    <div class="icon">🏁</div>
+                    <div class="name">PEC Atlanta</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 5: Marketing Value -->
+        <div class="slide">
+            <div class="section-header">
+                <div class="section-number">04 / Marketing Impact</div>
+                <h2 class="section-title">Global Visibility Platform</h2>
+                <p class="section-subtitle">More than a race — a movement</p>
+            </div>
+            
+            <div class="two-col">
+                <div class="card card-highlight">
+                    <h3>📺 Media & Brand</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--muted);">
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• 24-hour live global streaming</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• Documentary production rights</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• Social media viral potential</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• Tech media exclusives</li>
+                        <li style="padding: 10px 0;">• Automotive industry coverage</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🌍 Strategic Value</h3>
+                    <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--muted);">
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• HYVEN Energy global showcase</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• Porsche engineering validation</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• USA manufacturing proof point</li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">• GRTA partnership activation</li>
+                        <li style="padding: 10px 0;">• Government grant eligibility</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="stat-grid" style="margin-top: 40px;">
+                <div class="stat-item">
+                    <div class="stat-value">50M+</div>
+                    <div class="stat-label">Global Viewers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Hours Peak Sun</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Carbon Emissions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Marketing Value</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SLIDE 6: Call to Action -->
+        <div class="slide cta-slide">
+            <div class="section-header" style="text-align: center;">
+                <div class="section-number">05 / Join the Beam</div>
+                <h2 class="section-title">Partner With the Future</h2>
+            </div>
+            
+            <p style="font-size: 22px; color: var(--muted); line-height: 1.7; max-width: 700px; margin: 0 auto 50px;">
+                The HYVEN Perpetuum Mobility Challenge — THE HYVEN Infinite Race — isn't just an event. It's proof that sustainable, autonomous, infinite mobility is achievable today.
+            </p>
+            
+            <div class="three-col" style="max-width: 900px; margin: 0 auto;">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🏁</div>
+                    <h3>Host Cities</h3>
+                    <p style="margin-top: 10px;">Bring the Challenge to your iconic location</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📺</div>
+                    <h3>Media Partners</h3>
+                    <p style="margin-top: 10px;">Exclusive broadcast and content rights</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 15px;">🌱</div>
+                    <h3>Sustainability Partners</h3>
+                    <p style="margin-top: 10px;">Align with breakthrough clean technology</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 60px;">
+                <p style="font-size: 16px; color: var(--muted); margin-bottom: 15px;">Contact for Partnership Opportunities</p>
+                <p style="font-size: 28px; font-weight: 700; margin-bottom: 30px;">info@hyven.one</p>
+                <a href="mailto:info@hyven.one" class="cta-button">Start the Conversation</a>
+            </div>
+            
+            <div style="margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border);">
+                <p style="color: var(--muted); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
+                    HYVEN SpaceCab Competition Edition | Porsche-Engineered | USA-Built | Solar-Powered
+                </p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab Dubai Ad - Story Format</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --dubai-gold: #D4AF37;
+            --neon-cyan: #00f0ff;
+            --neon-magenta: #ff00a0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* Instagram Story Format - Vertical */
+        .ad-container {
+            width: 1080px;
+            height: 1920px;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 30%, #0a0a0f 70%, #000 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        /* Background - Dubai at Night */
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.8) 60%, rgba(0,0,0,0.95) 100%),
+                url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1080&q=80') center top/cover;
+            opacity: 0.5;
+        }
+        
+        /* Grid Overlay */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        
+        /* Top Bar */
+        .top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 60px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 36px;
+            font-weight: 800;
+        }
+        
+        .logo .hyven {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo .spacecab {
+            color: white;
+        }
+        
+        .badge {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 12px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .badge .dot {
+            width: 10px;
+            height: 10px;
+            background: #00f0ff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .badge span {
+            color: #00f0ff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        /* Main Content */
+        .content {
+            position: absolute;
+            top: 15%;
+            left: 0;
+            right: 0;
+            padding: 0 60px;
+            text-align: center;
+            z-index: 50;
+        }
+        
+        .headline {
+            font-size: 90px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 0 0 60px rgba(0, 240, 255, 0.3);
+        }
+        
+        .headline span {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subheadline {
+            font-size: 42px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .arabic-text {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 48px;
+            color: #D4AF37;
+            direction: rtl;
+            margin-bottom: 40px;
+        }
+        
+        /* Features Row */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 35px;
+            border-radius: 50px;
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature.highlight {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: rgba(0, 240, 255, 0.3);
+            color: #00f0ff;
+        }
+        
+        /* Vehicle Section */
+        .vehicle-section {
+            position: absolute;
+            top: 38%;
+            left: 0;
+            right: 0;
+            height: 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 30;
+        }
+        
+        .vehicle-container {
+            position: relative;
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .vehicle-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 30px 80px rgba(0, 240, 255, 0.5)) 
+                    drop-shadow(0 0 120px rgba(0, 240, 255, 0.3));
+            animation: float 5s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
+        }
+        
+        /* Vehicle glow behind */
+        .vehicle-glow {
+            position: absolute;
+            width: 120%;
+            height: 80%;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+            filter: blur(60px);
+            z-index: 5;
+        }
+        
+        /* Stats Cards */
+        .stats-section {
+            position: absolute;
+            bottom: 22%;
+            left: 0;
+            right: 0;
+            padding: 0 60px;
+            z-index: 60;
+        }
+        
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px 50px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
+        
+        .stat-value {
+            font-size: 56px;
+            font-weight: 800;
+            color: #00f0ff;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 0 60px;
+            text-align: center;
+            z-index: 70;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00f0ff 0%, #00a0ff 100%);
+            color: #0a0a0f;
+            padding: 35px 80px;
+            border-radius: 60px;
+            font-size: 42px;
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 50px rgba(0, 240, 255, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        .cta-subtext {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 28px;
+        }
+        
+        .cta-subtext strong {
+            color: #D4AF37;
+        }
+        
+        /* RTA Badge */
+        .rta-badge {
+            position: absolute;
+            top: 15%;
+            right: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 15px 25px;
+            border-radius: 12px;
+            text-align: center;
+            z-index: 80;
+        }
+        
+        .rta-badge .label {
+            color: rgba(212, 175, 55, 0.8);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .rta-badge .status {
+            color: #D4AF37;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* Export Note */
+        .export-note {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 1200px) {
+            .ad-container {
+                transform: scale(0.4);
+                transform-origin: top center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <!-- Background -->
+        <div class="bg-layer"></div>
+        <div class="grid-overlay"></div>
+        
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="logo">
+                <span class="hyven">HYVEN</span><span class="spacecab"> SpaceCab</span>
+            </div>
+            <div class="badge">
+                <div class="dot"></div>
+                <span>Now in Dubai</span>
+            </div>
+        </div>
+        
+        <!-- RTA Badge -->
+        <div class="rta-badge">
+            <div class="label">Approved by</div>
+            <div class="status">RTA DUBAI</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <h1 class="headline">Experience<br><span>The Future</span></h1>
+            <div class="subheadline">Dubai's First Self-Driving Taxi</div>
+            <div class="arabic-text">استمتع بالمستقبل اليوم</div>
+            
+            <div class="features">
+                <div class="feature">⚡ Zero Emissions</div>
+                <div class="feature highlight">🤖 Fully Autonomous</div>
+                <div class="feature">🌙 24/7 Service</div>
+            </div>
+        </div>
+        
+        <!-- Vehicle Section -->
+        <div class="vehicle-section">
+            <div class="vehicle-container">
+                <div class="vehicle-glow"></div>
+                <img src="/home/openclaw/.openclaw/media/inbound/file_6---b6b86eb3-a4da-42aa-bf86-54bd0a090f62.jpg" 
+                     alt="HYVEN SpaceCab" 
+                     class="vehicle-image">
+            </div>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">1.4m</div>
+                    <div class="stat-label">Ultra-Narrow</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Solar Range</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Emissions</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <a href="#" class="cta-button">Call Dubai Taxi Habibi 📞</a>
+            <div class="cta-subtext">Also on <strong>Careem</strong> & <strong>RTA App</strong></div>
+        </div>
+    </div>
+    
+    <div class="export-note">
+        📱 Instagram Story format (1080x1920px). Open in browser and screenshot at full size.
+    </div>
+</body>
+</html>

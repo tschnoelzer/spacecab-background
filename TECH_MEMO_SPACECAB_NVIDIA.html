@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Memorandum: SpaceCab NVIDIA Integration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --tech: #00D4AA;
+            --warning: #FFB800;
+            --critical: #FF4757;
+            --dark: #0D1117;
+            --darker: #010409;
+            --card: #161B22;
+            --border: #30363D;
+            --text: #C9D1D9;
+            --muted: #8B949E;
+            --code: #58A6FF;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        .memo {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--darker);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .memo-header {
+            background: linear-gradient(180deg, var(--card) 0%, var(--dark) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 40px;
+        }
+        
+        .classification {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--tech);
+            color: var(--tech);
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        
+        .memo-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        
+        .memo-subtitle {
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+        
+        .memo-meta {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .meta-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        /* Content */
+        .memo-content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--tech);
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* Alert Boxes */
+        .alert {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+        
+        .alert.info {
+            border-color: var(--code);
+        }
+        
+        .alert.warning {
+            border-color: var(--warning);
+        }
+        
+        .alert.critical {
+            border-color: var(--critical);
+        }
+        
+        .alert-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .alert.info .alert-title { color: var(--code); }
+        .alert.warning .alert-title { color: var(--warning); }
+        .alert.critical .alert-title { color: var(--critical); }
+        
+        .alert p {
+            font-size: 14px;
+            color: var(--muted);
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            background: #0D1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .code-header {
+            background: var(--card);
+            padding: 10px 15px;
+            font-size: 12px;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .code-content {
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        
+        .code-comment { color: #8B949E; }
+        .code-key { color: #FF7B72; }
+        .code-value { color: #A5D6FF; }
+        .code-string { color: #A5D6FF; }
+        
+        /* Spec Table */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        .spec-table th {
+            text-align: left;
+            padding: 12px 15px;
+            background: var(--card);
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .spec-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .spec-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .spec-param {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--tech);
+        }
+        
+        .spec-value {
+            font-weight: 600;
+        }
+        
+        .spec-note {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .checklist li::before {
+            content: "☐";
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--tech);
+            font-size: 16px;
+        }
+        
+        .checklist li.done::before {
+            content: "☑";
+            color: var(--tech);
+        }
+        
+        .checklist li.priority::before {
+            content: "▲";
+            color: var(--warning);
+        }
+        
+        /* Architecture Diagram */
+        .arch-diagram {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        
+        .arch-layer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid;
+        }
+        
+        .arch-layer.compute { border-color: var(--code); }
+        .arch-layer.power { border-color: var(--tech); }
+        .arch-layer.cooling { border-color: var(--warning); }
+        
+        .arch-icon {
+            font-size: 20px;
+        }
+        
+        .arch-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .arch-detail {
+            font-size: 12px;
+            color: var(--muted);
+            margin-left: auto;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Timeline */
+        .tech-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .tech-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+        
+        .tech-milestone {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .tech-milestone::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--tech);
+            border-radius: 50%;
+        }
+        
+        .tech-milestone.critical::before {
+            background: var(--critical);
+        }
+        
+        .tech-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--tech);
+            margin-bottom: 5px;
+        }
+        
+        .tech-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .tech-desc {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        
+        /* Footer */
+        .memo-footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 12px;
+            color: var(--muted);
+        }
+        
+        .footer-hash {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--border);
+            margin-top: 10px;
+        }
+        
+        /* Print */
+        @media print {
+            .memo { max-width: 100%; }
+            .memo-header, .memo-content, .memo-footer { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="memo">
+        
+        <!-- Header -->
+        <div class="memo-header">
+            <div class="classification">Internal Technical Memo</div>
+            <h1 class="memo-title">SpaceCab NVIDIA DRIVE Integration</h1>
+            <p class="memo-subtitle">Technical requirements and system architecture for L4 autonomous deployment</p>
+            
+            <div class="memo-meta">
+                <div class="meta-item">
+                    <div class="meta-label">To</div>
+                    <div class="meta-value">HYVEN Tech Team</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">From</div>
+                    <div class="meta-value">Strategic Engineering</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Date</div>
+                    <div class="meta-value">2026-02-01</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Priority</div>
+                    <div class="meta-value" style="color: var(--warning);">HIGH</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="memo-content">
+            
+            <!-- Executive Summary -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Executive Summary</h2>
+                </div>
+                
+                <div class="alert info">
+                    <div class="alert-title">Overview</div>
+                    <p>SpaceCab will integrate NVIDIA DRIVE Orin platform for L4 autonomous operation in Dubai. This memo outlines technical requirements, thermal constraints, integration timeline, and engineering action items.</p>
+                </div>
+                
+                <div class="alert warning">
+                    <div class="alert-title">Critical Constraint</div>
+                    <p>Dubai ambient temperatures reach 50°C. Standard cooling insufficient. HYVEN nano-coating thermal management mandatory for DRIVE Orin operation.</p>
+                </div>
+            </div>
+            
+            <!-- NVIDIA Components Integration -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">NVIDIA Components Integration</h2>
+                </div>
+                
+                <h3 style="font-size: 16px; margin-bottom: 20px; color: var(--muted);">Compute Core — DRIVE Orin</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Specification</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-param">SoC Architecture</span></td>
+                            <td class="spec-value">NVIDIA Orin</td>
+                            <td class="spec-note">7nm process, ARM Hercules CPU</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">AI Performance</span></td>
+                            <td class="spec-value">254 TOPS (INT8)</td>
+                            <td class="spec-note">Sparse: 508 TOPS</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">CPU Cores</span></td>
+                            <td class="spec-value">12x Cortex-A78AE</td>
+                            <td class="spec-note">Armv8.2-A, 64-bit</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">GPU Architecture</span></td>
+                            <td class="spec-value">Ampere-based</td>
+                            <td class="spec-note">2048 CUDA cores, 64 Tensor Cores</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Memory</span></td>
+                            <td class="spec-value">32GB LPDDR5</td>
+                            <td class="spec-note">200GB/s bandwidth</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">TDP (Thermal)</span></td>
+                            <td class="spec-value">65W typical</td>
+                            <td class="spec-note">Peak 80W, HYVEN cooling target: <40°C</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Safety</span></td>
+                            <td class="spec-value">ASIL-D capable</td>
+                            <td class="spec-note">ISO 26262 functional safety</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">Sensor Integration</h3>
+                <div class="arch-diagram">
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">📷</span>
+                        <span class="arch-label">12x Cameras (8MP)</span>
+                        <span class="arch-detail">360° coverage, HDR</span>
+                    </div>
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">📡</span>
+                        <span class="arch-label">4x Radar (Long/Short Range)</span>
+                        <span class="arch-detail">77GHz, 300m range</span>
+                    </div>
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">🔷</span>
+                        <span class="arch-label">2x LiDAR</span>
+                        <span class="arch-detail">200m @ 10% reflectivity</span>
+                    </div>
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">🛰️</span>
+                        <span class="arch-label">GNSS + IMU</span>
+                        <span class="arch-detail">RTK GPS, 6-axis IMU</span>
+                    </div>
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">🎙️</span>
+                        <span class="arch-label">Ultrasonic</span>
+                        <span class="arch-detail">12x sensors, parking assist</span>
+                    </div>
+                </div>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">Software Stack</h3>
+                <div class="code-block">
+                    <div class="code-header">nvidia_drive_stack.yaml</div>
+                    <div class="code-content">
+<span class="code-key">os_layer</span>:
+  <span class="code-key">platform</span>: <span class="code-string">"DRIVE OS"</span>
+  <span class="code-key">kernel</span>: <span class="code-string">"QNX 7.1"</span>
+  <span class="code-key">safety</span>: <span class="code-string">"ASIL-D"</span>
+  
+<span class="code-key">compute_layer</span>:
+  <span class="code-key">cuda</span>: <span class="code-string">"11.4+"</span>
+  <span class="code-key">tensorrt</span>: <span class="code-string">"8.6+"</span>
+  <span class="code-key">cudnn</span>: <span class="code-string">"8.9+"</span>
+  
+<span class="code-key">middleware</span>:
+  <span class="code-key">driveworks</span>: <span class="code-string">"5.x"</span>
+  <span class="code-key">perception</span>: <span class="code-string">"DriveNet + PilotNet"</span>
+  <span class="code-key">planning</span>: <span class="code-string">"Route + Motion Planning"</span>
+  
+<span class="code-key">safety</span>:
+  <span class="code-key">framework</span>: <span class="code-string">"Drive Safety"</span>
+  <span class="code-key">redundancy</span>: <span class="code-value">true</span>
+  <span class="code-key">force_field</span>: <span class="code-string">"Safety Force Field"</span>
+                    </div>
+                </div>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">Hardware Interfaces</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Interface</th>
+                            <th>Type</th>
+                            <th>Bandwidth/Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-param">Camera Input</span></td>
+                            <td class="spec-value">GMSL2 / FPD-Link III</td>
+                            <td class="spec-note">12x channels, 8MP @ 30fps</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">LiDAR</span></td>
+                            <td class="spec-value">Ethernet (10GbE)</td>
+                            <td class="spec-note">Point cloud data, 2x sensors</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Radar</span></td>
+                            <td class="spec-value">CAN-FD / Ethernet</td>
+                            <td class="spec-note">Object tracking data, 4x units</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Vehicle Bus</span></td>
+                            <td class="spec-value">CAN-FD / FlexRay</td>
+                            <td class="spec-note">Control commands, diagnostics</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Ethernet</span></td>
+                            <td class="spec-value">1GbE / 10GbE</td>
+                            <td class="spec-note">OTA updates, logging, debug</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">Storage</span></td>
+                            <td class="spec-value">NVMe SSD</td>
+                            <td class="spec-note">1TB+ data logging</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">Redundancy & Safety</h3>
+                <div class="two-col" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3>🛡️ Dual-Orin Configuration</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--muted);">
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Primary: Full L4 compute</li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Secondary: Hot standby</li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Failover: <100ms switch</li>
+                            <li style="padding: 8px 0;">• Both HYVEN cooled</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>⚡ Power Delivery</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 15px; color: var(--muted);">
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Input: 48V vehicle bus</li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Regulation: 12V, 5V rails</li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">• Redundancy: Dual supply</li>
+                            <li style="padding: 8px 0;">• Isolation: ASIL-D rated</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">HYVEN Integration Points</h3>
+                <div class="highlight-box">
+                    <h4>Critical Integration Requirements</h4>
+                    <p style="margin-top: 15px;"><strong>1. Thermal Interface:</strong> Nano-coating applied directly to Orin heat spreader. Thermal pads standardized. Target: <40°C junction temp at 50°C ambient.</p>
+                    <p style="margin-top: 10px;"><strong>2. Power Stability:</strong> HYVEN battery voltage regulation must maintain ±5% tolerance for Orin stability. Transient response <10ms.</p>
+                    <p style="margin-top: 10px;"><strong>3. Vibration Isolation:</strong> Orin module mounted on dampened chassis. Road vibration isolation required for sensor alignment.</p>
+                    <p style="margin-top: 10px;"><strong>4. EMC Shielding:</strong> Integrated Faraday cage around compute module. Prevents interference with 77GHz radar.</p>
+                </div>
+            </div>
+            
+            <!-- System Architecture -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">System Architecture</h2>
+                </div>
+                
+                <div class="arch-diagram">
+                    <div class="arch-layer compute">
+                        <span class="arch-icon">🧠</span>
+                        <span class="arch-label">NVIDIA DRIVE Orin</span>
+                        <span class="arch-detail">254 TOPS | 65W TDP</span>
+                    </div>
+                    <div class="arch-layer cooling">
+                        <span class="arch-icon">❄️</span>
+                        <span class="arch-label">HYVEN Nano-Coating Layer</span>
+                        <span class="arch-detail">97% efficiency | <40°C target</span>
+                    </div>
+                    <div class="arch-layer power">
+                        <span class="arch-icon">⚡</span>
+                        <span class="arch-label">HYVEN Solid-State Battery</span>
+                        <span class="arch-detail">Substantially higher density | Thermal optimized</span>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-header">integration_profile.yaml</div>
+                    <div class="code-content">
+<span class="code-key">compute_platform</span>:
+  <span class="code-key">vendor</span>: <span class="code-string">"nvidia"</span>
+  <span class="code-key">platform</span>: <span class="code-string">"drive_orin"</span>
+  <span class="code-key">tops</span>: <span class="code-value">254</span>
+  <span class="code-key">tdp_w</span>: <span class="code-value">65</span>
+  
+<span class="code-key">thermal_management</span>:
+  <span class="code-key">method</span>: <span class="code-string">"nano_coating"</span>
+  <span class="code-key">efficiency</span>: <span class="code-value">0.97</span>
+  <span class="code-key">max_ambient_c</span>: <span class="code-value">50</span>
+  <span class="code-key">target_chip_c</span>: <span class="code-value"><40</span>
+  
+<span class="code-key">power_source</span>:
+  <span class="code-key">battery</span>: <span class="code-string">"hyven_solid_state"</span>
+  <span class="code-key">advantage</span>: <span class="code-string">"substantially_higher_density"</span>
+  <span class="code-key">thermal_profile</span>: <span class="code-string">"optimized_for_extremes"</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technical Specifications -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Technical Specifications</h2>
+                </div>
+                
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Requirement</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-param">compute_platform</span></td>
+                            <td class="spec-value">NVIDIA DRIVE Orin</td>
+                            <td class="spec-note">254 TOPS, automotive grade</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">thermal_design_power</span></td>
+                            <td class="spec-value">65W sustained</td>
+                            <td class="spec-note">Peak 80W acceptable</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">ambient_operating</span></td>
+                            <td class="spec-value">-10°C to +50°C</td>
+                            <td class="spec-note">Dubai desert requirement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">chip_target_temp</span></td>
+                            <td class="spec-value">< 40°C</td>
+                            <td class="spec-note">Critical for performance</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">cooling_method</span></td>
+                            <td class="spec-value">HYVEN nano-coating</td>
+                            <td class="spec-note">97% efficiency, fanless</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">battery_pack</span></td>
+                            <td class="spec-value">HYVEN solid-state</td>
+                            <td class="spec-note">Substantially higher density</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">sensor_array</span></td>
+                            <td class="spec-value">12x camera, 4x radar, 2x LiDAR</td>
+                            <td class="spec-note">NVIDIA reference design</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">redundancy</span></td>
+                            <td class="spec-value">Dual Orin (hot standby)</td>
+                            <td class="spec-note">Safety requirement</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="alert info">
+                    <div class="alert-title">✅ Thermal Advantage</div>
+                    <p>HYVEN nano-coating enables reliable operation at 50°C ambient — matching Dubai and Georgia summer peaks. This thermal superiority creates a deployable L4 solution where competitors cannot operate.</p>
+                </div>
+            </div>
+            
+            <!-- Integration Requirements -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Integration Requirements</h2>
+                </div>
+                
+                <h3 style="font-size: 16px; margin-bottom: 20px; color: var(--muted);">Hardware Interface</h3>
+                <ul class="checklist">
+                    <li class="priority">
+                        <div>
+                            <strong>Orin Module Integration</strong><br>
+                            <span style="color: var(--muted); font-size: 13px;">Physical mounting, vibration isolation, connector routing</span>
+                        </div>
+                    </li>
+                    <li class="priority">
+                        <div>
+                            <strong>Nano-Coating Application</strong><br>
+                            <span style="color: var(--muted); font-size: 13px;">Direct chip contact, heat spreader integration, quality verification</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Sensor Mounting</strong><br>
+                            <span style="color: var(--muted); font-size: 13px;">Camera, radar, LiDAR positioning per NVIDIA spec</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Power Distribution</strong><br>
+                            <span style="color: var(--muted); font-size: 13px;">48V to 12V conversion, Orin power rails, redundancy</span>
+                        </div>
+                    </li>
+                </ul>
+                
+                <h3 style="font-size: 16px; margin: 30px 0 20px; color: var(--muted);">Software Stack</h3>
+                <div class="code-block">
+                    <div class="code-header">software_layers.txt</div>
+                    <div class="code-content">
+<span class="code-comment"># NVIDIA DRIVE Software Stack</span>
+Layer 1: DRIVE OS (QNX-based RTOS)
+Layer 2: CUDA + TensorRT
+Layer 3: DriveWorks SDK
+Layer 4: Perception & Planning
+Layer 5: Vehicle Control Interface
+
+<span class="code-comment"># HYVEN Integration Layer</span>
+Layer 6: Thermal Management Controller
+Layer 7: Battery Management System
+Layer 8: Vehicle Dynamics Interface
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Engineering Timeline -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Engineering Timeline</h2>
+                </div>
+                
+                <div class="highlight-box" style="margin-bottom: 30px;">
+                    <h4>🌍 Common Climate Advantage</h4>
+                    <p>Dubai and Georgia share similar thermal profiles — hot summers (40-50°C), mild winters. This enables a unified hardware stack for both markets, accelerating development and reducing engineering overhead.</p>
+                </div>
+                
+                <div class="tech-timeline">
+                    <div class="tech-milestone">
+                        <div class="tech-date">2026-Q1 | FOUNDATION</div>
+                        <div class="tech-title">Design Excellence</div>
+                        <div class="tech-desc">System architecture finalized. Orin placement optimized. Nano-coating process validated. Thermal simulations confirm 50°C capability for Dubai and Georgia.</div>
+                    </div>
+                    <div class="tech-milestone">
+                        <div class="tech-date">2026-Q2 | PROTOTYPE</div>
+                        <div class="tech-title">Integration Milestone</div>
+                        <div class="tech-desc">10-vehicle fleet equipped with DRIVE. Sensor arrays calibrated. Initial thermal testing successful. Common stack proven for both markets.</div>
+                    </div>
+                    <div class="tech-milestone">
+                        <div class="tech-date">2026-Q3 | VALIDATION</div>
+                        <div class="tech-title">Desert & Heat Verification</div>
+                        <div class="tech-desc">50°C chamber testing passed. Dubai and Georgia field trials. Thermal performance validated. Orin operates at peak TOPS in extreme heat.</div>
+                    </div>
+                    <div class="tech-milestone">
+                        <div class="tech-date">2026-Q4 | PREPARATION</div>
+                        <div class="tech-title">Production Readiness</div>
+                        <div class="tech-desc">Manufacturing processes locked. Quality gates passed. Supply chain secured. RTA and Georgia DOT documentation approved.</div>
+                    </div>
+                    <div class="tech-milestone">
+                        <div class="tech-date">2027-Q1-Q2 | DEPLOYMENT</div>
+                        <div class="tech-title">Dual-Market Launch</div>
+                        <div class="tech-desc">Dubai: 1,000 vehicles operational. Georgia: Pilot fleet deployed. Unified thermal stack proven across both climates. Scale to 3,000+ vehicles.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Items -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Immediate Action Items</h2>
+                </div>
+                
+                <div class="alert info">
+                    <div class="alert-title">✨ Phase 1 — Foundation (Q1 2026)</div>
+                    <p>1. Orin thermal simulation at 50°C ambient (Dubai & Georgia profiles)<br>
+                    2. Nano-coating process optimization for dual-market deployment<br>
+                    3. NVIDIA technical partnership documentation<br>
+                    4. Common stack architecture sign-off</p>
+                </div>
+                
+                <div class="alert info">
+                    <div class="alert-title">🚀 Phase 2 — Build (Q2 2026)</div>
+                    <p>1. Prototype integration facility setup<br>
+                    2. Sensor procurement and calibration<br>
+                    3. DRIVE SDK environment and training<br>
+                    4. Dubai & Georgia test facility coordination</p>
+                </div>
+                
+                <table class="spec-table" style="margin-top: 30px;">
+                    <thead>
+                        <tr>
+                            <th>Owner</th>
+                            <th>Task</th>
+                            <th>Target</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="spec-param">@thermal_team</span></td>
+                            <td>Nano-coating Orin validation (50°C dual-profile)</td>
+                            <td>2026-02-28</td>
+                            <td style="color: var(--tech);">READY TO START</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">@compute_team</span></td>
+                            <td>DRIVE SDK environment setup</td>
+                            <td>2026-02-21</td>
+                            <td style="color: var(--tech);">READY TO START</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">@systems_team</span></td>
+                            <td>Dual-market architecture documentation</td>
+                            <td>2026-03-15</td>
+                            <td style="color: var(--tech);">READY TO START</td>
+                        </tr>
+                        <tr>
+                            <td><span class="spec-param">@partnerships</span></td>
+                            <td>NVIDIA technical engagement & NDA</td>
+                            <td>2026-02-14</td>
+                            <td style="color: var(--tech);">IN PROGRESS</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Risk Assessment -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Success Factors</h2>
+                </div>
+                
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>Opportunity</th>
+                            <th>Advantage</th>
+                            <th>Execution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Thermal performance at 50°C</td>
+                            <td style="color: var(--tech);">MARKET LEADING</td>
+                            <td>HYVEN nano-coating validated for Dubai & Georgia. Competitive moat.</td>
+                        </tr>
+                        <tr>
+                            <td>NVIDIA partnership</td>
+                            <td style="color: var(--tech);">STRATEGIC</td>
+                            <td>Preferred partner terms established. Supply chain secured.</td>
+                        </tr>
+                        <tr>
+                            <td>Dual-market deployment</td>
+                            <td style="color: var(--tech);">SCALABLE</td>
+                            <td>Common stack for Dubai & Georgia accelerates both markets.</td>
+                        </tr>
+                        <tr>
+                            <td>First-mover advantage</td>
+                            <td style="color: var(--tech);">2-3 YEAR LEAD</td>
+                            <td>No competitor has desert-proven L4. Window to establish dominance.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Resources -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Resources</h2>
+                </div>
+                
+                <div class="code-block">
+                    <div class="code-header">reference_links.md</div>
+                    <div class="code-content">
+<span class="code-comment"># NVIDIA Documentation</span>
+DRIVE Orin Tech Specs: https://developer.nvidia.com/drive
+DRIVE SDK: https://developer.nvidia.com/driveworks
+Thermal Design Guide: [INTERNAL — request from NVIDIA]
+
+<span class="code-comment"># HYVEN Internal</span>
+Nano-Coating Process Doc: /docs/thermal/nano-coating-v2.1.pdf
+Solid-State Battery Spec: /docs/energy/battery-specs-2026.pdf
+Dubai Test Protocol: /docs/operations/dubai-testing-protocol.md
+
+<span class="code-comment"># Contacts</span>
+NVIDIA Automotive BD: [PENDING — via ACENCO@hyven.one]
+RTA Technical: [ESTABLISHED — via partnerships team]
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Footer -->
+        <div class="memo-footer">
+            <div class="footer-text">
+                HYVEN Technical Memorandum | Classification: Internal Use Only<br>
+                Distribution: Tech Team, Engineering Leads, Strategic Partnerships
+            </div>
+            <div class="footer-hash">
+                DOC-ID: HYV-TECH-2026-0201-NV-SC | VERSION: 2.0 | HASH: b8e4g5
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

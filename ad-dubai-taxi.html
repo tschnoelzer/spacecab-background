@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab Dubai Ad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --dubai-gold: #D4AF37;
+            --neon-cyan: #00f0ff;
+            --neon-magenta: #ff00a0;
+            --dark: #0a0a0f;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* Instagram Square Format */
+        .ad-container {
+            width: 1080px;
+            height: 1080px;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        /* Dubai Skyline Background */
+        .skyline-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%),
+                        url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80') center bottom/cover;
+            opacity: 0.6;
+        }
+        
+        /* Neon Grid Overlay */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Vehicle Image Area */
+        .vehicle-area {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .vehicle-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 60px rgba(0, 240, 255, 0.4)) 
+                    drop-shadow(0 0 100px rgba(0, 240, 255, 0.2));
+            animation: vehicleFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes vehicleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Vehicle reflection effect */
+        .vehicle-reflection {
+            position: absolute;
+            bottom: -20%;
+            left: 50%;
+            transform: translateX(-50%) scaleY(-0.3);
+            width: 70%;
+            height: 40%;
+            opacity: 0.3;
+            filter: blur(4px);
+            pointer-events: none;
+        }
+        
+        /* Glow Effect for Vehicle */
+        .vehicle-glow {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 50%;
+            background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        /* Top Badge */
+        .top-badge {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 8px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .top-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #00f0ff;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .top-badge span {
+            color: #00f0ff;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* Main Headline */
+        .headline {
+            position: absolute;
+            top: 12%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 0 60px;
+        }
+        
+        .headline h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            text-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+        }
+        
+        .headline h1 span {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .headline .subheadline {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            margin-top: 10px;
+        }
+        
+        /* Arabic Text */
+        .arabic-text {
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 28px;
+            color: #D4AF37;
+            margin-top: 15px;
+            direction: rtl;
+        }
+        
+        /* Feature Pills */
+        .features {
+            position: absolute;
+            top: 35%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 40px;
+        }
+        
+        .feature-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-pill.highlight {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: rgba(0, 240, 255, 0.3);
+            color: #00f0ff;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 0 60px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00f0ff 0%, #00a0ff 100%);
+            color: #0a0a0f;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 28px;
+            font-weight: 800;
+            text-decoration: none;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
+            transition: transform 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .cta-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+        }
+        
+        .cta-subtext strong {
+            color: #D4AF37;
+            font-weight: 700;
+        }
+        
+        /* Logo Area */
+        .logo-area {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        
+        .logo-text .hyven {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-text .spacecab {
+            color: white;
+        }
+        
+        /* RTA Badge */
+        .rta-badge {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .rta-badge .label {
+            color: rgba(212, 175, 55, 0.8);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .rta-badge .status {
+            color: #D4AF37;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        /* Specs Bar */
+        .specs-bar {
+            position: absolute;
+            bottom: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .spec-item {
+            text-align: center;
+        }
+        
+        .spec-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #00f0ff;
+        }
+        
+        .spec-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Print/Export Note */
+        .export-note {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        /* Responsive for preview */
+        @media (max-width: 1120px) {
+            .ad-container {
+                transform: scale(0.5);
+                transform-origin: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <!-- Grid Overlay -->
+        <div class="grid-overlay"></div>
+        
+        <!-- Background -->
+        <div class="skyline-bg"></div>
+        
+        <!-- Vehicle Glow -->
+        <div class="vehicle-glow"></div>
+        
+        <!-- Logo -->
+        <div class="logo-area">
+            <div class="logo-text">
+                <span class="hyven">HYVEN</span><span class="spacecab"> SpaceCab</span>
+            </div>
+        </div>
+        
+        <!-- RTA Badge -->
+        <div class="rta-badge">
+            <div class="label">Approved by</div>
+            <div class="status">RTA DUBAI</div>
+        </div>
+        
+        <!-- Top Badge -->
+        <div class="top-badge">
+            <div class="dot"></div>
+            <span>Now Available</span>
+        </div>
+        
+        <!-- Headline -->
+        <div class="headline">
+            <h1>Experience the<br><span>Future Today</span></h1>
+            <div class="subheadline">Dubai's First Self-Driving Taxi</div>
+            <div class="arabic-text">استمتع بالمستقبل اليوم</div>
+        </div>
+        
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-pill">⚡ Zero Emissions</div>
+            <div class="feature-pill highlight">🤖 Autonomous</div>
+            <div class="feature-pill">🌙 24/7 Service</div>
+        </div>
+        
+        <!-- Vehicle Image -->
+        <div class="vehicle-area">
+            <img src="/home/openclaw/.openclaw/media/inbound/file_5---a4a00e85-0db2-46a3-9634-014b6874f9eb.jpg" 
+                 alt="HYVEN SpaceCab" 
+                 class="vehicle-image">
+        </div>
+        
+        <!-- Vehicle Reflection -->
+        <img src="/home/openclaw/.openclaw/media/inbound/file_5---a4a00e85-0db2-46a3-9634-014b6874f9eb.jpg" 
+             alt="" 
+             class="vehicle-reflection">
+        
+        <!-- Specs Bar -->
+        <div class="specs-bar">
+            <div class="spec-item">
+                <div class="spec-value">1.4m</div>
+                <div class="spec-label">Narrow Design</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">∞</div>
+                <div class="spec-label">Range</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">0</div>
+                <div class="spec-label">Emissions</div>
+            </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="cta-section">
+            <a href="#" class="cta-button">Call Dubai Taxi Habibi</a>
+            <div class="cta-subtext">Or book on <strong>Careem</strong> & <strong>RTA App</strong></div>
+        </div>
+    </div>
+    
+    <div class="export-note">
+        ✅ SpaceCab photo integrated! Open this HTML file in browser to view. Screenshot or use browser dev tools to export as PNG.
+    </div>
+</body>
+</html>

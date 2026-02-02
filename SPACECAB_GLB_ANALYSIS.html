@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN SpaceCab — GLB 3D Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --border: #2A2A3A;
+            --text: #E6E6F0;
+            --text-dim: #8B8B9E;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--energy);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+        .badge span {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--energy);
+        }
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .tab:hover, .tab.active {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            border-color: transparent;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+        }
+        .card h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .dim-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .dim-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, transparent 100%);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        .dim-card .value {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--energy);
+            line-height: 1;
+        }
+        .dim-card .unit {
+            font-size: 16px;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+        .dim-card .label {
+            font-size: 13px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .stats-table th {
+            text-align: left;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 2px solid var(--border);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+        .stats-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .stats-table .highlight {
+            color: var(--solar);
+            font-weight: 600;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            color: var(--text-dim);
+            font-size: 13px;
+        }
+        @media (max-width: 900px) {
+            .dim-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="badge">
+                <span>GLB Analysis</span>
+            </div>
+            <h1>HYVEN SpaceCab<br><span class="gradient">3D Technical Analysis</span></h1>
+            <p class="subtitle">Based on GLB Export — 89 Nodes, 69 Meshes, 14 Materials</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showSection('overview')">📊 Overview</div>
+            <div class="tab" onclick="showSection('dimensions')">📐 Dimensions</div>
+            <div class="tab" onclick="showSection('materials')">🎨 Materials</div>
+            <div class="tab" onclick="showSection('components')">🔧 Components</div>
+        </div>
+        
+        <div id="overview" class="content-section active">
+            <div class="card">
+                <h2>📁 File Information</h2>
+                <table class="stats-table">
+                    <tr><td>Format</td><td class="highlight">GLB 2.0 (Khronos)</td></tr>
+                    <tr><td>Generator</td><td class="highlight">Blender I/O v5.0.21</td></tr>
+                    <tr><td>File Size</td><td class="highlight">9.74 MB</td></tr>
+                    <tr><td>Compression</td><td class="highlight">Draco (KHR_draco_mesh_compression)</td></tr>
+                    <tr><td>Nodes</td><td class="highlight">89 objects</td></tr>
+                    <tr><td>Meshes</td><td class="highlight">69 mesh groups</td></tr>
+                    <tr><td>Materials</td><td class="highlight">14 PBR materials</td></tr>
+                    <tr><td>Textures</td><td class="highlight">8 textures (WebP)</td></tr>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h2>⚡ Advanced Features</h2>
+                <table class="stats-table">
+                    <tr><th>Extension</th><th>Purpose</th></tr>
+                    <tr><td>KHR_draco_mesh_compression</td><td>High compression for geometry</td></tr>
+                    <tr><td>KHR_materials_clearcoat</td><td>Automotive paint finish</td></tr>
+                    <tr><td>KHR_materials_specular</td><td>Realistic reflections</td></tr>
+                    <tr><td>KHR_materials_ior</td><td>Glass/refraction accuracy</td></tr>
+                    <tr><td>KHR_materials_sheen</td><td>Fabric/velvet interior</td></tr>
+                    <tr><td>EXT_texture_webp</td><td>Efficient texture compression</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="dimensions" class="content-section">
+            <div class="card">
+                <h2>📐 Scene Bounds (Raw Units)</h2>
+                <div class="dim-grid">
+                    <div class="dim-card">
+                        <div class="value">40</div>
+                        <div class="unit">units</div>
+                        <div class="label">Width (X)</div>
+                    </div>
+                    <div class="dim-card">
+                        <div class="value">30</div>
+                        <div class="unit">units</div>
+                        <div class="label">Height (Y)</div>
+                    </div>
+                    <div class="dim-card">
+                        <div class="value">40</div>
+                        <div class="unit">units</div>
+                        <div class="label">Depth (Z)</div>
+                    </div>
+                </div>
+                <p style="color: var(--text-dim); font-size: 14px;">
+                    <strong>Note:</strong> Body components use scale factor of 0.01, suggesting cm→m conversion.
+                    Solar panel objects positioned at ±71 units with 3x scale.
+                </p>
+            </div>
+            
+            <div class="card">
+                <h2>🚗 Vehicle Positioning Analysis</h2>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th>Object</th><th>Position (X, Y, Z)</th><th>Scale</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Body43</td><td>(0.08, 0.60, 0.00)</td><td>0.01</td></tr>
+                        <tr><td>Body44</td><td>(0.08, 0.60, 0.00)</td><td>0.01</td></tr>
+                        <tr><td>Body51</td><td>(-0.08, 0.60, 0.00)</td><td>0.01</td></tr>
+                        <tr><td>Body52</td><td>(-0.58, 0.25, -0.02)</td><td>0.01</td></tr>
+                    </tbody>
+                </table>
+                <p style="color: var(--text-dim); font-size: 14px; margin-top: 20px;">
+                    Multiple body shells detected — possible pair configuration or variant designs.
+                </p>
+            </div>
+            
+            <div class="card">
+                <h2>☀️ Solar Panel Positioning</h2>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th>Panel</th><th>Position</th><th>Scale</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>solaractive</td><td>(69.80, 15.29, -60.92)</td><td>(3.01, 7.26, 3.01)</td></tr>
+                        <tr><td>solaractive.001</td><td>(-71.77, 15.29, 61.03)</td><td>(3.01, 7.26, 3.01)</td></tr>
+                    </tbody>
+                </table>
+                <p style="color: var(--text-dim); font-size: 14px; margin-top: 20px;">
+                    Two solar panel arrays positioned symmetrically for dual-vehicle configuration.
+                </p>
+            </div>
+        </div>
+        
+        <div id="materials" class="content-section">
+            <div class="card">
+                <h2>🎨 PBR Material Library (14 Materials)</h2>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th>Material</th><th>Type</th><th>Application</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="highlight">Car Paint</td><td>PBR + Clearcoat</td><td>Exterior body finish</td></tr>
+                        <tr><td class="highlight">Carbon Fiber</td><td>PBR (Roughness 0.3)</td><td>Structural components</td></tr>
+                        <tr><td class="highlight">Car windshield glass</td><td>PBR + IOR 1.45</td><td>Front/rear glazing</td></tr>
+                        <tr><td class="highlight">solaractive</td><td>Textured PBR</td><td>Solar panel surfaces</td></tr>
+                        <tr><td class="highlight">Automotive led lights</td><td>Emissive</td><td>Headlights/taillights</td></tr>
+                        <tr><td class="highlight">XID_LEDGreen</td><td>Emissive + Clearcoat</td><td>Status indicators</td></tr>
+                        <tr><td class="highlight">Rubber Black</td><td>PBR (IOR 1.45)</td><td>Tires/seals</td></tr>
+                        <tr><td class="highlight">Velvet / Velvet_Dark</td><td>PBR + Sheen</td><td>Interior upholstery</td></tr>
+                        <tr><td class="highlight">SEAMS</td><td>PBR</td><td>Panel joints</td></tr>
+                        <tr><td class="highlight">White Marble Tiles</td><td>Textured PBR</td><td>Environment/display</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h2>🖼️ Texture Mapping</h2>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th>Texture</th><th>Format</th><th>Usage</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>output-onlinepngtools (21)</td><td>WebP/PNG</td><td>Right side decal</td></tr>
+                        <tr><td>output-onlinepngtools (22)</td><td>WebP/PNG</td><td>Left side decal</td></tr>
+                        <tr><td>solaractive.png</td><td>WebP/PNG</td><td>Solar panel texture</td></tr>
+                        <tr><td>Velvet Mix</td><td>JPEG</td><td>Interior fabric</td></tr>
+                        <tr><td>White Marble Tiles</td><td>JPEG/WebP</td><td>Normal + Roughness</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div id="components" class="content-section">
+            <div class="card">
+                <h2>🔧 Major Component Groups</h2>
+                <table class="stats-table">
+                    <thead>
+                        <tr><th>Category</th><th>Objects</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Body Shells</td><td>Body25, Body26, Body30, Body31, Body37, Body43, Body44, Body50, Body51, Body52</td></tr>
+                        <tr><td>Wheels</td><td>wheel_rear, wheel_rear.002 (×10 wheel variants)</td></tr>
+                        <tr><td>Windows</td><td>window_front, window_rear, window_right_front, windowright_rear, windowleft_rear</td></tr>
+                        <tr><td>Door Frames</td><td>door_frame_left_front, door_frame_right_front, door_frame_left_rear, door_frame_right_rear</td></tr>
+                        <tr><td>Solar Panels</td><td>solaractive, solaractive.001</td></tr>
+                        <tr><td>Controllers</td><td>door controller, gear controller, controller.001</td></tr>
+                        <tr><td>Environment</td><td>base_bottom, center, deck_front, deck_rear</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card">
+                <h2>⚙️ Technical Observations</h2>
+                <ul style="list-style: none; line-height: 2; color: var(--text-dim);">
+                    <li>✓ <strong style="color: var(--text);">Draco compression:</strong> Reduces file size by ~80% vs uncompressed</li>
+                    <li>✓ <strong style="color: var(--text);">WebP textures:</strong> Modern efficient format for web delivery</li>
+                    <li>✓ <strong style="color: var(--text);">Clearcoat shader:</strong> Enables realistic automotive paint</li>
+                    <li>✓ <strong style="color: var(--text);">Sheen shader:</strong> Accurate velvet/fabric interior rendering</li>
+                    <li>⚠ <strong style="color: var(--text);">Multiple bodies:</strong> Scene contains 4+ body shells — verify configuration</li>
+                    <li>⚠ <strong style="color: var(--text);">Scale inconsistency:</strong> Some objects at 0.01, others at 10.0 scale</li>
+                    <li>ℹ <strong style="color: var(--text);">Environment included:</strong> Base/plane objects suggest showroom setup</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>HYVEN SpaceCab</strong> — GLB Technical Analysis</p>
+            <p>Source: SpaceCab GLB Export | 89 Nodes | 69 Meshes | 14 Materials | Draco Compressed</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
