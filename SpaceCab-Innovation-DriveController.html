@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab CommandStick™ — Complete Innovation Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --neon: #00F0FF;
+            --danger: #FF5252;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --card-light: #1A1A24;
+            --border: #2A2A3A;
+            --text: #E6E6F0;
+            --text-dim: #8B8B9E;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 80px 40px;
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, rgba(255, 184, 0, 0.1) 0%, transparent 50%),
+                var(--darker);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.2) 0%, rgba(255, 184, 0, 0.2) 100%);
+            border: 1px solid var(--energy);
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+        }
+        .hero-badge span {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--energy);
+        }
+        h1 {
+            font-size: 56px;
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin-bottom: 15px;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--energy) 0%, var(--neon) 50%, var(--solar) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-tagline {
+            font-size: 24px;
+            color: var(--text-dim);
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+        .hero-stat .value {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--energy);
+        }
+        .hero-stat .label {
+            font-size: 13px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.08) 0%, rgba(255, 184, 0, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 60px;
+        }
+        .exec-summary h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--energy);
+            margin-bottom: 25px;
+        }
+        .exec-summary p {
+            font-size: 18px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        .key-insight {
+            background: rgba(0,0,0,0.3);
+            border-left: 4px solid var(--solar);
+            padding: 25px 30px;
+            border-radius: 0 12px 12px 0;
+        }
+        .key-insight h3 {
+            font-size: 16px;
+            color: var(--solar);
+            margin-bottom: 10px;
+        }
+        .key-insight p {
+            font-size: 15px;
+            margin: 0;
+        }
+        
+        /* Section Headers */
+        .section {
+            margin-bottom: 80px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+        .section-icon {
+            font-size: 40px;
+        }
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .section-subtitle {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+        
+        /* Architecture Flow */
+        .architecture-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .arch-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .arch-card::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--energy);
+            font-size: 20px;
+        }
+        .arch-card:last-child::after {
+            display: none;
+        }
+        .arch-num {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--energy) 0%, var(--neon) 100%);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            margin: 0 auto 15px;
+        }
+        .arch-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .arch-card p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        
+        /* Comparison */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .comparison-card {
+            border-radius: 20px;
+            padding: 35px;
+        }
+        .comparison-traditional {
+            background: linear-gradient(135deg, rgba(255, 82, 82, 0.08) 0%, transparent 100%);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+        .comparison-commandstick {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.08) 0%, transparent 100%);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+        }
+        .comparison-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .comparison-traditional h3 { color: #FF5252; }
+        .comparison-commandstick h3 { color: var(--energy); }
+        .comparison-list {
+            list-style: none;
+        }
+        .comparison-list li {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            color: var(--text-dim);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .comparison-list li:last-child {
+            border-bottom: none;
+        }
+        .comparison-traditional .comparison-list li::before {
+            content: '✕';
+            position: absolute;
+            left: 0;
+            color: #FF5252;
+        }
+        .comparison-commandstick .comparison-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--energy);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        .feature-icon {
+            font-size: 36px;
+        }
+        .feature-content h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .feature-content p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        
+        /* Captain Feature */
+        .captain-feature {
+            background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(0, 188, 212, 0.05) 100%);
+            border: 1px solid rgba(156, 39, 176, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+        }
+        .captain-feature h3 {
+            font-size: 20px;
+            color: var(--healing);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .captain-feature p {
+            font-size: 15px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        .captain-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .captain-step {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .captain-step .num {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--healing);
+            margin-bottom: 8px;
+        }
+        .captain-step .label {
+            font-size: 13px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        /* Specs Table */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        .specs-table th {
+            text-align: left;
+            padding: 20px;
+            background: var(--card-light);
+            border-bottom: 2px solid var(--border);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+        .specs-table td {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .specs-table td:first-child {
+            color: var(--text-dim);
+        }
+        .specs-table td:last-child {
+            color: var(--energy);
+            font-weight: 600;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .benefit-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .benefit-card .icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        .benefit-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .benefit-card p {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+        
+        /* Implementation */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--energy) 0%, var(--solar) 100%);
+        }
+        .timeline-item {
+            position: relative;
+            padding: 30px;
+            background: var(--card);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 35px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--energy);
+            border: 3px solid var(--darker);
+        }
+        .timeline-date {
+            font-size: 12px;
+            color: var(--energy);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .timeline-item h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .timeline-item p {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 1px solid var(--border);
+            margin-top: 80px;
+        }
+        footer .brand {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        footer .brand span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        footer p {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+        
+        @media (max-width: 1000px) {
+            .architecture-flow { grid-template-columns: 1fr; }
+            .architecture-flow .arch-card::after { display: none; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .captain-steps { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            h1 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-badge">
+                <span>SpaceCab Innovation Report</span>
+            </div>
+            <h1>CommandStick™</h1>
+            <p class="hero-tagline">Airbus-Style Drive-by-Wire Control<br><span class="gradient-text">Intent-Based Driving · AI Execution · Universal Access</span></p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="value">50%</div>
+                    <div class="label">Space Savings</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="value">99.9%</div>
+                    <div class="label">Safety Uptime</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="value">0%</div>
+                    <div class="label">Driver License Required</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <h2>📋 Executive Summary</h2>
+            <p>The <strong>CommandStick™</strong> replaces the traditional steering wheel with an Airbus-style fly-by-wire control system. Unlike conventional vehicles where the driver directly manipulates mechanical linkages, the CommandStick™ operates on <em>intent-based control</em> — the driver expresses their wishes ("turn left"), and NVIDIA DRIVE AI executes the maneuver perfectly.</p>
+            <p>This revolutionary approach enables universal accessibility: users with tremors, disabilities, or zero driving experience can operate SpaceCab safely. The AI validates all commands, prevents dangerous maneuvers, and compensates for imprecise inputs. Combined with the "Call Your Captain" teleoperation feature, SpaceCab becomes the first vehicle that anyone can drive — or have driven for them — from anywhere.</p>
+            <div class="key-insight">
+                <h3>💡 Key Strategic Insight</h3>
+                <p>The CommandStick™ transforms driving from a skill-based activity requiring years of practice into an intent-based interaction accessible to everyone. This opens SpaceCab to markets previously excluded from personal vehicle ownership: elderly, disabled, young adults, and those with anxiety or physical limitations.</p>
+            </div>
+        </div>
+        
+        <!-- Command Architecture -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🧠</span>
+                <div class="section-title">
+                    <h2>Drive Command Architecture</h2>
+                    <p class="section-subtitle">From Intent to Execution in Milliseconds</p>
+                </div>
+            </div>
+            
+            <div class="architecture-flow">
+                <div class="arch-card">
+                    <div class="arch-num">1</div>
+                    <h4>Human Intent</h4>
+                    <p>Driver deflects joystick expressing desired direction/speed</p>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-num">2</div>
+                    <h4>AI Interpretation</h4>
+                    <p>NVIDIA DRIVE validates safety, plans optimal trajectory</p>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-num">3</div>
+                    <h4>Execution</h4>
+                    <p>AI controls steering, acceleration, braking precisely</p>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-num">4</div>
+                    <h4>Feedback</h4>
+                    <p>Haptic joystick response confirms action to driver</p>
+                </div>
+            </div>
+            
+            <table class="specs-table">
+                <thead>
+                    <tr>
+                        <th>System Component</th>
+                        <th>Specification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Control Type</td>
+                        <td>Hall-effect magnetic joystick, 16-bit resolution</td>
+                    </tr>
+                    <tr>
+                        <td>Response Time</td>
+                        <td>&lt; 50ms end-to-end latency</td>
+                    </tr>
+                    <tr>
+                        <td>Redundancy</td>
+                        <td>Triple-redundant CAN-FD backbone</td>
+                    </tr>
+                    <tr>
+                        <td>Force Feedback</td>
+                        <td>Programmable haptic motors (road feel simulation)</td>
+                    </tr>
+                    <tr>
+                        <td>Variable Ratio</td>
+                        <td>5:1 (parking) to 15:1 (highway), speed-dependent</td>
+                    </tr>
+                    <tr>
+                        <td>Safety Rating</td>
+                        <td>ISO 26262 ASIL-D (highest automotive grade)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Comparison -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">⚖️</span>
+                <div class="section-title">
+                    <h2>Paradigm Comparison</h2>
+                    <p class="section-subtitle">Direct Control vs. Command-Based Control</p>
+                </div>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card comparison-traditional">
+                    <h3>❌ Traditional Steering Wheel</h3>
+                    <ul class="comparison-list">
+                        <li>Direct mechanical linkage to wheels</li>
+                        <li>Requires precise hand-eye coordination</li>
+                        <li>Skill-based: years of practice needed</li>
+                        <li>No error correction for imprecise input</li>
+                        <li>Fixed steering ratio regardless of speed</li>
+                        <li>Steering column crash hazard</li>
+                        <li>Occupies significant cabin space</li>
+                        <li>Excludes users with disabilities/tremors</li>
+                    </ul>
+                </div>
+                <div class="comparison-card comparison-commandstick">
+                    <h3>✅ CommandStick™</h3>
+                    <ul class="comparison-list">
+                        <li>AI-mediated command execution</li>
+                        <li>Intent-based: express wish, AI executes</li>
+                        <li>Universal: anyone can operate immediately</li>
+                        <li>AI compensates for tremors, inexperience</li>
+                        <li>Variable ratio adapts to speed/context</li>
+                        <li>No column = no impalement risk</li>
+                        <li>Minimal space, flexible positioning</li>
+                        <li>Enables universal accessibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Features -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">✨</span>
+                <div class="section-title">
+                    <h2>Key Features & Capabilities</h2>
+                    <p class="section-subtitle">What Makes CommandStick™ Revolutionary</p>
+                </div>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🦾</span>
+                    <div class="feature-content">
+                        <h4>AI Error Correction</h4>
+                        <p>Users with tremors, disabilities, or inexperience can drive safely. AI smooths inputs, compensates for imprecision, and prevents dangerous maneuvers.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🎮</span>
+                    <div class="feature-content">
+                        <h4>Universal Familiarity</h4>
+                        <p>Interface identical to gaming controllers. Anyone under 40 has thousands of hours of joystick muscle memory. Zero learning curve for digital natives.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💺</span>
+                    <div class="feature-content">
+                        <h4>Space Efficiency</h4>
+                        <p>No steering column enables flexible seating arrangements. Seats can rotate 180°, fold flat, or reposition. Interior becomes living space, not cockpit.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🛡️</span>
+                    <div class="feature-content">
+                        <h4>Crash Safety</h4>
+                        <p>Eliminates steering column impalement risk in frontal collisions. Breakaway design or complete retraction possible. Massive safety improvement.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">📍</span>
+                    <div class="feature-content">
+                        <h4>Position Flexibility</h4>
+                        <p>Joystick can be left-mounted, right-mounted, center console, or even passed between passengers. Enables any-seat driving for shared control.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🔄</span>
+                    <div class="feature-content">
+                        <h4>Redundancy & Backup</h4>
+                        <p>Secondary mini-joystick, smartphone override, or voice commands available. System continues operating even with partial failures.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Call Your Captain Feature -->
+            <div class="captain-feature">
+                <h3>👨‍✈️ "Call Your Captain" — Remote Teleoperation</h3>
+                <p>Press a button to summon a remote professional driver who takes control via VR telepresence. The captain sees exactly what the vehicle cameras see and feels vehicle dynamics through haptic feedback. Perfect for emergencies, complex parking, or when you simply don't want to drive.</p>
+                <div class="captain-steps">
+                    <div class="captain-step">
+                        <div class="num">1</div>
+                        <div class="label">Press Button</div>
+                    </div>
+                    <div class="captain-step">
+                        <div class="num">2</div>
+                        <div class="label">Captain Connects</div>
+                    </div>
+                    <div class="captain-step">
+                        <div class="num">3</div>
+                        <div class="label">VR Takeover</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Benefits -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <div class="section-title">
+                    <h2>Strategic Benefits</h2>
+                    <p class="section-subtitle">Why CommandStick™ Wins</p>
+                </div>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon">♿</div>
+                    <h4>Accessibility Revolution</h4>
+                    <p>Opens market to 1.3B people with disabilities globally</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">👶</div>
+                    <h4>Youth Market</h4>
+                    <p>Gaming-native interface appeals to Gen Z buyers</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">👴</div>
+                    <h4>Aging Population</h4>
+                    <p>Enables elderly to drive longer as reflexes decline</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon">💰</div>
+                    <h4>Cost Reduction</h4>
+                    <p>No mechanical steering components = lower manufacturing cost</p>
+                </div>
+            </div>
+            
+            <table class="specs-table" style="margin-top: 40px;">
+                <thead>
+                    <tr>
+                        <th>Assessment Criteria</th>
+                        <th>Rating</th>
+                        <th>Strategic Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Market Expansion</td>
+                        <td style="color: var(--energy); font-weight: 700;">Exceptional ⭐⭐⭐⭐⭐</td>
+                        <td>3x addressable market vs. traditional vehicles</td>
+                    </tr>
+                    <tr>
+                        <td>Competitive Moat</td>
+                        <td style="color: var(--energy); font-weight: 700;">Strong ⭐⭐⭐⭐⭐</td>
+                        <td>5+ year head start; regulatory + technical barriers</td>
+                    </tr>
+                    <tr>
+                        <td>Technical Feasibility</td>
+                        <td style="color: var(--solar); font-weight: 700;">High ⭐⭐⭐⭐☆</td>
+                        <td>Leverages existing fly-by-wire technology</td>
+                    </tr>
+                    <tr>
+                        <td>Regulatory Path</td>
+                        <td style="color: var(--solar); font-weight: 700;">Moderate ⭐⭐⭐☆☆</td>
+                        <td>Sandbox deployment first (NEOM, Dubai RTA)</td>
+                    </tr>
+                    <tr>
+                        <td>Patent Opportunity</td>
+                        <td style="color: var(--energy); font-weight: 700;">Excellent ⭐⭐⭐⭐⭐</td>
+                        <td>Intent-based control + haptic feedback systems</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Implementation -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-icon">🛠️</span>
+                <div class="section-title">
+                    <h2>Implementation Roadmap</h2>
+                    <p class="section-subtitle">From Concept to Production</p>
+                </div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2026</div>
+                    <h4>Phase 1: Control System Development</h4>
+                    <p>Partner with Logitech/Thrustmaster for joystick hardware. Develop haptic feedback algorithms. Integrate with NVIDIA DRIVE command interpretation system.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q3 2026</div>
+                    <h4>Phase 2: AI Command Architecture</h4>
+                    <p>Build intent interpretation neural networks. Develop variable steering ratio logic. Create safety validation and override systems.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q4 2026</div>
+                    <h4>Phase 3: "Call Your Captain" Network</h4>
+                    <p>Establish remote driver operations center. Deploy VR telepresence infrastructure. Build haptic suit integration for remote drivers.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q1 2027</div>
+                    <h4>Phase 4: Regulatory Sandbox Testing</h4>
+                    <p>Deploy 25-unit test fleet in NEOM and Dubai. Gather safety data. Refine control algorithms based on real-world usage.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2027</div>
+                    <h4>Phase 5: Commercial Launch</h4>
+                    <p>Release CommandStick™ as standard on all SpaceCab models. Launch "Pro Gaming Edition" with RGB and branded controller.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="brand">HYVEN <span>SpaceCab</span></div>
+            <p>CommandStick™ — Complete Innovation Report</p>
+            <p style="font-size: 14px; color: var(--text-dim); margin-top: 10px;">"Intent-Based Control for Universal Access"</p>
+            <p style="margin-top: 20px; font-size: 12px; color: var(--text-dim);">The First Perpetuum Mobile — We Need No Energy From The Planet</p>
+        </footer>
+    </div>
+</body>
+</html>

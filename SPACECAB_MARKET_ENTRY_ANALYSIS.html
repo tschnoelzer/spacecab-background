@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYVEN SpaceCab — Alternative Market Entry Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --neon: #00F0FF;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --card-light: #1A1A24;
+            --border: #2A2A3A;
+            --text: #E6E6F0;
+            --text-dim: #8B8B9E;
+            --success: #00C853;
+            --warning: #FFB300;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid var(--solar);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+        .badge span {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--solar);
+        }
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+        
+        /* Executive Summary */
+        .exec-summary {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        .exec-summary h2 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--solar);
+            margin-bottom: 20px;
+        }
+        .exec-summary p {
+            font-size: 17px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+        
+        /* City Cards */
+        .city-section {
+            margin-bottom: 60px;
+        }
+        .city-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+        .city-flag {
+            font-size: 48px;
+        }
+        .city-title-group h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .city-subtitle {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+        .priority-badge {
+            margin-left: auto;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .priority-high {
+            background: rgba(0, 200, 83, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(0, 200, 83, 0.3);
+        }
+        .priority-medium {
+            background: rgba(255, 179, 0, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(255, 179, 0, 0.3);
+        }
+        
+        /* Grid Layouts */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        .three-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        .card h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .card ul {
+            list-style: none;
+        }
+        .card li {
+            padding: 10px 0;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+        .card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--energy);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .stat-box {
+            background: var(--card-light);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-box .value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--energy);
+        }
+        .stat-box .label {
+            font-size: 11px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        
+        /* Alignment Table */
+        .alignment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .alignment-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--card-light);
+            border-bottom: 2px solid var(--border);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+        .alignment-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .alignment-table .gov-init {
+            color: var(--solar);
+            font-weight: 600;
+        }
+        .alignment-table .spaccab-fit {
+            color: var(--energy);
+        }
+        
+        /* SWOT */
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .swot-card {
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .swot-strengths {
+            background: rgba(0, 200, 83, 0.08);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+        }
+        .swot-weaknesses {
+            background: rgba(255, 82, 82, 0.08);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+        .swot-opportunities {
+            background: rgba(0, 163, 224, 0.08);
+            border: 1px solid rgba(0, 163, 224, 0.2);
+        }
+        .swot-threats {
+            background: rgba(255, 179, 0, 0.08);
+            border: 1px solid rgba(255, 179, 0, 0.2);
+        }
+        .swot-card h4 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        .swot-strengths h4 { color: var(--success); }
+        .swot-weaknesses h4 { color: #FF5252; }
+        .swot-opportunities h4 { color: #00A3E0; }
+        .swot-threats h4 { color: var(--warning); }
+        
+        /* Recommendations */
+        .rec-box {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 163, 224, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        .rec-box h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--energy);
+            margin-bottom: 20px;
+        }
+        .rec-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .rec-item:last-child {
+            border-bottom: none;
+        }
+        .rec-num {
+            background: var(--energy);
+            color: var(--dark);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        .rec-text h5 {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        .rec-text p {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+        footer .brand {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        footer .brand span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        footer p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 1000px) {
+            .two-col, .three-col { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .swot-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">
+                <span>Strategic Analysis</span>
+            </div>
+            <h1>Alternative Market Entry Analysis<br><span class="gradient">Riyadh · Singapore · Miami</span></h1>
+            <p class="subtitle">SpaceCab Expansion Strategy & Government Alignment Assessment</p>
+        </div>
+        
+        <!-- Executive Summary -->
+        <div class="exec-summary">
+            <h2>Executive Summary</h2>
+            <p>While Dubai remains HYVEN SpaceCab's primary launch market, three cities present exceptional expansion opportunities: <strong>Riyadh</strong> (Vision 2030 infrastructure boom, NEOM integration), <strong>Singapore</strong> (smart city leadership, APAC financial hub, regulatory sandbox), and <strong>Miami</strong> (Americas crypto gateway, zero state tax, tech migration). Each offers unique alignment with SpaceCab's L4 autonomy, split-lane capability, and Perpetuum Mobile positioning. Combined, these markets provide geographic diversification across MENA, APAC, and Americas regions while maintaining tax efficiency and high-growth trajectories.</p>
+        </div>
+        
+        <!-- RIYADH -->
+        <div class="city-section">
+            <div class="city-header">
+                <span class="city-flag">🇸🇦</span>
+                <div class="city-title-group">
+                    <h2>Riyadh, Saudi Arabia</h2>
+                    <p class="city-subtitle">Vision 2030 Capital · NEOM Anchor · $1T+ Transformation</p>
+                </div>
+                <span class="priority-badge priority-high">Highest Priority</span>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">$1T+</div>
+                    <div class="label">Vision 2030 Investment</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">0%</div>
+                    <div class="label">Income Tax</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">15M</div>
+                    <div class="label">Metro Population</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">NEOM</div>
+                    <div class="label">Regulatory Sandbox</div>
+                </div>
+            </div>
+            
+            <div class="two-col">
+                <div class="card">
+                    <h3>🚀 Market Potential</h3>
+                    <ul>
+                        <li>$500B+ NEOM project — purpose-built smart city needing AV solutions</li>
+                        <li>Riyadh Metro expansion — 6 lines, 85 stations, massive last-mile gap</li>
+                        <li>Saudi EV push — 30% EV target by 2030, government fleet transition</li>
+                        <li>Premium taxi market — high disposable income, luxury preference</li>
+                        <li>Religious tourism — Hajj/Umrah 20M+ annual visitors needing transport</li>
+                        <li>PIF capital availability — sovereign wealth fund actively deploying</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🎯 SpaceCab Impact</h3>
+                    <ul>
+                        <li>Split-lane ideal for Riyadh's wide boulevards and congestion</li>
+                        <li>Solar advantage — 3,000+ sunshine hours annually</li>
+                        <li>4-seat capacity perfect for family transport culture</li>
+                        <li>Porsche engineering aligns with luxury positioning</li>
+                        <li>Perpetuum Mobile narrative fits Vision 2030 sustainability goals</li>
+                        <li>L4 autonomy reduces reliance on expat drivers (Saudization)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 25px;">
+                <h3>🏛️ Government Alignment</h3>
+                <table class="alignment-table">
+                    <thead>
+                        <tr>
+                            <th>Government Initiative</th>
+                            <th>SpaceCab Alignment</th>
+                            <th>Entry Angle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="gov-init">Vision 2030</td>
+                            <td class="spaccab-fit">Sustainable transport, tech leadership</td>
+                            <td>Position as flagship NEOM mobility partner</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Saudi Green Initiative</td>
+                            <td class="spaccab-fit">Zero-emission, solar-powered</td>
+                            <td>Carbon-neutral fleet for government contracts</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">NEOM Regulatory Sandbox</td>
+                            <td class="spaccab-fit">L4 testing without legacy constraints</td>
+                            <td>Pilot program in THE LINE autonomous zone</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">PIF Investment Mandate</td>
+                            <td class="spaccab-fit">Strategic mobility sector</td>
+                            <td>Direct investment or joint venture proposal</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Saudization Policy</td>
+                            <td class="spaccab-fit">Reduces driver dependency</td>
+                            <td>AV as solution to workforce transition</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="swot-grid" style="margin-top: 25px;">
+                <div class="swot-card swot-strengths">
+                    <h4>💪 Strengths</h4>
+                    <ul>
+                        <li>Unlimited capital for right projects</li>
+                        <li>Regulatory flexibility in special zones</li>
+                        <li>Strategic location (Africa/Asia/Europe)</li>
+                        <li>Young, tech-savvy population</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-weaknesses">
+                    <h4>⚠️ Challenges</h4>
+                    <ul>
+                        <li>Bureaucracy & cultural adaptation</li>
+                        <li>Extreme heat (50°C+) testing requirements</li>
+                        <li>Conservative adoption curve</li>
+                        <li>Localization requirements (Saudization)</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-opportunities">
+                    <h4>🚀 Opportunities</h4>
+                    <ul>
+                        <li>NEOM first-mover advantage</li>
+                        <li>Religious tourism massive TAM</li>
+                        <li>Government fleet electrification</li>
+                        <li>GCC expansion hub (UAE, Qatar, Kuwait)</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-threats">
+                    <h4>⚡ Threats</h4>
+                    <ul>
+                        <li>Vision 2030 delays or pivots</li>
+                        <li>Geopolitical volatility perception</li>
+                        <li>Lucid Motors (Saudi-backed) competition</li>
+                        <li>Regression on social reforms</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rec-box">
+                <h4>🎯 Riyadh Entry Strategy</h4>
+                <div class="rec-item">
+                    <div class="rec-num">1</div>
+                    <div class="rec-text">
+                        <h5>NEOM Partnership First</h5>
+                        <p>Bypass traditional Riyadh bureaucracy by entering through NEOM's regulatory sandbox. Position SpaceCab as the official AV of THE LINE.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">2</div>
+                    <div class="rec-text">
+                        <h5>PIF Direct Approach</h5>
+                        <p>Submit investment proposal to Public Investment Fund. Target $50-100M for Saudi manufacturing facility + exclusive distribution rights.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">3</div>
+                    <div class="rec-text">
+                        <h5>Hajj/Umrah Pilot</h5>
+                        <p>Deploy 100-unit pilot during Hajj season (peak visibility). Partner with Ministry of Hajj for pilgrim transport services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SINGAPORE -->
+        <div class="city-section">
+            <div class="city-header">
+                <span class="city-flag">🇸🇬</span>
+                <div class="city-title-group">
+                    <h2>Singapore</h2>
+                    <p class="city-subtitle">Smart Nation Leader · APAC Financial Hub · Regulatory Sandbox</p>
+                </div>
+                <span class="priority-badge priority-high">High Priority</span>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">5.9M</div>
+                    <div class="label">Population</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">#1</div>
+                    <div class="label">Global Smart City Index</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">0-22%</div>
+                    <div class="label">Progressive Tax</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">3.5h</div>
+                    <div class="label">Flight to Major Asian Cities</div>
+                </div>
+            </div>
+            
+            <div class="two-col">
+                <div class="card">
+                    <h3>🚀 Market Potential</h3>
+                    <ul>
+                        <li>Car-lite policy — 0% private car growth, AVs encouraged</li>
+                        <li>Jurong Innovation District — autonomous vehicle testbed</li>
+                        <li>ASEAN gateway — 650M population access from Singapore hub</li>
+                        <li>Family offices — 1,000+ single-family offices managing $1T+</li>
+                        <li>Tech talent density — highest engineers per capita in Asia</li>
+                        <li>Green Plan 2030 — all new car registrations EV from 2030</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🎯 SpaceCab Impact</h3>
+                    <ul>
+                        <li>Perfect for Singapore's narrow lanes and dense urban fabric</li>
+                        <li>Split-lane addresses land scarcity (highest land cost globally)</li>
+                        <li>4-seat fits family-centric Asian culture</li>
+                        <li>Solar challenge — equatorial sun but high cloud cover</li>
+                        <li>Autonomous fits aging population (driver shortage)</li>
+                        <li>Hygiene-conscious market — no driver contact appeals post-COVID</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 25px;">
+                <h3>🏛️ Government Alignment</h3>
+                <table class="alignment-table">
+                    <thead>
+                        <tr>
+                            <th>Government Initiative</th>
+                            <th>SpaceCab Alignment</th>
+                            <th>Entry Angle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="gov-init">Smart Nation 2.0</td>
+                            <td class="spaccab-fit">Autonomous mobility, IoT integration</td>
+                            <td>Apply for Smart Nation Sandbox</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Green Plan 2030</td>
+                            <td class="spaccab-fit">Zero-emission vehicle fleet</td>
+                            <td>EV transition partnership with LTA</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">AV Regulatory Sandbox</td>
+                            <td class="spaccab-fit">L4 testing permissions</td>
+                            <td>Jurong Innovation District pilot</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Car-Lite Policy</td>
+                            <td class="spaccab-fit">Shared mobility solution</td>
+                            <td>Replace private cars with AV fleet</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Research Innovation Enterprise</td>
+                            <td class="spaccab-fit">R&D tax incentives</td>
+                            <td>Establish APAC R&D center</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="swot-grid" style="margin-top: 25px;">
+                <div class="swot-card swot-strengths">
+                    <h4>💪 Strengths</h4>
+                    <ul>
+                        <li>Rule of law & contract certainty</li>
+                        <li>English-speaking business environment</li>
+                        <li>IP protection excellence</li>
+                        <li>Government efficiency (1-day company setup)</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-weaknesses">
+                    <h4>⚠️ Challenges</h4>
+                    <ul>
+                        <li>Small domestic market (5.9M)</li>
+                        <li>High operating costs</li>
+                        <li>Limited solar viability (equatorial clouds)</li>
+                        <li>Conservative regulatory approval</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-opportunities">
+                    <h4>🚀 Opportunities</h4>
+                    <ul>
+                        <li>ASEAN expansion headquarters</li>
+                        <li>Family office investor network</li>
+                        <li>Smart city exports (sell AV tech)</li>
+                        <li>Malaysia/JB cross-border service</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-threats">
+                    <h4>⚡ Threats</h4>
+                    <ul>
+                        <li>Waymo already testing in Singapore</li>
+                        <li>Grab dominance in ride-hailing</li>
+                        <li>Strict liability laws for AV accidents</li>
+                        <li>High real estate costs for operations</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rec-box">
+                <h4>🎯 Singapore Entry Strategy</h4>
+                <div class="rec-item">
+                    <div class="rec-num">1</div>
+                    <div class="rec-text">
+                        <h5>Sandbox Application</h5>
+                        <p>Apply for AV regulatory sandbox via LTA. Propose Jurong Innovation District pilot with 50 vehicles for campus/industrial zone mobility.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">2</div>
+                    <div class="rec-text">
+                        <h5>Family Office Roadshow</h5>
+                        <p>Host exclusive SpaceCab demonstration for Singapore's 1,000+ family offices. Target 2-3 anchor investors for APAC expansion fund.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">3</div>
+                    <div class="rec-text">
+                        <h5>Grab Partnership</h5>
+                        <p>Negotiate strategic partnership with Grab (Southeast Asia's Uber). Integrate SpaceCab into Grab fleet for premium tier service.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MIAMI -->
+        <div class="city-section">
+            <div class="city-header">
+                <span class="city-flag">🇺🇸</span>
+                <div class="city-title-group">
+                    <h2>Miami, Florida</h2>
+                    <p class="city-subtitle">Americas Crypto Capital · Zero State Tax · Tech Migration Hub</p>
+                </div>
+                <span class="priority-badge priority-medium">Medium Priority</span>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">0%</div>
+                    <div class="label">State Income Tax</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">6.2M</div>
+                    <div class="label">Metro Population</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">#1</div>
+                    <div class="label">Crypto City (per capita)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">LATAM</div>
+                    <div class="label">Gateway Market</div>
+                </div>
+            </div>
+            
+            <div class="two-col">
+                <div class="card">
+                    <h3>🚀 Market Potential</h3>
+                    <ul>
+                        <li>COVID migration boom — tech talent influx from SF/NY</li>
+                        <li>Crypto billionaire density — BTC conference, crypto mayor</li>
+                        <li>Latin America gateway — bilingual business hub</li>
+                        <li>Retirement wealth — high concentration of HNW retirees</li>
+                        <li>Real estate development — continuous new construction</li>
+                        <li>Cruise port — 6M+ annual passengers needing last-mile</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🎯 SpaceCab Impact</h3>
+                    <ul>
+                        <li>Solar advantage — 250+ sunny days annually</li>
+                        <li>Tourism fit — airport, cruise port, beach transfers</li>
+                        <li>4-seat perfect for family beach trips</li>
+                        <li>140 km/h adequate for Florida highways (no mountains)</li>
+                        <li>Crypto narrative — decentralized, sustainable tech</li>
+                        <li>Hurricane resilience — solar independence during outages</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 25px;">
+                <h3>🏛️ Government Alignment</h3>
+                <table class="alignment-table">
+                    <thead>
+                        <tr>
+                            <th>Government Initiative</th>
+                            <th>SpaceCab Alignment</th>
+                            <th>Entry Angle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="gov-init">Miami Tech Hub Push</td>
+                            <td class="spaccab-fit">Innovation economy, job creation</td>
+                            <td>Position as flagship tech company HQ</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Crypto Mayor Agenda</td>
+                            <td class="spaccab-fit">Futuristic, decentralized tech</td>
+                            <p>Partner with Mayor Suarez on smart city initiatives</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Florida EV Incentives</td>
+                            <td class="spaccab-fit">Zero-emission fleet</td>
+                            <td>Apply for state EV infrastructure grants</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">PortMiami Expansion</td>
+                            <td class="spaccab-fit">Last-mile cruise passenger transport</td>
+                            <td>Pilot program for cruise terminal transfers</td>
+                        </tr>
+                        <tr>
+                            <td class="gov-init">Resilience Strategy</td>
+                            <td class="spaccab-fit">Solar independence during hurricanes</td>
+                            <td>Emergency response fleet positioning</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="swot-grid" style="margin-top: 25px;">
+                <div class="swot-card swot-strengths">
+                    <h4>💪 Strengths</h4>
+                    <ul>
+                        <li>Zero state income tax</li>
+                        <li>Crypto-friendly ecosystem</li>
+                        <li>Lifestyle marketing appeal</li>
+                        <li>Americas geographic access</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-weaknesses">
+                    <h4>⚠️ Challenges</h4>
+                    <ul>
+                        <li>Limited public transit culture</li>
+                        <li>Car-centric urban sprawl</li>
+                        <li>Hurricane season disruption</li>
+                        <li>Lower density than Dubai/Singapore</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-opportunities">
+                    <h4>🚀 Opportunities</h4>
+                    <ul>
+                        <li>Crypto billionaire investor base</li>
+                        <li>Latin America expansion HQ</li>
+                        <li>Retiree market (age-friendly AV)</li>
+                        <li>NYC/SF talent relocation</li>
+                    </ul>
+                </div>
+                <div class="swot-card swot-threats">
+                    <h4>⚡ Threats</h4>
+                    <ul>
+                        <li>Tesla Robotaxi launch imminent</li>
+                        <li>Waymo Florida expansion</li>
+                        <li>Climate change risks (flooding)</li>
+                        <li>Real estate bubble concerns</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="rec-box">
+                <h4>🎯 Miami Entry Strategy</h4>
+                <div class="rec-item">
+                    <div class="rec-num">1</div>
+                    <div class="rec-text">
+                        <h5>Crypto Community Launch</h5>
+                        <p>Announce SpaceCab at Bitcoin Miami or similar crypto event. Target crypto whale investors for Series A/Strategic round.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">2</div>
+                    <div class="rec-text">
+                        <h5>Mayor's Office Partnership</h5>
+                        <p>Propose official partnership with Mayor Suarez's smart city initiative. Position as Miami's signature tech company.</p>
+                    </div>
+                </div>
+                <div class="rec-item">
+                    <div class="rec-num">3</div>
+                    <div class="rec-text">
+                        <h5>Latin America HQ</h5>
+                        <p>Establish Miami as Americas headquarters. Hire bilingual team. Target Colombia, Mexico, Brazil expansion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparative Summary -->
+        <div class="city-section">
+            <div class="city-header" style="border-bottom: 2px solid var(--solar);">
+                <span class="city-flag">📊</span>
+                <div class="city-title-group">
+                    <h2>Comparative Assessment</h2>
+                    <p class="city-subtitle">Strategic Prioritization & Resource Allocation</p>
+                </div>
+            </div>
+            
+            <div class="three-col" style="margin-top: 30px;">
+                <div class="card" style="border-color: var(--success);">
+                    <h3 style="color: var(--success);">🇩🇴 Priority 1: Riyadh</h3>
+                    <ul>
+                        <li><strong>Capital:</strong> Unmatched ($1T+ Vision 2030)</li>
+                        <li><strong>Timing:</strong> Perfect (NEOM construction phase)</li>
+                        <li><strong>Strategic:</strong> GCC expansion hub</li>
+                        <li><strong>Investment:</strong> Target PIF $100M</li>
+                        <li><strong>Timeline:</strong> Q3 2026 entry</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: #00A3E0;">
+                    <h3 style="color: #00A3E0;">🇸🇬 Priority 2: Singapore</h3>
+                    <ul>
+                        <li><strong>Capital:</strong> Family office network</li>
+                        <li><strong>Timing:</strong> 2027 (post-Dubai proof)</li>
+                        <li><strong>Strategic:</strong> APAC headquarters</li>
+                        <li><strong>Investment:</strong> $20-30M expansion</li>
+                        <li><strong>Timeline:</strong> Q2 2027 entry</li>
+                    </ul>
+                </div>
+                <div class="card" style="border-color: var(--warning);">
+                    <h3 style="color: var(--warning);">🇺🇸 Priority 3: Miami</h3>
+                    <ul>
+                        <li><strong>Capital:</strong> Crypto investors</li>
+                        <li><strong>Timing:</strong> 2027-2028</li>
+                        <li><strong>Strategic:</strong> Americas hub</li>
+                        <li><strong>Investment:</strong> $15-25M</li>
+                        <li><strong>Timeline:</strong> Q4 2027 entry</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="brand">HYVEN <span>SpaceCab</span></div>
+            <p>Alternative Market Entry Analysis — Riyadh · Singapore · Miami</p>
+            <p style="margin-top: 10px; font-size: 12px;">The First Perpetuum Mobile — We Need No Energy From The Planet</p>
+        </footer>
+    </div>
+</body>
+</html>

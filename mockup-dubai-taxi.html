@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab Dubai Taxi - Branded Mockup</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0a0a0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .mockup-container {
+            position: relative;
+            width: 1200px;
+            height: 800px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0f 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+        }
+        
+        /* Burj Al Arab Background */
+        .background {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.6) 100%),
+                url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1200&q=80') center/cover;
+        }
+        
+        /* Ground/Road */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            background: linear-gradient(to top, #1a1a1a 0%, transparent 100%);
+        }
+        
+        /* SpaceCab Container */
+        .spacecab-container {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 60%;
+            z-index: 10;
+        }
+        
+        /* The Vehicle Image */
+        .vehicle {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        }
+        
+        /* Dubai Taxi Branding Overlay */
+        .branding-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        
+        /* RTA Green Stripe - Side */
+        .rta-stripe {
+            position: absolute;
+            top: 35%;
+            left: 15%;
+            right: 15%;
+            height: 8%;
+            background: linear-gradient(90deg, #007A33 0%, #00a040 50%, #007A33 100%);
+            transform: skewY(-2deg);
+            box-shadow: 0 2px 10px rgba(0,122,51,0.5);
+        }
+        
+        /* Cream accent stripe */
+        .cream-stripe {
+            position: absolute;
+            top: 43%;
+            left: 15%;
+            right: 15%;
+            height: 3%;
+            background: linear-gradient(90deg, #F5F5DC 0%, #FFFEF0 50%, #F5F5DC 100%);
+            transform: skewY(-2deg);
+        }
+        
+        /* Dubai Taxi Logo - Side */
+        .taxi-logo {
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            background: linear-gradient(135deg, #007A33 0%, #00a040 100%);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px solid #F5F5DC;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .taxi-logo .english {
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .taxi-logo .arabic {
+            color: #F5F5DC;
+            font-size: 16px;
+            font-weight: 700;
+            direction: rtl;
+            margin-top: 2px;
+        }
+        
+        /* SpaceCab Badge */
+        .spacecab-badge {
+            position: absolute;
+            top: 30%;
+            right: 20%;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #00f0ff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+        
+        .spacecab-badge .hyven {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            font-size: 14px;
+        }
+        
+        .spacecab-badge .spacecab {
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        /* RTA Official Badge */
+        .rta-badge {
+            position: absolute;
+            top: 50%;
+            left: 18%;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            border-left: 4px solid #007A33;
+        }
+        
+        .rta-badge .label {
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .rta-badge .status {
+            color: #007A33;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        
+        /* License Plate */
+        .license-plate {
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #007A33 0%, #00a040 100%);
+            padding: 8px 25px;
+            border-radius: 6px;
+            border: 3px solid #F5F5DC;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        
+        .license-plate .number {
+            color: white;
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* Autonomous Vehicle Badge */
+        .av-badge {
+            position: absolute;
+            top: 55%;
+            right: 18%;
+            background: linear-gradient(135deg, #00f0ff 0%, #00a0ff 100%);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+        }
+        
+        .av-badge .icon {
+            font-size: 16px;
+        }
+        
+        .av-badge .text {
+            color: #0a0a0f;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Additional Decals */
+        .decal-1 {
+            position: absolute;
+            bottom: 35%;
+            left: 12%;
+            background: rgba(0, 122, 51, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid #F5F5DC;
+        }
+        
+        .decal-2 {
+            position: absolute;
+            bottom: 35%;
+            right: 12%;
+            background: rgba(212, 175, 55, 0.9);
+            color: #0a0a0f;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        
+        /* Zero Emissions Badge */
+        .eco-badge {
+            position: absolute;
+            top: 65%;
+            left: 22%;
+            background: linear-gradient(135deg, #00ff80 0%, #00cc60 100%);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 3px 10px rgba(0, 255, 128, 0.3);
+        }
+        
+        .eco-badge span {
+            color: #0a0a0f;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        
+        /* Header Text */
+        .header {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 20;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        
+        .header h1 span {
+            background: linear-gradient(135deg, #00f0ff 0%, #ff00a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            color: rgba(255,255,255,0.8);
+            font-size: 20px;
+            text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+        }
+        
+        /* Location Badge */
+        .location-badge {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .location-badge .icon {
+            font-size: 30px;
+        }
+        
+        .location-badge .text {
+            color: white;
+        }
+        
+        .location-badge .text .label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .location-badge .text .name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        /* Footer Note */
+        .footer-note {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.8);
+            color: rgba(255,255,255,0.6);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mockup-container">
+        <!-- Background -->
+        <div class="background"></div>
+        <div class="ground"></div>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>HYVEN <span>SpaceCab</span></h1>
+            <p>Dubai Taxi — The Future of Urban Mobility</p>
+        </div>
+        
+        <!-- SpaceCab with Branding -->
+        <div class="spacecab-container">
+            <img src="/home/openclaw/.openclaw/media/inbound/file_9---f8a36e0a-6fec-4b72-8b80-4cd4270372fd.jpg" 
+                 alt="SpaceCab" 
+                 class="vehicle">
+            
+            <!-- Branding Overlays -->
+            <div class="branding-overlay">
+                <!-- RTA Green Stripes -->
+                <div class="rta-stripe"></div>
+                <div class="cream-stripe"></div>
+                
+                <!-- Logos and Badges -->
+                <div class="taxi-logo">
+                    <div class="english">DUBAI TAXI</div>
+                    <div class="arabic">تاكسي دبي</div>
+                </div>
+                
+                <div class="spacecab-badge">
+                    <span class="hyven">HYVEN</span><span class="spacecab"> SpaceCab</span>
+                </div>
+                
+                <div class="rta-badge">
+                    <div class="label">Approved by</div>
+                    <div class="status">RTA DUBAI</div>
+                </div>
+                
+                <div class="license-plate">
+                    <div class="number">DUBAI 2087</div>
+                </div>
+                
+                <div class="av-badge">
+                    <span class="icon">🤖</span>
+                    <span class="text">Autonomous</span>
+                </div>
+                
+                <div class="eco-badge">
+                    <span>⚡</span>
+                    <span>Zero Emissions</span>
+                </div>
+                
+                <!-- Additional Decals -->
+                <div class="decal-1">L4 AUTONOMY</div>
+                <div class="decal-2">SOLAR POWERED</div>
+            </div>
+        </div>
+        
+        <!-- Location Badge -->
+        <div class="location-badge">
+            <span class="icon">🌊</span>
+            <div class="text">
+                <div class="label">Location</div>
+                <div class="name">Burj Al Arab, Dubai</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-note">
+        📸 Screenshot this at full size to capture the branded mockup
+    </div>
+</body>
+</html>

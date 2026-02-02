@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceCab — Joystick Drive Control Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --solar: #FFB800;
+            --energy: #00D4AA;
+            --neon: #00F0FF;
+            --danger: #FF5252;
+            --dark: #0A0A0F;
+            --darker: #050508;
+            --card: #12121A;
+            --card-light: #1A1A24;
+            --border: #2A2A3A;
+            --text: #E6E6F0;
+            --text-dim: #8B8B9E;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid var(--solar);
+            padding: 10px 24px;
+            border-radius: 50px;
+            margin-bottom: 25px;
+        }
+        .badge span {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--solar);
+        }
+        h1 {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+        h1 .gradient {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-dim);
+            font-weight: 300;
+        }
+        
+        /* Concept Box */
+        .concept-box {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 163, 224, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        .concept-box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--energy);
+        }
+        .concept-box p {
+            font-size: 17px;
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+        
+        /* Advantages / Disadvantages Grid */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .analysis-card {
+            border-radius: 20px;
+            padding: 35px;
+        }
+        .advantages {
+            background: linear-gradient(135deg, rgba(0, 200, 83, 0.08) 0%, transparent 100%);
+            border: 1px solid rgba(0, 200, 83, 0.2);
+        }
+        .disadvantages {
+            background: linear-gradient(135deg, rgba(255, 82, 82, 0.08) 0%, transparent 100%);
+            border: 1px solid rgba(255, 82, 82, 0.2);
+        }
+        .analysis-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .advantages h2 { color: var(--energy); }
+        .disadvantages h2 { color: var(--danger); }
+        
+        .point {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .point:last-child {
+            border-bottom: none;
+        }
+        .point h4 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .point p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        
+        /* Creative Applications */
+        .creative-section {
+            margin-bottom: 50px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .creative-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+        .creative-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        .creative-card:hover {
+            border-color: var(--solar);
+            transform: translateY(-5px);
+        }
+        .creative-card .icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .creative-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .creative-card p {
+            font-size: 13px;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        
+        /* Technical Specs */
+        .tech-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        .tech-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+        .spec-label {
+            color: var(--text-dim);
+        }
+        .spec-value {
+            color: var(--energy);
+            font-weight: 600;
+        }
+        
+        /* Recommendation Box */
+        .recommendation {
+            background: linear-gradient(135deg, rgba(255, 184, 0, 0.1) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 2px solid rgba(255, 184, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+        .recommendation h2 {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--solar);
+            margin-bottom: 25px;
+        }
+        .rec-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .rec-item:last-child {
+            border-bottom: none;
+        }
+        .rec-num {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            color: var(--dark);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .rec-content h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .rec-content p {
+            font-size: 14px;
+            color: var(--text-dim);
+        }
+        
+        /* Use Cases Table */
+        .use-case-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+        .use-case-table th {
+            text-align: left;
+            padding: 15px;
+            background: var(--card-light);
+            border-bottom: 2px solid var(--border);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+        }
+        .use-case-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        .use-case-table .rating {
+            color: var(--energy);
+            font-weight: 700;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid var(--border);
+        }
+        footer .brand {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        footer .brand span {
+            background: linear-gradient(135deg, var(--solar) 0%, var(--energy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        footer p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 1000px) {
+            .analysis-grid { grid-template-columns: 1fr; }
+            .creative-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">
+                <span>Technical Analysis</span>
+            </div>
+            <h1>SpaceCab<br><span class="gradient">Joystick Drive Control</span></h1>
+            <p class="subtitle">Primary Control Interface Analysis for Drive-by-Wire Architecture</p>
+        </div>
+        
+        <!-- Concept Box -->
+        <div class="concept-box">
+            <h2>🎮 The Vision: Drive Command AI Control</h2>
+            <p>SpaceCab's joystick is not direct mechanical control — it's a <strong>drive command interface</strong> similar to Airbus fly-by-wire. The driver expresses <em>intent</em> ("turn left"), and the AI executes the maneuver perfectly — smoothing inputs, compensating for errors, and ensuring safety. This Airbus-style philosophy separates human command from machine execution, making driving accessible to non-drivers, disabled users, and anyone who can operate a game controller. The AI validates all commands, prevents dangerous maneuvers, and delivers flawless execution of the driver's wishes.</p>
+        </div>
+        
+        <!-- Drive Command Architecture -->
+        <div class="tech-section">
+            <h2>🧠 Drive Command AI Architecture</h2>
+            <p style="color: var(--text-dim); margin-bottom: 25px;">How SpaceCab's Airbus-style control philosophy works:</p>
+            
+            <div class="spec-row">
+                <span class="spec-label">Driver Input</span>
+                <span class="spec-value">Joystick deflection = intent signal (not direct control)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">AI Interpretation</span>
+                <span class="spec-value">NVIDIA DRIVE processes intent, validates safety, plans trajectory</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Execution</span>
+                <span class="spec-value">AI controls steering angle, acceleration, braking for perfect maneuver</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Error Correction</span>
+                <span class="spec-value">AI compensates for imprecise joystick input (tremors, inexperience)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Safety Override</span>
+                <span class="spec-value">Dangerous commands blocked; AI suggests safe alternatives</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Learning</span>
+                <span class="spec-value">AI adapts to driver's style, smooths aggressive inputs over time</span>
+            </div>
+        </div>
+        
+        <!-- Analysis Grid -->
+        <div class="analysis-grid">
+            <div class="analysis-card advantages">
+                <h2>✅ Advantages</h2>
+                
+                <div class="point">
+                    <h4>Space Efficiency</h4>
+                    <p>Joystick occupies minimal cockpit space vs. steering column. Enables flexible seating arrangements, fold-away controls, and maximizes interior volume in compact 1.4m width vehicle.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Accessibility Revolution</h4>
+                    <p>Single-hand operation enables disabled drivers, one-armed control, and elderly users. Can be positioned left/right/center for different physical needs. Game-changer for inclusive mobility.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Precise Digital Control</h4>
+                    <p>Direct mapping of stick position to steering angle without mechanical slop. Enables variable steering ratios (tight in parking, relaxed on highway) and force feedback integration.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Mode Transition Seamlessness</h4>
+                    <p>Natural interface for gaming generation. Intuitive switch between autonomous and manual modes. Familiar to anyone who's used a controller — no "driving lesson" needed for basic operation.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Crash Safety</h4>
+                    <p>No steering column to impale driver in frontal collision. Can be designed as breakaway or fully retractable. Massive safety improvement in ultra-compact vehicle architecture.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Design Freedom</h4>
+                    <p>Frees designers from steering wheel constraint. Enables lounge-style seating, rotating seats, and multiple control positions. Interior becomes living space, not cockpit.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Reduced Mechanical Complexity</h4>
+                    <p>No steering shaft, U-joints, rack-and-pinion. Simplified packaging, reduced weight, lower maintenance. Pure electronic control through drive-by-wire system.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Emergency Control Flexibility</h4>
+                    <p>Can be relocated, duplicated, or overridden remotely. Enables teleoperation for stuck vehicles. Redundant joystick systems possible for safety.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>"Call Your Captain" — Remote Driver On-Demand</h4>
+                    <p>Press button → remote professional driver takes over via VR. Driver sees/feels exactly what vehicle senses. Perfect for emergencies, valet parking, or when user doesn't want to drive. 24/7 availability without driver in vehicle.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>AI Error Correction</h4>
+                    <p>Driver with tremors, disability, or inexperience can still drive safely. AI smooths inputs, compensates for imprecision. Levels the playing field for all users.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Intent vs. Execution Separation</h4>
+                    <p>Driver states goal ("park here"), AI handles complex execution. Reduces cognitive load. Enables non-drivers to operate vehicle effectively.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Safety Guardrails</h4>
+                    <p>AI prevents dangerous commands (sharp turn at high speed). Suggests alternatives. Acts as always-on driving instructor and guardian.</p>
+                </div>
+            </div>
+            
+            <div class="analysis-card disadvantages">
+                <h2>⚠️ Challenges & Risks</h2>
+                
+                <div class="point">
+                    <h4>Regulatory Definition Gap</h4>
+                    <p>"Drive command AI" not clearly defined in automotive regulations. May require new vehicle classification. Homologation precedent limited (no production cars use this approach).</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Regulatory Hurdles</h4>
+                    <p>Most jurisdictions mandate steering wheel. Homologation challenges in EU, US, UAE. May require exemptions or special approvals. Legal liability unclear.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Feedback & Feel</h4>
+                    <p>Steering wheels provide tactile road feedback. Joysticks require sophisticated haptic simulation to convey surface conditions, tire grip limits, and vehicle dynamics.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Liability Complexity</h4>
+                    <p>When AI executes but accident occurs: driver fault or system fault? Insurance and legal frameworks unclear for "command vs. execution" control paradigm.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Driver Fatigue</h4>
+                    <p>Arm position for joystick (center console) vs. steering wheel (natural resting). Long drives may cause shoulder/arm fatigue without proper ergonomic design.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Failure Mode Safety</h4>
+                    <p>Steering wheel offers mechanical fallback in power loss. Pure joystick requires redundant electrical systems. Single point of failure risk if not properly engineered.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Public Perception</h4>
+                    <p>"Toy-like" perception vs. serious vehicle. May impact resale value, insurance rates, and buyer confidence. Marketing must overcome "golf cart" stigma.</p>
+                </div>
+                
+                <div class="point">
+                    <h4>Emergency Vehicle Override</h4>
+                    <p>Police/authorities expect standard controls. Remote operation or manual override protocols needed. First responder compatibility challenges.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Creative Applications -->
+        <div class="creative-section">
+            <div class="section-header">
+                <span style="font-size: 32px;">💡</span>
+                <h2>Creative Applications & Differentiation</h2>
+            </div>
+            
+            <div class="creative-grid">
+                <div class="creative-card">
+                    <div class="icon">🎮</div>
+                    <h3>Gamer Integration</h3>
+                    <p>Partner with Xbox/PlayStation for branded controllers. "Gamer Edition" SpaceCab with RGB lighting and familiar stick layout. Appeals to younger demographic comfortable with joystick precision.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">🦾</div>
+                    <h3>Accessibility Leadership</h3>
+                    <p>Position as most accessible vehicle on market. Partner with disability organizations. Joystick can be mouth-controlled, chin-controlled, or eye-tracking integrated for severely disabled users.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">🔄</div>
+                    <h3>Dual-Mode Joystick</h3>
+                    <p>Fold-away joystick for autonomous mode, deploys for manual. Can be passed between passengers (front to back). Enables any seat to become "driver" position.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">📱</div>
+                    <h3>Smartphone as Controller</h3>
+                    <p>App-based joystick interface for summon/parking. Remote control from outside vehicle. Valet mode where attendant uses their phone to joystick-park SpaceCab.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">🎚️</div>
+                    <h3>Dynamic Sensitivity</h3>
+                    <p>AI-adjusted joystick response based on speed, weather, traffic. Gentle in cities, precise on highways. Learns driver preference over time. Haptic feedback for lane departure warnings.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">👨‍✈️</div>
+                    <h3>"Call Your Captain"</h3>
+                    <p>On-demand remote driver via VR telepresence. Press button → professional captain takes control. Sees/feels exactly what vehicle senses. Perfect for emergencies, parking, or when you just don't want to drive.</p>
+                </div>
+                
+                <div class="creative-card">
+                    <div class="icon">🕹️</div>
+                    <h3>Arcade Mode</h3>
+                    <p>Gamification of driving — "Easy Mode" with training wheels, "Pro Mode" with direct 1:1 mapping. Leaderboards for efficiency challenges. Makes driving fun for next generation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Implementation -->
+        <div class="tech-section">
+            <h2>⚙️ Technical Implementation Specs</h2>
+            
+            <div class="spec-row">
+                <span class="spec-label">Control Architecture</span>
+                <span class="spec-value">Triple-redundant drive-by-wire with CAN-FD backbone</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Joystick Type</span>
+                <span class="spec-value">Hall-effect magnetic sensing (no wear), 16-bit resolution</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Force Feedback</span>
+                <span class="spec-value">Programmable haptic motors (road texture, limit warnings)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Steering Ratio</span>
+                <span class="spec-value">Variable 5:1 to 15:1 (speed-dependent)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Fail-Safe Mode</span>
+                <span class="spec-value">Automatic stop + hazard lights on system fault</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Backup Control</span>
+                <span class="spec-value">Secondary mini-joystick or smartphone override</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Actuator Response</span>
+                <span class="spec-value">< 50ms end-to-end (human imperceptible)</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Positioning</span>
+                <span class="spec-value">Center console, adjustable height/reach/angle</span>
+            </div>
+            <div class="spec-row">
+                <span class="spec-label">Safety Certification</span>
+                <span class="spec-value">ISO 26262 ASIL-D (highest automotive safety)</span>
+            </div>
+        </div>
+        
+        <!-- Use Case Analysis -->
+        <div class="tech-section">
+            <h2>📊 Use Case Suitability Analysis</h2>
+            <table class="use-case-table">
+                <thead>
+                    <tr>
+                        <th>Driving Scenario</th>
+                        <th>Joystick Suitability</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Urban Stop-and-Go</td>
+                        <td class="rating">Excellent ⭐⭐⭐⭐⭐</td>
+                        <td>Quick steering transitions, minimal arm movement</td>
+                    </tr>
+                    <tr>
+                        <td>Highway Cruising</td>
+                        <td class="rating">Good ⭐⭐⭐⭐☆</td>
+                        <td>Requires fine-tuned sensitivity, haptic feedback critical</td>
+                    </tr>
+                    <tr>
+                        <td>Parking Maneuvers</td>
+                        <td class="rating">Excellent ⭐⭐⭐⭐⭐</td>
+                        <td>Fast lock-to-lock, precise control</td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Avoidance</td>
+                        <td class="rating">Good ⭐⭐⭐⭐☆</td>
+                        <td>Depends on muscle memory training</td>
+                    </tr>
+                    <tr>
+                        <td>Low-Speed Off-Road</td>
+                        <td class="rating">Fair ⭐⭐⭐☆☆</td>
+                        <td>Reduced feedback feel vs. steering wheel</td>
+                    </tr>
+                    <tr>
+                        <td>Track/Racing</td>
+                        <td class="rating">Poor ⭐⭐☆☆☆</td>
+                        <td>Continuous steering input awkward with joystick</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Recommendations -->
+        <div class="recommendation">
+            <h2>🎯 Strategic Recommendations</h2>
+            
+            <div class="rec-item">
+                <div class="rec-num">1</div>
+                <div class="rec-content">
+                    <h4>Dual-Interface Strategy</h4>
+                    <p>Offer joystick as primary control with optional steering wheel add-on for conservative markets. Drive-by-wire enables both. Position joystick as "Pro Edition" for tech-forward users.</p>
+                </div>
+            </div>
+            
+            <div class="rec-item">
+                <div class="rec-num">2</div>
+                <div class="rec-content">
+                    <h4>Regulatory Sandbox Entry</h4>
+                    <p>Launch in NEOM (regulatory flexibility) and Dubai (progressive RTA) first. Build safety record before EU/US homologation. Use as competitive differentiator in early markets.</p>
+                </div>
+            </div>
+            
+            <div class="rec-item">
+                <div class="rec-content">
+                    <h4>Accessibility as Brand Pillar</h4>
+                    <p>Own the "most accessible vehicle" narrative. Partner with disability organizations for certification. Creates defensible market segment and positive PR halo.</p>
+                </div>
+            </div>
+            
+            <div class="rec-item">
+                <div class="rec-num">3</div>
+                <div class="rec-content">
+                    <h4>Gaming Industry Partnership</h4>
+                    <p>Collaborate with Logitech/Thrustmaster on co-branded controller. Esports tie-ins. "Drive SpaceCab like your favorite racing game" marketing angle for Gen Z buyers.</p>
+                </div>
+            </div>
+            
+            <div class="rec-item">
+                <div class="rec-num">4</div>
+                <div class="rec-content">
+                    <h4>"Call Your Captain" Teleoperation Network</h4>
+                    <p>Build remote driver network using VR + haptic suits. Professional captains work from control center, taking over via telepresence when requested. Revenue model: $5-10 per remote session. Solves parking anxiety, emergencies, and user reluctance.</p>
+                </div>
+            </div>
+            
+            <div class="rec-item">
+                <div class="rec-num">5</div>
+                <div class="rec-content">
+                    <h4>Progressive Deployment</h4>
+                    <p>Start with joystick in L4 autonomous mode (human override only). Expand to primary control as confidence builds. Gradual transition reduces risk.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Verdict -->
+        <div class="concept-box">
+            <h2>✅ The Verdict: Revolutionary Advantage</h2>
+            <p><strong>The drive command AI controller transforms the joystick from "alternative input" to "superior interface."</strong> By separating human intent from machine execution — the Airbus philosophy that made aviation safer — SpaceCab achieves what no steering wheel can: <strong>error-tolerant, accessibility-first, safety-guaranteed driving.</strong> A grandmother with tremors can command a perfect lane change. A disabled user can drive without adaptations. A teenager can operate the vehicle on day one. The AI doesn't just execute commands; it elevates human capability. Combined with space efficiency and crash safety, this is not merely an alternative to the steering wheel — <strong>it's the future of human-vehicle interaction.</strong></p>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="brand">HYVEN <span>SpaceCab</span></div>
+            <p>Joystick Drive Control Analysis — Drive-by-Wire Architecture</p>
+            <p style="margin-top: 10px; font-size: 12px;">The First Perpetuum Mobile — We Need No Energy From The Planet</p>
+        </footer>
+    </div>
+</body>
+</html>
